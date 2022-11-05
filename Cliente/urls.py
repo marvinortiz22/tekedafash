@@ -3,5 +3,6 @@ from . import views
 
 urlpatterns = [
     path('', views.index, name = "inicio"),
-    path('iniciarSesion', views.iniciarSesion, name = "iniciarSesion")
+    path('iniciarSesion', views.iniciarSesion, name = "iniciarSesion"),
+    path('cerrarSesion', views.cerrarSesion, name = "cerrarSesion"),
 ]

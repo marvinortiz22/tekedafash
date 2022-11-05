@@ -2805,3 +2805,54 @@ section {
 .footer .credits a {
   color: #fff;
 }
+/*--------------------------------------------------------------
+# Inicio de sesión
+--------------------------------------------------------------*/
+#login-container{
+ 
+  color: #ffff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.login-header{
+  text-align: center;
+}
+
+#login-card{
+  margin: 30px;
+  background-color: var(--color-primary);
+  width: 50%;
+}
+
+#login-card .login-header span{
+  color: #f96f59;
+  padding-bottom: 20px;
+}
+
+.form-login{
+  padding: 50px;
+  border: 1px solid #ffff;
+  border-radius: 8px; 
+}
+
+.link-light{
+  margin-top: 5px;
+}
+.login-links{
+  text-decoration: underline;
+  text-decoration-color: #f3f3f3;
+}
+
+#login-card button{
+  border: none;
+  background-color: #00BCD4;
+}
+
+@media screen and (max-width: 900px) {
+  #login-card{
+    width: 80%;
+  }
+}
