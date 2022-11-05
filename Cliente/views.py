@@ -2,11 +2,13 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 from django.contrib import messages
+from Cliente.decorators import *
 
 def index(request):
     request.session['carrito'] = []
     return render(request, 'Cliente/index.html')
 
+@usuarioAutenticado
 def iniciarSesion(request):
     if request.method == 'POST':
             nombreUsuario = request.POST.get('usuario')
