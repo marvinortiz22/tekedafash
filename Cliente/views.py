@@ -12,7 +12,7 @@ def index(request):
 def iniciarSesion(request):
     if request.method == 'POST':
             nombreUsuario = request.POST.get('usuario')
-            contraseña = request.POST.get('contra')
+            contraseña = request.POST.get('contraseña')
             usuario = authenticate(request, username = nombreUsuario, password = contraseña)
             if usuario is not None:
                 login(request, usuario)
