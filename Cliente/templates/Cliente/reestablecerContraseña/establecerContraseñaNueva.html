@@ -1,0 +1,23 @@
+{% extends 'General/base.html' %}
+{% block title %} Reestablecer Contraseña{% endblock %}
+
+{% block content %}
+    {% include 'General/navbar.html' %}
+    <div class = "container d-flex justify-content-center">
+        <div class = "card m-5" style="width: 35rem;">
+            <h3 class = "card-header text-center">Establecer nueva contraseña</h3>
+            <div class = "card-body p-4 d-flex justify-content-evenly">
+                <p></p>
+                <form method = "post">
+                    {% csrf_token %}
+                    {{form.as_p}}
+                <div class="pt-2 text-center">
+                    <input class = "btn btn-primary" type = "Submit" style = "background-color: #00BCD4; border:none;" value = "Actualizar contraseña">
+                </div>
+                </form>
+            </div>
+        </div>
+    </div>
+{% include 'General/footer.html' %}
+{% endblock %}
+

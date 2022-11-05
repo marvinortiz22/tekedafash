@@ -9,41 +9,38 @@
                 <h2>TekedaFash<span>.</span></h2>
             </div>
             <div class = "card-body">
-                    <form method = "POST" action = "/iniciarSesion">
-                        {% csrf_token %}
-                        <div class = "form-login">
-                            <div class="mb-3 row">
-                                <label for="usuario" class="col-sm-5 col-form-label">Nombre de usuario:</label>
-                                <div class="col-sm-7">
-                                <input type="text" class="form-control" id="usuario" name = "usuario">
-                                </div>
-                            </div>
-                            <div class="mt-5 mb-3 row">
-                                <label for="contraseña" class="col-sm-5 col-form-label">Contraseña:</label>
-                                <div class="col-sm-7">
-                                <input type="password" class="form-control" id="contraseña" name = "contraseña">
-                                </div>
+                <form method = "POST" action = "/iniciarSesion">
+                    {% csrf_token %}
+                    <div class = "form-login">
+                        <div class="mb-3 row">
+                            <label for="usuario" class="col-sm-5 col-form-label">Nombre de usuario:</label>
+                            <div class="col-sm-7">
+                            <input type="text" class="form-control" id="usuario" name = "usuario">
                             </div>
                         </div>
-                        {% for message in messages %}
-                            <div class="mt-2 text-center alert alert-danger" role="alert">
-                                {{message}}
-                              </div>
-                        {% endfor %}
-                        <div class = "mt-4 login-links text-center">
-                            <a href="#" class="link-light">¿Has olvidado tu contraseña?</a>
+                        <div class="mt-5 mb-3 row">
+                            <label for="contraseña" class="col-sm-5 col-form-label">Contraseña:</label>
+                            <div class="col-sm-7">
+                            <input type="password" class="form-control" id="contraseña" name = "contraseña">
+                            </div>
                         </div>
-                        <div class = "mt-2 text-center">
-                            <p>¿No tienes usuario? <a href="#" class="login-links link-light">Registrate aquí.</a></p>
-                        </div>
-                        <div class="pt-2 text-center">
-                            <button type="submit" class="btn btn-primary">Iniciar Sesión</button>                     
-                        </div>
-                      </form>
-                
-                
+                    </div>
+                    {% for message in messages %}
+                        <div class="mt-2 text-center alert alert-danger" role="alert">
+                            {{message}}
+                            </div>
+                    {% endfor %}
+                    <div class = "mt-4 login-links text-center">
+                        <a href="/reestablecerContraseña" class="link-light">¿Has olvidado tu contraseña?</a>
+                    </div>
+                    <div class = "mt-2 text-center">
+                        <p>¿No tienes usuario? <a href="#" class="login-links link-light">Registrate aquí.</a></p>
+                    </div>
+                    <div class="pt-2 text-center">
+                        <button type="submit" class="btn btn-primary">Iniciar Sesión</button>                     
+                    </div>
+                </form>
             </div>
         </div>
     </div>
-    {% include 'General/footer.html' %}
 {% endblock %}
