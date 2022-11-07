@@ -3,8 +3,7 @@ from django.contrib.auth.models import AbstractUser
 class Usuario(AbstractUser):
     documento = models.CharField(max_length=9,null=False,unique=True)
     nacimiento = models.DateField(null=False)            
-    class Meta:
-        db_table = "usuario"
+    
 class TipoPrenda(models.Model):
     nombre = models.CharField(max_length=60,null=False,unique=True)
     class Meta:

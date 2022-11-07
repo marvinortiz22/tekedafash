@@ -1,0 +1,59 @@
+{% extends 'General/baseAdmin.html' %}
+{% block title %} Inicio {% endblock %}
+
+{% block body %} 
+<style> 
+label{display: flex;justify-content: center;}
+#prendas td{text-align: center;}
+#datos-orden {width: 100%;}
+h1{display: flex;justify-content: center;}
+</style>
+    <h1>Detalles de venta</h1>
+    <table id="datos-orden">
+        <tr>
+            <td>Id cliente: </td>
+            <td>{{orden.cliente.id}} </td>
+            <td>Id orden: </td>
+            <td>{{orden.id}} </td>
+        </tr>
+        <tr>
+            <td>DUI: </td>
+            <td>{{orden.cliente.documento}} </td>
+            <td>Fecha: </td>
+            <td>{{orden.fecha}}</td>
+        </tr>
+        <tr>
+            <td>Nombre del cliente: </td>
+            <td>{{orden.cliente.first_name}} {{orden.cliente.last_name}} </td>
+        </tr>
+    </table>
+    
+    
+    <table class="table" id="prendas">
+        <thead>
+            <tr>
+                <td>Id prenda</td>
+                <td>Nombre</td>
+                <td>Descripción</td>
+                <td>Talla</td>
+                <td>Cantidad</td>
+                <td>Costo</td>
+                <td>Precio de venta</td>
+            </tr>
+        </thead>
+        <tbody>
+            {% for venta in ventas %}
+            <tr>
+                <td>{{venta.inventario.prenda.id}} </td>
+                <td>{{venta.inventario.prenda.nombre}} </td>
+                <td>{{venta.inventario.prenda.descripcion}} </td>
+                <td>{{venta.inventario.talla.nombre}} </td>
+                <td>{{venta.cantidad}} </td>
+                <td>${{venta.costo}} </td>
+                <td>${{venta.precio}} </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <label for="">Monto total: ${{monto}} </label>
+{% endblock %}
