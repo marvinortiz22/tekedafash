@@ -2,5 +2,53 @@
 {% block title %} Inicio {% endblock %}
 
 {% block body %} 
-    <h1>Gestionar Producto</h1>
+    <div class="row">
+        <div class="col-md-9">
+            <h1>Gestionar Producto</h1>
+        </div>
+        <div class="col-md-3">
+            <div class="d-grid">
+                <button class="btn btn-secondary" type="button">Agregar <i class="px-2 bi bi-plus-circle"></i></button>
+              </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12 table-responsive mt-2 p-1">
+            <table class="table" id="tbl-producto">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Nombre</th>
+                        <th>Email</th>
+                        <th>#</th>
+                        <th>Nombre</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>System Architect</td>
+                        <td>Edinburgh</td>
+                        <td>61</td>
+                        <td>2011-04-25</td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>Accountant</td>
+                        <td>Tokyo</td>
+                        <td>63</td>
+                        <td>2011-07-25</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}
+
+{% block js %} 
+    <script>
+        $(document).ready(function () {
+            initTable("#tbl-producto","productos");
+        });
+    </script>
 {% endblock %}
