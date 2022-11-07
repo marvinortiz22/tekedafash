@@ -2,34 +2,31 @@
 {% block title %} Inicio {% endblock %}
 
 {% block body %} 
-<style>
-    td{text-align: center;}
-    h1{display: flex;justify-content: center;}
-</style>
     <h1>Listado de ventas</h1>
-    <table id="myTable"  >
-        <thead>
-            <tr>
-                <td>Id</td>
-                <td>Nombre del cliente</td>
-                <td>Fecha</td>
-                <td>Monto</td>
-                <td></td>
-            </tr>
-        </thead>
-        <tbody>
-            {% for orden in ordenes %}
-            <tr>
-                <td>{{orden.id}} </td>
-                <td>{{orden.cliente.first_name}} {{orden.cliente.last_name}} </td>
-                <td>{{orden.fecha}} </td>
-                <td> </td>
-                <td><a href="{% url 'detalles de venta' orden.id %}"><button class="btn btn-success">Detalles</button></a></td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
-    
+    <div class="table-responsive">
+        <table id="myTable" class="table">
+            <thead>
+                <tr>
+                    <td>Id</td>
+                    <td>Nombre del cliente</td>
+                    <td>Fecha</td>
+                    <td>Monto</td>
+                    <td>Acciones</td>
+                </tr>
+            </thead>
+            <tbody>
+                {% for orden in ordenes %}
+                <tr>
+                    <td>{{orden.orden_id}} </td>
+                    <td>{{orden.orden__cliente__first_name}} {{orden.orden__cliente__last_name}} </td>
+                    <td>{{orden.orden__fecha}}</td>
+                    <td>${{orden.total | floatformat:2}}</td>
+                    <td><a href="{% url 'detalles de venta' orden.orden_id %}" class="btn btn-success"><i class="bi bi-list-ul"></i></a></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
 {% endblock %}
 {% block js %} 
     <script>
