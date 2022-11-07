@@ -2,7 +2,7 @@ function initTable(id,registros) {
     $(id).DataTable({
       "language": {
         "decimal": "",
-        "emptyTable": "No hay servicios registrados",
+        "emptyTable": "No hay " + registros + " registrados",
         "info": "Mostrando _START_ a _END_ de _TOTAL_ "+registros,
         "infoEmpty": "Mostrando 0 a 0 de 0 "+registros,
         "infoFiltered": "(Filtrado de _MAX_ total " + registros +")",
@@ -19,6 +19,6 @@ function initTable(id,registros) {
             "next": "Siguiente",
             "previous": "Anterior"
         }
-    }
+    },
     });
   }
