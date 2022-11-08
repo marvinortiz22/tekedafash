@@ -15,6 +15,9 @@ class DetalleDeOrden(models.Model):
     cantidad = models.FloatField(null=False)
     inventario = models.ForeignKey(Inventario,on_delete=models.CASCADE,null=False)
     orden = models.ForeignKey(Orden,on_delete=models.CASCADE,null=False)
+    def subtotal(self):
+        return self.precio * self.cantidad
+    
     class Meta:
         db_table = "detalleOrden"
         unique_together = ('orden', 'inventario')
