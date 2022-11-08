@@ -12,3 +12,4 @@ media
 !.vscode/launch.json 
 !.vscode/extensions.json 
 .history
+Administrador/migrations/0002_alter_usuario_options_alter_usuario_table.py
