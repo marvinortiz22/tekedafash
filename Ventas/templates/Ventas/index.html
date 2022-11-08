@@ -3,21 +3,21 @@
 
 {% block body %} 
     <h1>Listado de ventas</h1>
-    <div class="table-responsive">
+    <div class="table-responsive mt-2 p-1">
         <table id="myTable" class="table">
             <thead>
                 <tr>
-                    <td>Id</td>
-                    <td>Nombre del cliente</td>
-                    <td>Fecha</td>
-                    <td>Monto</td>
-                    <td>Acciones</td>
+                    <th>#</th>
+                    <th>Nombre del cliente</th>
+                    <th>Fecha</th>
+                    <th>Monto</th>
+                    <th>Acciones</th>
                 </tr>
             </thead>
             <tbody>
                 {% for orden in ordenes %}
                 <tr>
-                    <td>{{orden.orden_id}} </td>
+                    <td>{{forloop.counter}} </td>
                     <td>{{orden.orden__cliente__first_name}} {{orden.orden__cliente__last_name}} </td>
                     <td>{{orden.orden__fecha}}</td>
                     <td>${{orden.total | floatformat:2}}</td>

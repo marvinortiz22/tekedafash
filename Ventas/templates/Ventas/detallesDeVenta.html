@@ -1,71 +1,66 @@
 {% extends 'General/baseAdmin.html' %}
-{% block title %} Inicio {% endblock %}
+{% block title %} Detalle de venta {% endblock %}
 
 {% block body %} 
-    <div class="row">
-        <div class="col-12">
-            <h1>Detalles de venta</h1>
-        </div>
+<div class="row">
+    <div class="col-12">
+        <h1>Detalle de venta</h1>
     </div>
-    <div class="row">
-        <div class="col-12">
-            <div class="card">
-                <div class="card-body">
-                    <div class="row">
-                        <div class="col-12 mt-2">
-                            <table id="datos-orden">
-                                <tr>
-                                    <td>Id cliente: </td>
-                                    <td>{{orden.cliente.id}} </td>
-                                    <td>Id orden: </td>
-                                    <td>{{orden.id}} </td>
-                                </tr>
-                                <tr>
-                                    <td>DUI: </td>
-                                    <td>{{orden.cliente.documento}} </td>
-                                    <td>Fecha: </td>
-                                    <td>{{orden.fecha}}</td>
-                                </tr>
-                                <tr>
-                                    <td>Nombre del cliente: </td>
-                                    <td>{{orden.cliente.first_name}} {{orden.cliente.last_name}} </td>
-                                </tr>
-                            </table>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-12 mt-2">
-                            <table class="table" id="prendas">
-                                <thead>
-                                    <tr>
-                                        <td>Id prenda</td>
-                                        <td>Nombre</td>
-                                        <td>Descripción</td>
-                                        <td>Talla</td>
-                                        <td>Cantidad</td>
-                                        <td>Costo</td>
-                                        <td>Precio de venta</td>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {% for venta in ventas %}
-                                    <tr>
-                                        <td>{{venta.inventario.prenda.id}} </td>
-                                        <td>{{venta.inventario.prenda.nombre}} </td>
-                                        <td>{{venta.inventario.prenda.descripcion}} </td>
-                                        <td>{{venta.inventario.talla.nombre}} </td>
-                                        <td>{{venta.cantidad}} </td>
-                                        <td>${{venta.costo}} </td>
-                                        <td>${{venta.precio}} </td>
-                                    </tr>
-                                    {% endfor %}
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                    <p class="text-left">Monto total: ${{monto}} </p>
+</div>
+<div class="row">
+    <div class="col-12">
+        <div class="row">
+            <div class="col-12 col-md-auto">
+                <p><b>ID de Cliente:</b> {{orden.cliente.id}}</p>
+            </div>
+            <div class="col-12 col-md-5">
+                <p><b>Nombre de Cliente:</b> {{orden.cliente.first_name}} {{orden.cliente.last_name}}</p>
+            </div>
+            <div class="col-12 col-md-5">
+                <p><b>Documento de Cliente:</b> {{orden.cliente.documento}}</p>
+           </div>
+        <div>
+        <div class="row">
+                <div class="col-12 col-md-auto">
+                    <p><b>ID de Orden:</b> {{orden.id}}</p>
                 </div>
-              </div>
+                <div class="col-12 col-md-auto">
+                    <p><b>Fecha de la Orden:</b> {{orden.fecha}}</p>
+                </div>
+            </div>
         </div>
+        <div class="row">
+            <div class="col-12 mt-2">
+                <div class="table-responsive">
+                    <table class="table" id="prendas">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Nombre</th>
+                                <th>Descripción</th>
+                                <th>Talla</th>
+                                <th>Cantidad</th>
+                                <th>Costo</th>
+                                <th>Precio de venta</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for venta in ventas %}
+                                <tr>
+                                    <td>{{forloop.counter}} </td>
+                                    <td>{{venta.inventario.prenda.nombre}} </td>
+                                    <td>{{venta.inventario.prenda.descripcion}} </td>
+                                    <td>{{venta.inventario.talla.nombre}} </td>
+                                    <td>${{venta.costo | floatformat:2}} </td>
+                                    <td>{{venta.cantidad}} </td>
+                                    <td>${{venta.precio | floatformat:2}} </td>
+                                </tr>
+                            {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <p class="text-end"><b>Monto:</b> <span class="badge text-bg-primary">${{monto | floatformat:2}}</span></p>
     </div>
+</div>
 {% endblock %}
