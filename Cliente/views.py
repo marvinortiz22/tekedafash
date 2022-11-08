@@ -16,7 +16,10 @@ def iniciarSesion(request):
             usuario = authenticate(request, username = nombreUsuario, password = contraseña)
             if usuario is not None:
                 login(request, usuario)
-                return redirect('/')
+                if (usuario.is_staff):
+                    return redirect('/dashboard')
+                else:
+                    return redirect('/') 
             else:
                 messages.error(request, "¡Usuario o contraseña incorrectas!")
                 return render(request,'Cliente/iniciarSesion.html' )
