@@ -8,59 +8,55 @@
     </div>
 </div>
 <div class="row">
-    <div class="col-12">
-        <div class="row">
-            <div class="col-12 col-md-auto">
-                <p><b>ID de Cliente:</b> {{orden.cliente.id}}</p>
+    <section id="recent-posts" class="recent-posts mt-0">
+        <div class="col-12">
+            <article>
+                <p class="post-category"><small>Orden N° {{orden.id}} - {{orden.fecha}}</small></p>
+                <h2 class="title">
+                    <i class="bi bi-person-circle"></i> {{orden.cliente.first_name}} {{orden.cliente.last_name}}
+                </h2>
+            </article>
             </div>
-            <div class="col-12 col-md-5">
-                <p><b>Nombre de Cliente:</b> {{orden.cliente.first_name}} {{orden.cliente.last_name}}</p>
-            </div>
-            <div class="col-12 col-md-5">
-                <p><b>Documento de Cliente:</b> {{orden.cliente.documento}}</p>
-           </div>
-        <div>
-        <div class="row">
-                <div class="col-12 col-md-auto">
-                    <p><b>ID de Orden:</b> {{orden.id}}</p>
-                </div>
-                <div class="col-12 col-md-auto">
-                    <p><b>Fecha de la Orden:</b> {{orden.fecha}}</p>
-                </div>
-            </div>
+    </section>
+</div>        
+<div class="row">
+    <div class="col-12 mt-1">
+        <div class="table-responsive">
+            <table class="table" id="prendas">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Nombre</th>
+                        <th>Descripción</th>
+                        <th>Talla</th>
+                        <th>Costo</th>
+                        <th>Cantidad</th>
+                        <th>Precio</th>
+                        <th>Subtotal</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for venta in ventas %}
+                        <tr>
+                            <td>{{forloop.counter}} </td>
+                            <td>{{venta.inventario.prenda.nombre}} </td>
+                            <td>{{venta.inventario.prenda.descripcion}} </td>
+                            <td>{{venta.inventario.talla.nombre}} </td>
+                            <td>${{venta.costo | floatformat:2}} </td>
+                            <td>{{venta.cantidad}} </td>
+                            <td>${{venta.precio | floatformat:2}} </td>
+                            <td>${{venta.subtotal | floatformat:2}} </td>
+                        </tr>
+                    {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <div class="row justify-content-between mt-2">
+        <div class="col-4">
+            <p><b>Producto:</b> <span class="badge bg-secondary">{{ventas | length}}</span></p>
         </div>
-        <div class="row">
-            <div class="col-12 mt-2">
-                <div class="table-responsive">
-                    <table class="table" id="prendas">
-                        <thead>
-                            <tr>
-                                <th>#</th>
-                                <th>Nombre</th>
-                                <th>Descripción</th>
-                                <th>Talla</th>
-                                <th>Cantidad</th>
-                                <th>Costo</th>
-                                <th>Precio de venta</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {% for venta in ventas %}
-                                <tr>
-                                    <td>{{forloop.counter}} </td>
-                                    <td>{{venta.inventario.prenda.nombre}} </td>
-                                    <td>{{venta.inventario.prenda.descripcion}} </td>
-                                    <td>{{venta.inventario.talla.nombre}} </td>
-                                    <td>${{venta.costo | floatformat:2}} </td>
-                                    <td>{{venta.cantidad}} </td>
-                                    <td>${{venta.precio | floatformat:2}} </td>
-                                </tr>
-                            {% endfor %}
-                    </tbody>
-                </table>
-            </div>
-        </div>
-        <p class="text-end"><b>Monto:</b> <span class="badge text-bg-primary">${{monto | floatformat:2}}</span></p>
+        <div class="col-4">
+            <p class="text-end"><b>Monto:</b> <span class="badge text-bg-primary">${{monto | floatformat:2}}</span></p>  
     </div>
 </div>
 {% endblock %}

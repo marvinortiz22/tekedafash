@@ -2512,7 +2512,7 @@ section {
   font-size: 14px;
 }
 
-.blog .sidebar .recent-posts .post-item+.post-item {
+.blog .sidebar .post-item+.post-item {
   margin-top: 15px;
 }
 
