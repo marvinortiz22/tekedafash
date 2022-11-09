@@ -5,16 +5,13 @@
 
 
 <div class="row">
-    <div>
-        <h1><i class="fa fa-th-list"></i> Gestion de Usuarios</h1>
-    </div>
     <div class="col-md-9">
-        <h2>Listado de usuarios</h2>
+        <h1>Gestionar Administradores</h1>
         <ul class="app-breadcrumb breadcrum side"> </ul>
     </div>
     <div class="col-md-3">
     <div class="d-grid">
-            <button class="btn btn-secondary" type="button">Agregar <i class="px-2 bi bi-plus-circle"></i></button>
+            <button class="btn btn-secondary rounded-pill" type="button">Agregar <i class="px-2 bi bi-plus-circle"></i></button>
           </div>
 </div>
 </div>
@@ -23,7 +20,7 @@
         <table class="table" id="tbl-usuarios">
             <thead>
                 <tr>
-                    <th>Id</th>
+                    <th>#</th>
                     <th>Usuario</th>
                     <th>Nombre</th>
                     <th>Apellido</th>
@@ -33,7 +30,7 @@
             <tbody>
                 {% for usuario in Usuario %}
                 <tr>
-                    <td>{{usuario.id}}</td>
+                    <td>{{forloop.counter}}</td>
                     <td>{{usuario.username}}</td>
                     <td>{{usuario.first_name}}</td>
                     <td>{{usuario.last_name}}</td>
