@@ -1,49 +1,47 @@
 {% extends 'General/baseAdmin.html' %} {% block title %} Inicio {% endblock %}
 {% block body %}
 <h1>Bienvenido</h1>
-<div class="float-end text-center">
+<div class="d-flex d-inline-block float-end text-center box shadow bg-white p-3">
 {{cal|safe}}
-  
-  <br />
 </div>
-<div class="col-9 float-lg-start">
+<div class="col-7 float-start">
     <table class="table table-bordered align-middle">
         <thead class="table-dark">
           <tr >
-            <th class="col-10">Nombre</th>
-            <th class="col-2 text-center">Acciones</th>
+            <th class="col-4">Nombre</th>
+            <th class="col-3 text-center">Acciones</th>
           </tr>
         </thead>
         <tbody>
           <tr>
-            <th scope="row">Clientes</th>
-            <td class="text-center">
-                <a href="" class="btn btn-primary m-2"><i class="bi bi bi-plus-circle text-white"></i></a>
-                <a href="" class="btn btn-warning m-2"><i class="bi bi bi-pencil-fill text-white"></i></a>
-            </td>
-
-          </tr>
-          <tr>
             <th scope="row">Administrador</th>
             <td class="text-center">
-                <a href="" class="btn btn-primary m-2"><i class="bi bi bi-plus-circle text-white"></i></a>
-                <a href="" class="btn btn-warning m-2"><i class="bi bi bi-pencil-fill text-white"></i></a>
-                </td>
+                <a href="" class="btn btn-success m-1"><i class="bi bi bi-plus-circle text-white" data-bs-toggle="tooltip" data-bs-placement="top" title="Añadir"></i></a>
+                <a href="" class="btn btn-warning m-1"><i class="bi bi bi-pencil-fill text-white" data-bs-toggle="tooltip" data-bs-placement="top" title="Editar"></i></a>
+            </td>
 
           </tr>
           <tr>
             <th scope="row">Compras</th>
             <td class="text-center">
-                <a href="" class="btn btn-primary m-2"><i class="bi bi bi-plus-circle text-white"></i></a>
-                <a href="" class="btn btn-warning m-2"><i class="bi bi bi-pencil-fill text-white"></i></a>
+              <a href="" class="btn btn-success m-1"><i class="bi bi bi-plus-circle text-white" data-bs-toggle="tooltip" data-bs-placement="top" title="Añadir"></i></a>
+              <a href="" class="btn btn-warning m-1"><i class="bi bi bi-pencil-fill text-white" data-bs-toggle="tooltip" data-bs-placement="top" title="Editar"></i></a>
+                </td>
+
+          </tr>
+          <tr>
+            <th scope="row">Clientes</th>
+            <td class="text-center">
+              <a href="" class="btn btn-success m-1"><i class="bi bi bi-plus-circle text-white" data-bs-toggle="tooltip" data-bs-placement="top" title="Añadir"></i></a>
+              <a href="" class="btn btn-warning m-1"><i class="bi bi bi-pencil-fill text-white" data-bs-toggle="tooltip" data-bs-placement="top" title="Editar"></i></a>
                 </td>
 
           </tr>
           <tr>
             <th scope="row">Ventas</th>
             <td class="text-center">
-                <a href="" class="btn btn-primary m-2"><i class="bi bi bi-plus-circle text-white"></i></a>
-                <a href="" class="btn btn-warning m-2"><i class="bi bi bi-pencil-fill text-white"></i></a>
+              <a href="" class="btn btn-success m-1"><i class="bi bi bi-plus-circle text-white" data-bs-toggle="tooltip" data-bs-placement="top" title="Añadir"></i></a>
+              <a href="" class="btn btn-warning m-1"><i class="bi bi bi-pencil-fill text-white" data-bs-toggle="tooltip" data-bs-placement="top" title="Editar"></i></a>
                 </td>
 
           </tr>

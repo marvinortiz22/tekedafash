@@ -9,9 +9,9 @@ def index(request):
     cal = calendar.LocaleHTMLCalendar(firstweekday=6, locale='es').formatmonth(
         fecha_actual.year, fecha_actual.month)
     calCurrent = cambiarCalendario(
-        cal, 'cellpadding="0"', 'cellpadding="3px"')
+        cal, 'cellpadding="0"', 'cellpadding="6px"')
     calCurrent = cambiarCalendario(
-        calCurrent, '">%i<' % fecha_actual.day, 'class="" bgcolor="#​008374">%i<' % fecha_actual.day)
+        calCurrent, '>%i<' % fecha_actual.day, 'class="" bgcolor="#​008374" ><font color="#FFFFFF"><b>%i</b></font><' % fecha_actual.day)
 
     return render(request, 'Administrador/index.html', {"cal": calCurrent})
 
