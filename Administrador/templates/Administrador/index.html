@@ -1,9 +1,54 @@
 {% extends 'General/baseAdmin.html' %} {% block title %} Inicio {% endblock %}
 {% block body %}
 <h1>Bienvenido</h1>
-<div>
-  <div id="calendar" style="float: right; text-align: center">{{cal|safe}}</div>
+<div class="float-end text-center">
+{{cal|safe}}
+  
   <br />
 </div>
+<div class="col-9 float-lg-start">
+    <table class="table table-bordered align-middle">
+        <thead class="table-dark">
+          <tr >
+            <th class="col-10">Nombre</th>
+            <th class="col-2 text-center">Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row">Clientes</th>
+            <td class="text-center">
+                <a href="" class="btn btn-primary m-2"><i class="bi bi bi-plus-circle text-white"></i></a>
+                <a href="" class="btn btn-warning m-2"><i class="bi bi bi-pencil-fill text-white"></i></a>
+            </td>
 
-{% endblock %}
+          </tr>
+          <tr>
+            <th scope="row">Administrador</th>
+            <td class="text-center">
+                <a href="" class="btn btn-primary m-2"><i class="bi bi bi-plus-circle text-white"></i></a>
+                <a href="" class="btn btn-warning m-2"><i class="bi bi bi-pencil-fill text-white"></i></a>
+                </td>
+
+          </tr>
+          <tr>
+            <th scope="row">Compras</th>
+            <td class="text-center">
+                <a href="" class="btn btn-primary m-2"><i class="bi bi bi-plus-circle text-white"></i></a>
+                <a href="" class="btn btn-warning m-2"><i class="bi bi bi-pencil-fill text-white"></i></a>
+                </td>
+
+          </tr>
+          <tr>
+            <th scope="row">Ventas</th>
+            <td class="text-center">
+                <a href="" class="btn btn-primary m-2"><i class="bi bi bi-plus-circle text-white"></i></a>
+                <a href="" class="btn btn-warning m-2"><i class="bi bi bi-pencil-fill text-white"></i></a>
+                </td>
+
+          </tr>
+        </tbody>
+      </table>
+
+  {% endblock %}
+</table>
