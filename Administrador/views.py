@@ -3,6 +3,7 @@ from datetime import date
 from calendar import HTMLCalendar
 import calendar
 
+from Cliente.models import *
 
 def index(request):
     fecha_actual = date.today()
@@ -25,9 +26,13 @@ def gestionarCliente(request):
 
 
 def gestionarAdministrador(request):
-    return render(request, 'Administrador/gestionarAdministrador.html')
-
+    usuario = Usuario.objects.filter(is_staff = 1)
+    data ={
+        'Usuario':usuario
+    }
+    return render(request, 'Administrador/gestionarAdministrador.html', data)
 
 def cambiarCalendario(objeto, cambio, cambios):
     objeto = objeto.replace(cambio, cambios)
     return objeto
+
