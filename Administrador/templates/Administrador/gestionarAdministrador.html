@@ -2,5 +2,56 @@
 {% block title %} Inicio {% endblock %}
 
 {% block body %} 
-    <h1>Gestionar Administrador</h1>
+
+
+<div class="row">
+    <div>
+        <h1><i class="fa fa-th-list"></i> Gestion de Usuarios</h1>
+    </div>
+    <div class="col-md-9">
+        <h2>Listado de usuarios</h2>
+        <ul class="app-breadcrumb breadcrum side"> </ul>
+    </div>
+    <div class="col-md-3">
+    <div class="d-grid">
+            <button class="btn btn-secondary" type="button">Agregar <i class="px-2 bi bi-plus-circle"></i></button>
+          </div>
+</div>
+</div>
+<div class="row">
+    <div class="col-12 table-responsive mt-2 p-1">
+        <table class="table" id="tbl-usuarios">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Usuario</th>
+                    <th>Nombre</th>
+                    <th>Apellido</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for usuario in Usuario %}
+                <tr>
+                    <td>{{usuario.id}}</td>
+                    <td>{{usuario.username}}</td>
+                    <td>{{usuario.first_name}}</td>
+                    <td>{{usuario.last_name}}</td>
+                    <td>
+                        <a href="" class="btn btn-primary m-2"><i class="bi bi-lock-fill"></i></a>
+                        <a href="" class="btn btn-warning m-2"><i class="bi bi-arrow-clockwise text-white"></i></a>
+                        <a href="" class="btn btn-danger m-2"><i class="bi bi-trash-fill"></i></a>
+                    </td>
+                </tr>
+                {% endfor %}
+           </tbody>
+</div>
+{% endblock %}
+
+{% block js %} 
+    <script>
+        $(document).ready(function () {
+            initTable("#tbl-usuarios","usuarios");
+        });
+    </script>
 {% endblock %}
