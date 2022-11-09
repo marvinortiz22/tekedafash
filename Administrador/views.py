@@ -1,12 +1,9 @@
 from django.shortcuts import render
-<<<<<<< Updated upstream
 from datetime import date
 from calendar import HTMLCalendar
 import calendar
 
-=======
 from Cliente.models import *
->>>>>>> Stashed changes
 
 def index(request):
     fecha_actual = date.today()
@@ -29,17 +26,13 @@ def gestionarCliente(request):
 
 
 def gestionarAdministrador(request):
-<<<<<<< Updated upstream
-    return render(request, 'Administrador/gestionarAdministrador.html')
-
-
-def cambiarCalendario(objeto, cambio, cambios):
-    objeto = objeto.replace(cambio, cambios)
-    return objeto
-=======
-    usuario = Usuario.objects.all()
+    usuario = Usuario.objects.filter(is_staff = 1)
     data ={
         'Usuario':usuario
     }
     return render(request, 'Administrador/gestionarAdministrador.html', data)
->>>>>>> Stashed changes
+
+def cambiarCalendario(objeto, cambio, cambios):
+    objeto = objeto.replace(cambio, cambios)
+    return objeto
+
