@@ -1,8 +1,10 @@
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
-from Cliente.decorators import *
+from django.db.models import Sum,F
+from Cliente.decorators import * 
+from .models import *
 
 def index(request):
     request.session['carrito'] = []
@@ -29,3 +31,16 @@ def iniciarSesion(request):
 def cerrarSesion(request):
     logout(request)
     return redirect('iniciarSesion')
+
+def misCompras(request):
+    ordenes=DetalleDeOrden.objects.filter(orden__cliente_id = request.user.id).values('orden_id','orden__fecha').annotate(total = Sum(F('precio') * F('cantidad')))
+    contexto={"ordenes":ordenes}
+    return render(request, 'Cliente/misCompras.html',contexto)
+
+def detalledemiCompra(request,id):
+    orden=get_object_or_404(Orden,id=id,cliente_id = request.user.id)
+    ventas=DetalleDeOrden.objects.filter(orden=orden)
+    monto=0
+    for venta in ventas:
+        monto+=venta.precio*venta.cantidad
+    return render(request, 'Cliente/detalledemiCompra.html',{"ventas":ventas,"orden":orden,"monto":monto})

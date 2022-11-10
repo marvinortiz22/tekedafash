@@ -12,5 +12,7 @@ urlpatterns = [
     path('reestablecerContraseñaEnviado', auth_vistas.PasswordResetDoneView.as_view(template_name = "Cliente/reestablecerContraseña/reestablecerContraseñaEnviado.html"), name = "password_reset_done"),
     path('establecerContraseña/<uidb64>/<token>/', auth_vistas.PasswordResetConfirmView.as_view(template_name = "Cliente/reestablecerContraseña/establecerContraseñaNueva.html"), name = "password_reset_confirm"),
     path('contraseñaEstablecida', auth_vistas.PasswordResetCompleteView.as_view(template_name = "Cliente/reestablecerContraseña/reestablecerContraseñaCompletado.html"), name = "password_reset_complete"),
-    
+    #Mis Compras
+    path('misCompras', views.misCompras, name = "misCompras"),
+    path('detalledemiCompra/<id>', views.detalledemiCompra, name = "detalledemiCompra"),
 ]

@@ -1,0 +1,42 @@
+{% extends 'General/base.html' %}
+{% block title %} Iniciar Sesión {% endblock %}
+
+{% block content %}
+    {% include 'General/navbar.html' %}
+    <div class="container">
+        <div class="row my-2">
+            <h1>Mis Compras Realizadas</h1>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <table class="table table-striped" id="tbl-ordenes">
+                    <thead>
+                      <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Fecha</th>
+                        <th scope="col">Monto</th>
+                        <th scope="col">Acción</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                        {% for orden in ordenes %}
+                        <tr>
+                            <td>{{forloop.counter}} </td>
+                            <td>{{orden.orden__fecha}}</td>
+                            <td>${{orden.total | floatformat:2}}</td>
+                            <td><a href="{% url 'detalledemiCompra' orden.orden_id %}" class="btn btn-success"><i class="bi bi-list-ul"></i></a></td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                  </table>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block js %} 
+    <script>
+        $(document).ready(function () {
+            initTable("#tbl-ordenes","ordenes");
+        });
+    </script>
+{% endblock %}

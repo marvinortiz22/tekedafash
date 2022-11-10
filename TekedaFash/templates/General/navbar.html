@@ -27,7 +27,7 @@
                         {% if user.is_authenticated %}
                             <li><a href="#">Mi Perfil</a></li>
                             {% if user.is_staff == 0 %}
-                                <li><a href="#">Mis Compras</a></li>
+                                <li><a href="{% url 'misCompras' %}">Mis Compras</a></li>
                             {% endif %}
                             <li><a href="/cerrarSesion">Cerrar Sesión</a></li>
                         {% else%}
