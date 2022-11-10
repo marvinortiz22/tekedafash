@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from django.shortcuts import redirect
 from datetime import date
 from calendar import HTMLCalendar
 import calendar
@@ -31,6 +32,11 @@ def gestionarAdministrador(request):
         'Usuario':usuario
     }
     return render(request, 'Administrador/gestionarAdministrador.html', data)
+
+def eliminarAdmin(request, username):
+    usuario = Usuario.objects.get(username=username)
+    usuario.delete()
+    return redirect('/dashboard/gestionarAdministrador')
 
 def cambiarCalendario(objeto, cambio, cambios):
     objeto = objeto.replace(cambio, cambios)
