@@ -33,10 +33,15 @@ def gestionarAdministrador(request):
     }
     return render(request, 'Administrador/gestionarAdministrador.html', data)
 
-def eliminarAdmin(request, username):
-    usuario = Usuario.objects.get(username=username)
+def eliminarAdmin(request, id):
+    usuario = Usuario.objects.get(id=id)
     usuario.delete()
     return redirect('/dashboard/gestionarAdministrador')
+
+def editarAdmin(request,id):
+    usuario = Usuario.objects.get(id=id)
+    return render(request, "Administrador/editarAdmin.html", {"usuario": usuario})
+
 
 def cambiarCalendario(objeto, cambio, cambios):
     objeto = objeto.replace(cambio, cambios)

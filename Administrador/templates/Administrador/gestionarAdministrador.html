@@ -1,5 +1,5 @@
 {% extends 'General/baseAdmin.html' %}
-{% block title %} Inicio {% endblock %}
+{% block title %} Gestion de staff {% endblock %}
 
 {% block body %} 
 
@@ -35,8 +35,8 @@
                     <td>{{usuario.first_name}}</td>
                     <td>{{usuario.last_name}}</td>
                     <td>
-                        <a href="" class="btn btn-warning m-2"><i class="bi bi-pencil-square text-white"></i></a>
-                        <a href="eliminarAdmin/{{usuario.username}}" class="btn btn-danger m-2"><i class="bi bi-trash-fill"></i></a>
+                        <a href="editarAdmin/{{usuario.id}}" class="btn btn-warning m-2"><i class="bi bi-pencil-square text-white"></i></a>
+                        <a href="eliminarAdmin/{{usuario.id}}" class="btn btn-danger m-2"><i class="bi bi-trash-fill"></i></a>
                     </td>
                 </tr>
                 {% endfor %}
