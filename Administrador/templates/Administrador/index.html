@@ -1,7 +1,7 @@
 {% extends 'General/baseAdmin.html' %} {% block title %} Inicio {% endblock %}
 {% block body %}
 <h1>Bienvenido</h1>
-<div class="mt-5 row">
+<div class="row">
   <div class="col-md-9 table-responsive">
     <table class="table align-middle">
       <thead class="table-dark">
@@ -104,25 +104,32 @@
     </div>
   </div>
 </div>
+
 <div class="row">
-  <div class="col-md-6">
-    <div><canvas id="myChart2" class="mh-50 mw-50"></canvas></div>
-  </div>
-  <div class="col-md-6">
-    <div><canvas id="myChart" class="mh-50 mw-50"></canvas></div>
-  </div>
+  <div class="col-6"><canvas id="myChart2" class=""></canvas></div>
 </div>
 
-{% endblock %} {%block js%}
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<script>
-  const labels = ["January", "February", "March", "April", "May", "June"];
+<script type="text/javascript">
+  var labels = [
+    "Ene",
+    "Feb",
+    "Mar",
+    "Abr",
+    "May",
+    "Jun",
+    "Jul",
+    "Ago",
+    "Sept",
+    "Oct",
+    "Nov",
+    "Dic",
+  ];
 
   const data = {
     labels: labels,
     datasets: [
       {
-        label: "My First dataset",
+        label: "Datos de ventas de {{año}}",
         backgroundColor: "rgb(255, 99, 132)",
         borderColor: "rgb(255, 99, 132)",
         data: [0, 10, 5, 2, 20, 30, 45],
@@ -131,13 +138,17 @@
   };
 
   const config = {
-    type: "line",
+    type: "bar",
     data: data,
     options: {},
   };
 </script>
+
+{% endblock %} {%block js%}
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
   const myChart2 = new Chart(document.getElementById("myChart2"), config);
   const myChart = new Chart(document.getElementById("myChart"), config);
 </script>
+
 {%endblock%}
