@@ -1,0 +1,53 @@
+{% extends 'General/baseAdmin.html' %}
+{% block title %} Clientes {% endblock %}
+
+{% block body %}
+<div class="row">
+    <div class="col-md-9">
+        <h1>Ordenes</h1>
+        Cliente: {{cliente.first_name}} {{cliente.last_name}}
+        <br>
+        Documento: {{cliente.documento}}
+        <ul class="app-breadcrumb breadcrum side"></ul>
+    </div>
+</div>
+<div class="row">
+    <div class="col-12 table-responsive mt-2 p-1">
+        <table class="table table-striped" id="tbl-ordenes">
+            <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Fecha</th>
+                <th scope="col">Monto</th>
+                <th scope="col">Acción</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for orden in ordenes %}
+            <tr>
+                <td>{{forloop.counter}}</td>
+                <td>{{orden.orden__fecha}}</td>
+                <td>${{orden.total | floatformat:2}}</td>
+                <td>
+                    <a href="{% url 'detalleOrdenCliente' orden.orden_id %}" class="btn btn-success">
+                        <i class="bi bi-list-ul"></i>
+                    </a>
+                </td>
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        <br>
+        <a class="btn btn-primary" href="{% url 'gestionarCliente' %}" role="button">Regresar</a>
+    </div>
+</div>
+{% endblock %}
+
+{% block js %}
+<script>
+    $(document).ready(function () {
+        initTable("#tbl-ordenes","Ordenes");
+    });
+
+</script>
+{% endblock %}

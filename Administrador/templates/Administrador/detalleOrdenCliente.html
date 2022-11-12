@@ -1,0 +1,71 @@
+{% extends 'General/baseAdmin.html' %}
+{% block title %} Clientes {% endblock %}
+
+{% block body %}
+<div class="row">
+    <div class="col-md-9">
+        <h1>Detalle de la Orden</h1>
+        Cliente: {{cliente.first_name}} {{cliente.last_name}}
+        <br>
+        Documento: {{cliente.documento}}
+        <br>
+        Fecha: {{orden.fecha}}
+        <ul class="app-breadcrumb breadcrum side"></ul>
+    </div>
+</div>
+<div class="row">
+    <div class="col-12">
+        <div class="card mt-2">
+            <div class="card-body">
+                <div class="row justify-content-between mt-2">
+                    <div class="col-4">
+                        <p><b>Productos:</b> <span class="badge bg-secondary">{{ventas | length}}</span></p>
+                    </div>
+                    <div class="col-4">
+                        <p class="text-end"><b>Monto:</b> <span
+                                class="badge text-bg-primary">${{monto | floatformat:2}}</span></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="table-responsive mt-4">
+            <table class="table table-striped" id="tbl-ordenes">
+                <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Producto</th>
+                    <th scope="col">Descripcion</th>
+                    <th scope="col">Talla</th>
+                    <th scope="col">Cantidad</th>
+                    <th scope="col">Precio</th>
+                    <th scope="col">SubTotal</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for venta in ventas %}
+                <tr>
+                    <td>{{forloop.counter}}</td>
+                    <td>{{venta.inventario.prenda.nombre}}</td>
+                    <td>{{venta.inventario.prenda.descripcion}}</td>
+                    <td>{{venta.inventario.talla.nombre}}</td>
+                    <td>{{venta.cantidad}}</td>
+                    <td>${{venta.precio | floatformat:2}}</td>
+                    <td>${{venta.subtotal | floatformat:2}}</td>
+                </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+            <br>
+            <a class="btn btn-primary" href="{% url 'ordenesCliente' cliente.pk %}" role="button">Regresar</a>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block js %}
+<script>
+    $(document).ready(function () {
+        initTable("#tbl-ordenes","Detalles");
+    });
+</script>
+{% endblock %}

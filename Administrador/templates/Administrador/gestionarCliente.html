@@ -1,6 +1,56 @@
 {% extends 'General/baseAdmin.html' %}
-{% block title %} Inicio {% endblock %}
+{% block title %} Clientes {% endblock %}
 
-{% block body %} 
-    <h1>Gestionar Cliente</h1>
+{% block body %}
+<div class="row">
+    <div class="col-md-9">
+        <h1>Gestionar Cliente</h1>
+        <ul class="app-breadcrumb breadcrum side"></ul>
+    </div>
+</div>
+<div class="row">
+    <div class="col-12 table-responsive mt-2 p-1">
+        <table class="table" id="tbl-usuarios">
+            <thead>
+            <tr>
+                <th>#</th>
+                <th>Usuario</th>
+                <th>Nombre</th>
+                <th>Apellido</th>
+                <th>Acciones</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for usuario in usuarios %}
+            <tr>
+                <td>{{forloop.counter}}</td>
+                <td>{{usuario.username}}</td>
+                <td>{{usuario.first_name}}</td>
+                <td>{{usuario.last_name}}</td>
+                <td>
+                    <a href="{% url 'ordenesCliente' usuario.id %}" class="btn btn-info m-2">
+                        <i class="bi bi-eye text-white"></i>
+                    </a>
+                    <a href="{% url 'editarClienteActivo' usuario.id %}" class="btn btn-warning m-2">
+                        {% if usuario.is_active %}
+                            <i class="bi bi-person-x text-white"></i>
+                        {% else %}
+                            <i class="bi bi-person-check text-white"></i>
+                        {% endif %}
+                    </a>
+                </td>
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}
+
+{% block js %}
+<script>
+    $(document).ready(function () {
+        initTable("#tbl-usuarios","Clientes");
+    });
+</script>
 {% endblock %}
