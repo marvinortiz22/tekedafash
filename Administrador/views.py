@@ -38,8 +38,26 @@ def eliminarAdmin(request, id):
 
 def editarAdmin(request, id):
     usuario = Usuario.objects.get(id=id)
-    return render(request, "Administrador/editarAdmin.html", {"usuario": usuario})
+    return render(request, "Administrador/editarAdmin.html", {'Usuario': usuario})
 
+def cambiosAdmin(request,id):
+    username = request.POST['txtUsername']
+    password = request.POST['txtPassword']
+    first_name = request.POST['txtfirst_name']
+    last_name = request.POST['txtlast_name']
+    email = request.POST['txtEmail']
+    dui = request.POST['txtDui']
+
+
+    usuario = Usuario.objects.get(id=id)
+    usuario.username = username
+    usuario.password = password
+    usuario.first_name = first_name
+    usuario.last_name = last_name
+    usuario.email = email
+    usuario.documento = dui
+    usuario.save()
+    return redirect('/dashboard/gestionarAdministrador')
 
 def cambiarCalendario(objeto, cambio, cambios):
     objeto = objeto.replace(cambio, cambios)

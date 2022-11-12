@@ -5,53 +5,59 @@
 <h1>Editar Usuario</h1>
 <br>
 <div class="container">
-<form action="/cambiosAdmin/">
+<form action="/dashboard/cambiosAdmin/{{Usuario.id}}" method="POST">{% csrf_token %}
     <div class="mb-3">
          <label for="Username" class="form-label">Usuario</label>
-           <input type="username" id="username" name="username" class="form-control" id="username" required>
+           <input type="text" id="txtUsername" name="txtUsername" value="{{Usuario.username}}" class="form-control" required>
     </div>
      <div class="mb-3">
             <label for="password" class="form-label">Contraseña</label>
-            <input type="password" class="form-control" id="exampleInputPassword1" required>
+            <input type="txtPassword" class="form-control" id="txtPassword" name="txtPassword" value="{{Usuario.password}}" required>
     </div>
     <h4>Datos Personales</h4>
     <hr>
     <div class="mb-3">
         <label for="Username" class="form-label">Nombre</label>
-        <input type="username" id="username" name="username" class="form-control" id="username" required>
+        <input type="text" name="txtfirst_name"  id="txtfirst_name" value="{{Usuario.first_name}}" class="form-control" required>
     </div>
     <div class="mb-3">
         <label for="Username" class="form-label">Apellido</label>
-        <input type="username" id="username" name="username" class="form-control" id="username" required>
+        <input type="username"  name="txtlast_name" class="form-control" id="txtlast_name" value="{{Usuario.last_name}}" required >
     </div>
     <div class="mb-3">
         <label for="Username" class="form-label">Correo</label>
-        <input type="username" id="username" name="username" class="form-control" id="username" required>
+        <input type="username" id="txtEmail" name="txtEmail" class="form-control" id="txtEmail" value="{{Usuario.email}}" required>
     </div>
     <div class="mb-3">
         <label for="Username" class="form-label">DUI</label>
-        <input type="username" id="username" name="username" class="form-control" id="username" required>
+        <input type="username" id="txtDui" name="txtDui" class="form-control" id="txtDui" value="{{Usuario.documento}}" required>
     </div>
     <div class="mb-3">
         <label for="Username" class="form-label">Fecha de nacimiento</label>
-        <input type="username" id="username" name="username" class="form-control" id="username" required>
+        <input type = "text" name="txtNacimiento" class="form-control" id="txtNacimiento" value="{{Usuario.nacimiento}}" required>
     </div>
-    <h4>Permisos</h4>
-    <hr>
-    <div class="form-check">
-        <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" checked>
-        <label class="form-check-label" for="flexRadioDefault2">
-          Staff
-        </label>
-      </div>
-      <br>
     <h4>Datos extra</h4>
     <hr>
-    <div>
-        
+    <div class="row g-3 align-items-center">
+        <div class="col-auto">
+          <label for="creacion de la cuenta" class="col-form-label">Creacion de la cuenta: </label>
+        </div>
+        <div class="col-auto">
+          <label>{{Usuario.date_joined}}</label>
+        </div>
     </div>
-
-
+    <div class="row g-3 align-items-center">
+        <div class="col-auto">
+          <label for="ultimo inicio de seccion" class="col-form-label">Ultimo inicio de seccion: </label>
+        </div>
+        <div class="col-auto">
+          <label>{{Usuario.last_login}}</label>
+        </div>
+    </div>
+    <hr>
+    <div>
+        <button type="submit" class="btn btn-success btn-block text-white">Guardar</button>
+    </div>
 </form>
 </div>
 {% endblock %}
