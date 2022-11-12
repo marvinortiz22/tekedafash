@@ -6,6 +6,7 @@ import calendar
 
 from Cliente.models import *
 
+
 def index(request):
     fecha_actual = date.today()
     cal = calendar.LocaleHTMLCalendar(firstweekday=6, locale='es').formatmonth(
@@ -27,18 +28,20 @@ def gestionarCliente(request):
 
 
 def gestionarAdministrador(request):
-    usuario = Usuario.objects.filter(is_staff = 1)
-    data ={
-        'Usuario':usuario
+    usuario = Usuario.objects.filter(is_staff=1)
+    data = {
+        'Usuario': usuario
     }
     return render(request, 'Administrador/gestionarAdministrador.html', data)
+
 
 def eliminarAdmin(request, id):
     usuario = Usuario.objects.get(id=id)
     usuario.delete()
     return redirect('/dashboard/gestionarAdministrador')
 
-def editarAdmin(request,id):
+
+def editarAdmin(request, id):
     usuario = Usuario.objects.get(id=id)
     return render(request, "Administrador/editarAdmin.html", {"usuario": usuario})
 
@@ -46,4 +49,3 @@ def editarAdmin(request,id):
 def cambiarCalendario(objeto, cambio, cambios):
     objeto = objeto.replace(cambio, cambios)
     return objeto
-

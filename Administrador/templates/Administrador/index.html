@@ -1,54 +1,143 @@
 {% extends 'General/baseAdmin.html' %} {% block title %} Inicio {% endblock %}
 {% block body %}
 <h1>Bienvenido</h1>
-
-<div class="d-inline-block float-end text-center box shadow bg-white p-3 d-none d-md-block">
-
-{{cal|safe}}
+<div class="mt-5 row">
+  <div class="col-md-9 table-responsive">
+    <table class="table align-middle">
+      <thead class="table-dark">
+        <tr>
+          <th class="col-5">Nombre</th>
+          <th class="col-3 text-center">Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th scope="row">Administrador</th>
+          <td class="text-center">
+            <a href="" class="btn btn-success m-1"
+              ><i
+                class="bi bi bi-plus-circle text-white"
+                data-bs-toggle="tooltip"
+                data-bs-placement="top"
+                title="Añadir"
+              ></i
+            ></a>
+            <a href="" class="btn btn-warning m-1"
+              ><i
+                class="bi bi bi-pencil-fill text-white"
+                data-bs-toggle="tooltip"
+                data-bs-placement="top"
+                title="Editar"
+              ></i
+            ></a>
+          </td>
+        </tr>
+        <tr>
+          <th scope="row">Compras</th>
+          <td class="text-center">
+            <a href="" class="btn btn-success m-1"
+              ><i
+                class="bi bi bi-plus-circle text-white"
+                data-bs-toggle="tooltip"
+                data-bs-placement="top"
+                title="Añadir"
+              ></i
+            ></a>
+            <a href="" class="btn btn-warning m-1"
+              ><i
+                class="bi bi bi-pencil-fill text-white"
+                data-bs-toggle="tooltip"
+                data-bs-placement="top"
+                title="Editar"
+              ></i
+            ></a>
+          </td>
+        </tr>
+        <tr>
+          <th scope="row">Clientes</th>
+          <td class="text-center">
+            <a href="" class="btn btn-success m-1"
+              ><i
+                class="bi bi bi-plus-circle text-white"
+                data-bs-toggle="tooltip"
+                data-bs-placement="top"
+                title="Añadir"
+              ></i
+            ></a>
+            <a href="" class="btn btn-warning m-1"
+              ><i
+                class="bi bi bi-pencil-fill text-white"
+                data-bs-toggle="tooltip"
+                data-bs-placement="top"
+                title="Editar"
+              ></i
+            ></a>
+          </td>
+        </tr>
+        <tr>
+          <th scope="row">Ventas</th>
+          <td class="text-center">
+            <a href="" class="btn btn-success m-1"
+              ><i
+                class="bi bi bi-plus-circle text-white"
+                data-bs-toggle="tooltip"
+                data-bs-placement="top"
+                title="Añadir"
+              ></i
+            ></a>
+            <a href="" class="btn btn-warning m-1"
+              ><i
+                class="bi bi bi-pencil-fill text-white"
+                data-bs-toggle="tooltip"
+                data-bs-placement="top"
+                title="Editar"
+              ></i
+            ></a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="col-md-3">
+    <div class="d-grid text-center box shadow p-3 bg-white d-none d-lg-block">
+      {{cal|safe}}
+    </div>
+  </div>
 </div>
-<div class="col-7 float-start">
-    <table class="table table-bordered align-middle">
-        <thead class="table-dark">
-          <tr >
-            <th class="col-4">Nombre</th>
-            <th class="col-3 text-center">Acciones</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <th scope="row">Administrador</th>
-            <td class="text-center">
-                <a href="" class="btn btn-success m-1"><i class="bi bi bi-plus-circle text-white" data-bs-toggle="tooltip" data-bs-placement="top" title="Añadir"></i></a>
-                <a href="" class="btn btn-warning m-1"><i class="bi bi bi-pencil-fill text-white" data-bs-toggle="tooltip" data-bs-placement="top" title="Editar"></i></a>
-            </td>
+<div class="row">
+  <div class="col-md-6">
+    <div><canvas id="myChart2" class="mh-50 mw-50"></canvas></div>
+  </div>
+  <div class="col-md-6">
+    <div><canvas id="myChart" class="mh-50 mw-50"></canvas></div>
+  </div>
+</div>
 
-          </tr>
-          <tr>
-            <th scope="row">Compras</th>
-            <td class="text-center">
-              <a href="" class="btn btn-success m-1"><i class="bi bi bi-plus-circle text-white" data-bs-toggle="tooltip" data-bs-placement="top" title="Añadir"></i></a>
-              <a href="" class="btn btn-warning m-1"><i class="bi bi bi-pencil-fill text-white" data-bs-toggle="tooltip" data-bs-placement="top" title="Editar"></i></a>
-                </td>
+{% endblock %} {%block js%}
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+  const labels = ["January", "February", "March", "April", "May", "June"];
 
-          </tr>
-          <tr>
-            <th scope="row">Clientes</th>
-            <td class="text-center">
-              <a href="" class="btn btn-success m-1"><i class="bi bi bi-plus-circle text-white" data-bs-toggle="tooltip" data-bs-placement="top" title="Añadir"></i></a>
-              <a href="" class="btn btn-warning m-1"><i class="bi bi bi-pencil-fill text-white" data-bs-toggle="tooltip" data-bs-placement="top" title="Editar"></i></a>
-                </td>
+  const data = {
+    labels: labels,
+    datasets: [
+      {
+        label: "My First dataset",
+        backgroundColor: "rgb(255, 99, 132)",
+        borderColor: "rgb(255, 99, 132)",
+        data: [0, 10, 5, 2, 20, 30, 45],
+      },
+    ],
+  };
 
-          </tr>
-          <tr>
-            <th scope="row">Ventas</th>
-            <td class="text-center">
-              <a href="" class="btn btn-success m-1"><i class="bi bi bi-plus-circle text-white" data-bs-toggle="tooltip" data-bs-placement="top" title="Añadir"></i></a>
-              <a href="" class="btn btn-warning m-1"><i class="bi bi bi-pencil-fill text-white" data-bs-toggle="tooltip" data-bs-placement="top" title="Editar"></i></a>
-                </td>
-
-          </tr>
-        </tbody>
-      </table>
-
-  {% endblock %}
-</table>
+  const config = {
+    type: "line",
+    data: data,
+    options: {},
+  };
+</script>
+<script>
+  const myChart2 = new Chart(document.getElementById("myChart2"), config);
+  const myChart = new Chart(document.getElementById("myChart"), config);
+</script>
+{%endblock%}

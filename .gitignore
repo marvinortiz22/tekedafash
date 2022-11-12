@@ -13,3 +13,4 @@ media
 !.vscode/extensions.json 
 .history
 Administrador/migrations/0002_alter_usuario_options_alter_usuario_table.py
+Administrador/migrations/0003_alter_usuario_options_inventario_cantidad_and_more.py
