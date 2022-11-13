@@ -2,39 +2,39 @@
 {% block title %} Edicion de staff {% endblock %}
 
 {% block body %} 
-<h1>Editar Usuario</h1>
+<h1>Editar Administrador</h1>
 <br>
 <div class="container">
 <form action="/dashboard/cambiosAdmin/{{Usuario.id}}" method="POST">{% csrf_token %}
     <div class="mb-3">
-         <label for="Username" class="form-label">Usuario</label>
-           <input type="text" id="txtUsername" name="txtUsername" value="{{Usuario.username}}" class="form-control" required>
+         <label for="nombreUsuario" class="form-label">Usuario</label>
+           <input type="text" id="nombreUsuario" name="nombreUsuario" value="{{Usuario.username}}" class="form-control" required>
     </div>
      <div class="mb-3">
-            <label for="password" class="form-label">Contraseña</label>
-            <input type="txtPassword" class="form-control" id="txtPassword" name="txtPassword" value="{{Usuario.password}}" required>
+            <label for="contrasena" class="form-label">Contraseña</label>
+            <input type="txtPassword" class="form-control" id="contrasena" name="contrasena" value="{{Usuario.password}}" required>
     </div>
     <h4>Datos Personales</h4>
     <hr>
     <div class="mb-3">
-        <label for="Username" class="form-label">Nombre</label>
-        <input type="text" name="txtfirst_name"  id="txtfirst_name" value="{{Usuario.first_name}}" class="form-control" required>
+        <label for="nombre" class="form-label">Nombre</label>
+        <input type="text" name="nombre"  id="nombre" value="{{Usuario.first_name}}" class="form-control" required>
     </div>
     <div class="mb-3">
-        <label for="Username" class="form-label">Apellido</label>
-        <input type="username"  name="txtlast_name" class="form-control" id="txtlast_name" value="{{Usuario.last_name}}" required >
+        <label for="apellido" class="form-label">Apellido</label>
+        <input type="username"  name="apellido" class="form-control" id="apellido" value="{{Usuario.last_name}}" required >
     </div>
     <div class="mb-3">
-        <label for="Username" class="form-label">Correo</label>
-        <input type="username" id="txtEmail" name="txtEmail" class="form-control" id="txtEmail" value="{{Usuario.email}}" required>
+        <label for="email" class="form-label">Correo</label>
+        <input type="username" id="email" name="email" class="form-control" id="txtEmail" value="{{Usuario.email}}" required>
     </div>
     <div class="mb-3">
-        <label for="Username" class="form-label">DUI</label>
-        <input type="username" id="txtDui" name="txtDui" class="form-control" id="txtDui" value="{{Usuario.documento}}" required>
+        <label for="dui" class="form-label">DUI</label>
+        <input type="username" id="dui" name="dui" class="form-control" id="txtDui" value="{{Usuario.documento}}" required>
     </div>
     <div class="mb-3">
-        <label for="Username" class="form-label">Fecha de nacimiento</label>
-        <input type = "text" name="txtNacimiento" class="form-control" id="txtNacimiento" value="{{Usuario.nacimiento}}" required>
+        <label for="nacimiento" class="form-label">Fecha de nacimiento</label>
+        <input type = "date" name="nacimiento" class="form-control" id="nacimiento" value="{{Usuario.nacimiento|date:'Y-m-d'}}" required>
     </div>
     <h4>Datos extra</h4>
     <hr>
