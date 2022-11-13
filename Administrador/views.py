@@ -7,11 +7,13 @@ import calendar
 
 
 def index(request):
+    mod = []
     calCurrent = buildCalendar(date.today())
     currentYear = date.today().year
     label = Orden.objects.filter(fecha__range=(
-        date(2020, 1, 1), date(2022, 11, 11)))
-    return render(request, 'Administrador/index.html', {"cal": calCurrent, "fechas": label, "año": currentYear})
+        date(currentYear, 1, 1), date(currentYear, 12, 31)))
+    mod.extend(buildLabel())
+    return render(request, 'Administrador/index.html', {"cal": calCurrent, "fechas": label, "año": currentYear, "mod": mod})
 
 
 def gestionarProducto(request):
@@ -28,7 +30,8 @@ def gestionarCliente(request):
 
 def ordenesCliente(request, id):
     cliente = Usuario.objects.get(id=id)
-    ordenes = DetalleDeOrden.objects.filter(orden__cliente_id=id).values('orden_id','orden__fecha').annotate(total=Sum(F('precio') * F('cantidad')))
+    ordenes = DetalleDeOrden.objects.filter(orden__cliente_id=id).values(
+        'orden_id', 'orden__fecha').annotate(total=Sum(F('precio') * F('cantidad')))
     contexto = {"cliente": cliente, "ordenes": ordenes}
     return render(request, 'Administrador/ordenesCliente.html', contexto)
 
@@ -41,7 +44,8 @@ def detalleOrdenCliente(request, id):
     for venta in ventas:
         monto += venta.precio*venta.cantidad
 
-    contexto = {"ventas": ventas, "orden": orden, "monto": monto, "cliente": cliente}
+    contexto = {"ventas": ventas, "orden": orden,
+                "monto": monto, "cliente": cliente}
     return render(request, 'Administrador/detalleOrdenCliente.html', contexto)
 
 
@@ -75,14 +79,14 @@ def editarAdmin(request, id):
     usuario = Usuario.objects.get(id=id)
     return render(request, "Administrador/editarAdmin.html", {'Usuario': usuario})
 
-def cambiosAdmin(request,id):
+
+def cambiosAdmin(request, id):
     username = request.POST['txtUsername']
     password = request.POST['txtPassword']
     first_name = request.POST['txtfirst_name']
     last_name = request.POST['txtlast_name']
     email = request.POST['txtEmail']
     dui = request.POST['txtDui']
-
 
     usuario = Usuario.objects.get(id=id)
     usuario.username = username
@@ -93,6 +97,7 @@ def cambiosAdmin(request,id):
     usuario.documento = dui
     usuario.save()
     return redirect('/dashboard/gestionarAdministrador')
+
 
 def cambiarCalendario(objeto, cambio, cambios):
     objeto = objeto.replace(cambio, cambios)
@@ -107,3 +112,14 @@ def buildCalendar(fecha_actual):
     calCurrent = cambiarCalendario(
         calCurrent, '>%i<' % fecha_actual.day, 'class="" bgcolor="#​008374" ><font color="#FFFFFF"><b>%i</b></font><' % fecha_actual.day)
     return calCurrent
+
+
+def buildLabel():
+    mes = 1
+    data = []
+    for x in range(11):
+        mod = Orden.objects.filter(fecha__range=[date(
+            date.today().year, mes, 1), date(date.today().year, mes+1, 1)]).count()
+        data.append(mod)
+        mes += 1
+    return data
