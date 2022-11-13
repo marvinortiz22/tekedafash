@@ -12,4 +12,7 @@ urlpatterns = [
     path('eliminarAdmin/<id>',views.eliminarAdmin, name="eliminarAdmin"),
     path('editarAdmin/<id>',views.editarAdmin, name="editarAdmin"),
     path('cambiosAdmin/<id>', views.cambiosAdmin, name="cambiosAdmin"),
+    path('crearAdmin',views.crearAdmin, name="crearAdmin"),
+    path('registroAdmin', views.registroAdmin, name="registroAdmin")
+
 ]

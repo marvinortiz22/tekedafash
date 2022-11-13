@@ -70,27 +70,46 @@ def eliminarAdmin(request, id):
     usuario.delete()
     return redirect('/dashboard/gestionarAdministrador')
 
+def crearAdmin(request):
+    return render(request, 'Administrador/crearAdmin.html')
+
+def registroAdmin(request):
+    nombreUsuario = request.POST['nombreUsuario']
+    contrasena = request.POST['contrasena']
+    nombre = request.POST['nombre']
+    apellido = request.POST['apellido']
+    email = request.POST['email']
+    dui = request.POST['dui']
+    nacimiento = request.POST['nacimiento']
+
+    usuario = Usuario.objects.create( 
+        username = nombreUsuario, password=contrasena, first_name=nombre, last_name= apellido, email=email, documento=dui, nacimiento=nacimiento, is_staff=1
+        )
+    return redirect('/dashboard/gestionarAdministrador')
+
 
 def editarAdmin(request, id):
     usuario = Usuario.objects.get(id=id)
     return render(request, "Administrador/editarAdmin.html", {'Usuario': usuario})
-
+    
 def cambiosAdmin(request,id):
-    username = request.POST['txtUsername']
-    password = request.POST['txtPassword']
-    first_name = request.POST['txtfirst_name']
-    last_name = request.POST['txtlast_name']
-    email = request.POST['txtEmail']
-    dui = request.POST['txtDui']
+    nombreUsuario = request.POST['nombreUsuario']
+    contrasena = request.POST['contrasena']
+    nombre = request.POST['nombre']
+    apellido = request.POST['apellido']
+    email = request.POST['email']
+    dui = request.POST['dui']
+    nacimiento = request.POST['nacimiento']
 
-
+    #Validar que sea el mismo campos de el metodo editarAdmin y realizar los cambios
     usuario = Usuario.objects.get(id=id)
-    usuario.username = username
-    usuario.password = password
-    usuario.first_name = first_name
-    usuario.last_name = last_name
+    usuario.username = nombreUsuario
+    usuario.password = contrasena
+    usuario.first_name = nombre
+    usuario.last_name = apellido
     usuario.email = email
     usuario.documento = dui
+    usuario.nacimiento = nacimiento
     usuario.save()
     return redirect('/dashboard/gestionarAdministrador')
 
