@@ -10,6 +10,6 @@ def obtenerTalla(request):
         inventario = Inventario.objects.filter(prenda_id= request.GET['id'])
         data = []
         for talla in inventario:
-            data.append({"nombre":talla.talla.nombre,"cantidad":talla.cantidad})
+            data.append({"nombre":talla.talla.nombre,"id":talla.talla.id,"cantidad":talla.cantidad})
         return JsonResponse(data={'data':data})
     return JsonResponse(status=400)
