@@ -2,17 +2,16 @@ from django.shortcuts import render, redirect, get_object_or_404
 from Cliente.models import *
 from datetime import date
 from django.db.models import Sum, F
-from calendar import HTMLCalendar
-import calendar
+from Administrador import utils
 
 
 def index(request):
     mod = []
-    calCurrent = buildCalendar(date.today())
+    calCurrent = utils.buildCalendar(date.today())
     currentYear = date.today().year
     label = Orden.objects.filter(fecha__range=(
         date(currentYear, 1, 1), date(currentYear, 12, 31)))
-    mod.extend(buildLabel())
+    mod.extend(utils.buildLabel())
     return render(request, 'Administrador/index.html', {"cal": calCurrent, "fechas": label, "año": currentYear, "mod": mod})
 
 
@@ -128,29 +127,3 @@ def cambiosAdmin(request, id):
     usuario.nacimiento = nacimiento
     usuario.save()
     return redirect('/dashboard/gestionarAdministrador')
-
-
-def cambiarCalendario(objeto, cambio, cambios):
-    objeto = objeto.replace(cambio, cambios)
-    return objeto
-
-
-def buildCalendar(fecha_actual):
-    cal = calendar.LocaleHTMLCalendar(firstweekday=6, locale='es').formatmonth(
-        fecha_actual.year, fecha_actual.month)
-    calCurrent = cambiarCalendario(
-        cal, 'cellpadding="0"', 'cellpadding="6px"')
-    calCurrent = cambiarCalendario(
-        calCurrent, '>%i<' % fecha_actual.day, 'class="" bgcolor="#​008374" ><font color="#FFFFFF"><b>%i</b></font><' % fecha_actual.day)
-    return calCurrent
-
-
-def buildLabel():
-    mes = 1
-    data = []
-    for x in range(11):
-        mod = Orden.objects.filter(fecha__range=[date(
-            date.today().year, mes, 1), date(date.today().year, mes+1, 1)]).count()
-        data.append(mod)
-        mes += 1
-    return data
