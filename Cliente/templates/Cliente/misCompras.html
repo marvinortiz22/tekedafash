@@ -1,5 +1,5 @@
 {% extends 'General/base.html' %}
-{% block title %} Iniciar Sesión {% endblock %}
+{% block title %} Mis Compras {% endblock %}
 
 {% block content %}
     {% include 'General/navbar.html' %}
@@ -9,7 +9,7 @@
         </div>
         <div class="row">
             <div class="col-12">
-                <table class="table table-striped" id="tbl-ordenes">
+                <table class="table table-striped" id="tbl-compras">
                     <thead>
                       <tr>
                         <th scope="col">#</th>
@@ -36,7 +36,7 @@
 {% block js %} 
     <script>
         $(document).ready(function () {
-            initTable("#tbl-ordenes","ordenes");
+            initTable("#tbl-compras","compras");
         });
     </script>
 {% endblock %}
