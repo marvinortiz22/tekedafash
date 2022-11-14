@@ -17,6 +17,7 @@
                 <th>Usuario</th>
                 <th>Nombre</th>
                 <th>Apellido</th>
+                <th>Estado</th>
                 <th>Acciones</th>
             </tr>
             </thead>
@@ -27,18 +28,28 @@
                 <td>{{usuario.username}}</td>
                 <td>{{usuario.first_name}}</td>
                 <td>{{usuario.last_name}}</td>
-                <td>
-                    <a href="{% url 'ordenesCliente' usuario.id %}" class="btn btn-info m-2">
-                        <i class="bi bi-eye text-white"></i>
-                    </a>
-                    <a href="{% url 'editarClienteActivo' usuario.id %}" class="btn btn-warning m-2">
-                        {% if usuario.is_active %}
+                
+                {% if usuario.is_active %}
+                    <td>Activo</td>
+                    <td>
+                        <a href="{% url 'ordenesCliente' usuario.id %}" class="btn btn-info m-2">
+                            <i class="bi bi-eye text-white"></i>
+                        </a>
+                        <a href="{% url 'editarClienteActivo' usuario.id %}" class="btn btn-warning m-2">
                             <i class="bi bi-person-x text-white"></i>
-                        {% else %}
+                        </a>
+                    </td>
+                {% else %}
+                    <td>Inactivo</td>
+                    <td>
+                        <a href="{% url 'ordenesCliente' usuario.id %}" class="btn btn-info m-2">
+                            <i class="bi bi-eye text-white"></i>
+                        </a>
+                        <a href="{% url 'editarClienteActivo' usuario.id %}" class="btn btn-warning m-2">
                             <i class="bi bi-person-check text-white"></i>
-                        {% endif %}
-                    </a>
-                </td>
+                        </a>
+                    </td>
+                {% endif %}
             </tr>
             {% endfor %}
             </tbody>

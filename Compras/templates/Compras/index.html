@@ -7,7 +7,7 @@
         <h1>Registrar compras</h1>   
     </div>
     <div class="col-12">
-        <div class="card">
+        <div class="card mt-3">
             <div class="card-header">
                 Información de existencia
             </div>
@@ -15,10 +15,10 @@
                 <div class="row">
                 <div class="col-12">
                     <div class="mb-3 row">
-                        <label for="staticEmail" class="col-sm-2 col-form-label">Nombre:</label>
-                        <div class="col-sm-10">
-                            <select class="form-select" aria-label="Default select example" id="nombre-prenda">
-                            <option selected>Seleccione una prenda</option>
+                        <label for="staticEmail" class="col-sm-3 col-xl-2 col-form-label">Nombre:</label>
+                        <div class="col-sm-9 col-xl-10">
+                            <select class="form-select" id="nombre-prenda">
+                            <option selected disabled>Seleccione una prenda</option>
                             {% for p in Prendas %}
                             <option value="{{p.id}}">{{p.nombre}}</option>
                             {% endfor %}
@@ -31,21 +31,20 @@
                 <div class="col-xs-12">
                     <div class="col-12">
                         <div class="mb-3 row">
-                            <label for="staticEmail" class="col-sm-2 col-form-label">Existencia:</label>
-                            <div class="col-sm-10">
+                            <label for="staticEmail" class="col-sm-3 col-xl-2 col-form-label">Existencia:</label>
+                            <div class="col-sm-9 col-xl-10">
                                 <div class="row" id="existencias-content">
-                                   
+                                    
                                 </div>
-                                
                             </div>
-                            </div>
+                        </div>
                     </div>
                 </div>
-                </div>
             </div>
-            </div>
+        </div>
     </div>
     <div class="col-12 mt-4">
+        <form action="{% url 'agregarCompra'%}" method="POST">
         <div class="card">
             <div class="card-header">
                 Aumento de existencia
@@ -55,79 +54,62 @@
                 <div class="col-xs-12">
                     <div class="col-12">
                         <div class="mb-3 row">
-                            <label for="staticEmail" class="col-sm-2 col-form-label">Existencia:</label>
-                            <div class="col-sm-10">
-                                <div class="row">
-                                    <div class="col-md-3">
-                                        <div class="mb-3 row">
-                                            <label for="staticEmail" class="col-sm-auto col-form-label">Talla S:</label>
-                                            <div class="col-sm-4">
-                                                <input type="number" class="form-control" id="exampleFormControlInput1" value="0">
-                                            </div>
-                                            </div>                                          
-                                    </div>
-                                        <div class="col-md-3">
-                                        <div class="mb-3 row">
-                                            <label for="staticEmail" class="col-sm-auto col-form-label">Talla M:</label>
-                                            <div class="col-sm-4">
-                                                <input type="number" class="form-control" id="exampleFormControlInput1" value="0">
-                                            </div>
-                                            </div>                    
-                                        </div>
-                                        <div class="col-md-3">
-                                        <div class="mb-3 row">
-                                            <label for="staticEmail" class="col-sm-auto col-form-label">Talla L:</label>
-                                            <div class="col-sm-4">
-                                                <input type="number" class="form-control" id="exampleFormControlInput1" value="0">
-                                            </div>
-                                            </div> 
-                                        </div>
-                                        <div class="col-md-3">
-                                        <div class="mb-3 row">
-                                            <label for="staticEmail" class="col-sm-auto col-form-label">Talla XL:</label>
-                                            <div class="col-sm-4">
-                                                <input type="number" class="form-control" id="exampleFormControlInput1" value="0">
-                                            </div>
-                                            </div> 
-                                        </div>
+                            <label for="staticEmail" class="col-sm-3 col-xl-2 col-form-label">Existencia:</label>
+                            <div class="col-sm-9 col-xl-10">
+                                <div class="row" id="existencias-form">
+
                                 </div>                                
                             </div>
-                            </div>
+                        </div>
                     </div>
                 </div>
                 </div>
             </div>
-            </div>
-            <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-4">
-                <button type="button" class="btn btn-secondary">Cancelar</button>
-                <button type="button" class="btn btn-primary">Guardar</button>
-              </div>           
+        </div>
+        <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-4">
+            <a type="button" class="btn btn-secondary" href="{% url 'dashboard' %}">Cancelar</a>
+            <button type="submit" class="btn btn-primary">Guardar</button>
+        </div>           
+    </form>
     </div>
 </div>
 {% endblock %}
 {% block js %}
 <script>
-    $('#nombre-prenda').change(()=>{
-        $.ajax({
-            type: 'GET',
-            url: "/dashboard/compras/obtenerTalla",
-            data: {
-                id: $('#nombre-prenda').val()
-            }
-        })
-        .done((response)=>{ 
-            let content = ``;
-            (response.data).forEach(talla=>{
-                content += `<div class="col-md-3">
+$('#nombre-prenda').change(()=>{
+    $.ajax({
+        type: 'GET',
+        url: "{% url 'obtenerTalla' %}",
+        data: {
+            id: $('#nombre-prenda').val()
+        }
+    })
+    .done((response)=>{ 
+        let content = ``;
+        let form = ``;
+        (response.data).forEach(talla=>{
+            content += 
+                `<div class="col-md-3">
                     <p>Talla ${talla.nombre}: <span class="badge bg-secondary">${talla.cantidad}</span></p>
                 </div>`;
-            });
-            $('#existencias-content').html(content);     
-        })
-        .fail(function(jqXHR){
-            //Se muestran en consola los posibles errores de la solicitud AJAX
-            console.log('Error:' + jqXHR.status + ' ' + jqXHR.statusText);
+            form += 
+                `<div class="col-md-3">
+                    <div class="mb-3 row">
+                        <label for="staticEmail" class="col-sm-auto col-form-label">Talla ${talla.nombre}:</label>
+                        <div class="col-sm-5">
+                            <input type="number" class="form-control" id="talla-${talla.id}" value="0">
+                        </div>
+                    </div>                    
+                </div>
+                `
         });
+        $('#existencias-content').html(content);
+        $('#existencias-form').html(form);     
+    })
+    .fail(function(jqXHR){
+        //Se muestran en consola los posibles errores de la solicitud AJAX
+        console.log('Error:' + jqXHR.status + ' ' + jqXHR.statusText);
     });
+});
 </script>
 {% endblock %}

@@ -63,7 +63,7 @@ def editarClienteActivo(request, id):
 def gestionarAdministrador(request):
     usuario = Usuario.objects.filter(is_staff=1)
     data = {
-        'Usuario': usuario
+        'usuarios': usuario
     }
     return render(request, 'Administrador/gestionarAdministrador.html', data)
 

@@ -26,7 +26,7 @@ class Prenda(models.Model):
         db_table = "prenda"
         unique_together = ('nombre', 'descripcion','urlFoto','tipoPrenda')
 class Inventario(models.Model): 
-    cantidad = models.IntegerField(null=False)
+    cantidad = models.IntegerField(null=False, default = 0)
     prenda = models.ForeignKey(Prenda,on_delete=models.CASCADE,null=False)
     talla = models.ForeignKey(Talla,on_delete=models.CASCADE,null=False)
     class Meta:
