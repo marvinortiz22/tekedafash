@@ -2,7 +2,7 @@
 {% block body %}
 <h1>Bienvenido</h1>
 <div class="row">
-  <div class="col-md-9 table-responsive table-bordered">
+  <div class="col-md-8 table-responsive table-bordered">
     <table class="table align-middle">
       <thead class="table-dark">
         <tr>
@@ -102,9 +102,12 @@
       </tbody>
     </table>
   </div>
-  <div class="col-md-3">
-    <div class="d-grid text-center box shadow p-3 bg-white d-none d-lg-block">
-      {{cal|safe}}
+  <div class="col-md-4">
+    <div class="text-center px-auto box shadow p-3 bg-white d-none d-lg-block">
+      <div class=" row justify-content-center">
+        <div class="col-auto">{{cal|safe}}</div>
+        
+      </div>
     </div>
   </div>
 </div>

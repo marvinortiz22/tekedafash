@@ -6,28 +6,22 @@
     <div class="col-md-9">
         <h1>Detalle de la Orden</h1>
         Cliente: {{cliente.first_name}} {{cliente.last_name}}
-        <br>
-        Documento: {{cliente.documento}}
-        <br>
-        Fecha: {{orden.fecha}}
-        <ul class="app-breadcrumb breadcrum side"></ul>
     </div>
 </div>
 <div class="row">
-    <div class="col-12">
-        <div class="card mt-2">
-            <div class="card-body">
-                <div class="row justify-content-between mt-2">
-                    <div class="col-4">
-                        <p><b>Productos:</b> <span class="badge bg-secondary">{{ventas | length}}</span></p>
-                    </div>
-                    <div class="col-4">
-                        <p class="text-end"><b>Monto:</b> <span
-                                class="badge text-bg-primary">${{monto | floatformat:2}}</span></p>
-                    </div>
-                </div>
+    <section id="recent-posts" class="recent-posts mt-0">
+        <div class="col-12">
+            <article>
+                <p class="post-category"><small>Orden N° {{orden.id}} - {{orden.fecha}}</small></p>
+                <h2 class="title">
+                    <i class="bi bi-person-circle"></i> {{orden.cliente.first_name}} {{orden.cliente.last_name}}
+                </h2>
+            </article>
             </div>
-        </div>
+    </section>
+</div>        
+<div class="row">
+    <div class="col-12">
         <div class="table-responsive mt-4">
             <table class="table table-striped" id="tbl-ordenes">
                 <thead>
@@ -56,8 +50,19 @@
                 </tbody>
             </table>
             <br>
-            <a class="btn btn-primary" href="{% url 'ordenesCliente' cliente.pk %}" role="button">Regresar</a>
         </div>
+    </div>
+    <div class="col-12">
+        <div class="row justify-content-between mt-2">
+            <div class="col-4">
+                <p><b>Productos:</b> <span class="badge bg-secondary">{{ventas | length}}</span></p>
+            </div>
+            <div class="col-4">
+                <p class="text-end"><b>Monto:</b> <span
+                        class="badge text-bg-primary">${{monto | floatformat:2}}</span></p>
+            </div>
+        </div>
+        <a class="btn btn-primary" href="{% url 'ordenesCliente' cliente.pk %}" role="button">Regresar</a>
     </div>
 </div>
 {% endblock %}

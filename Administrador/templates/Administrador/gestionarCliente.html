@@ -30,9 +30,9 @@
                 <td>{{usuario.last_name}}</td>
                 
                 {% if usuario.is_active %}
-                    <td>Activo</td>
+                    <td><h6><span class="badge bg-success">Activo</span></h6></td>
                     <td>
-                        <a href="{% url 'ordenesCliente' usuario.id %}" class="btn btn-info m-2">
+                        <a href="{% url 'ordenesCliente' usuario.id %}" class="btn btn-primary m-2" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Tooltip on top">
                             <i class="bi bi-eye text-white"></i>
                         </a>
                         <a href="{% url 'editarClienteActivo' usuario.id %}" class="btn btn-warning m-2">
@@ -40,9 +40,9 @@
                         </a>
                     </td>
                 {% else %}
-                    <td>Inactivo</td>
+                    <td><h6><span class="badge bg-danger">Inactivo</span></h6></td>
                     <td>
-                        <a href="{% url 'ordenesCliente' usuario.id %}" class="btn btn-info m-2">
+                        <a href="{% url 'ordenesCliente' usuario.id %}" class="btn btn-primary m-2" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Tooltip on top">
                             <i class="bi bi-eye text-white"></i>
                         </a>
                         <a href="{% url 'editarClienteActivo' usuario.id %}" class="btn btn-warning m-2">
@@ -63,5 +63,6 @@
     $(document).ready(function () {
         initTable("#tbl-usuarios","Clientes");
     });
+
 </script>
 {% endblock %}

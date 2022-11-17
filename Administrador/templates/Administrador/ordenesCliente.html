@@ -2,13 +2,11 @@
 {% block title %} Clientes {% endblock %}
 
 {% block body %}
-<div class="row">
+<div class="row mb-2">
     <div class="col-md-9">
         <h1>Ordenes</h1>
-        Cliente: {{cliente.first_name}} {{cliente.last_name}}
-        <br>
-        Documento: {{cliente.documento}}
-        <ul class="app-breadcrumb breadcrum side"></ul>
+        <p><i class="bi bi-person-circle"></i> <b>Nombre:</b> {{cliente.first_name}} {{cliente.last_name}}</p>
+        <p><i class="bi bi-person-badge-fill"></i> <b>DUI:</b> {{cliente.documento}}</p>
     </div>
 </div>
 <div class="row">
