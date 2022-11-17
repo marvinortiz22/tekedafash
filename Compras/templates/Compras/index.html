@@ -6,6 +6,8 @@
     <div class="col-12">
         <h1>Registrar compras</h1>   
     </div>
+    <form action="{% url 'agregarCompra'%}" method="POST">
+    {% csrf_token %}
     <div class="col-12">
         <div class="card mt-3">
             <div class="card-header">
@@ -13,28 +15,29 @@
             </div>
             <div class="card-body">
                 <div class="row">
-                <div class="col-12">
-                    <div class="mb-3 row">
-                        <label for="staticEmail" class="col-sm-3 col-xl-2 col-form-label">Nombre:</label>
-                        <div class="col-sm-9 col-xl-10">
-                            <select class="form-select" id="nombre-prenda">
-                            <option selected disabled>Seleccione una prenda</option>
-                            {% for p in Prendas %}
-                            <option value="{{p.id}}">{{p.nombre}}</option>
-                            {% endfor %}
-                            </select>
-                        </div>
-                        </div>
-                </div>
-                </div>
-                <div class="row">
-                <div class="col-xs-12">
                     <div class="col-12">
                         <div class="mb-3 row">
-                            <label for="staticEmail" class="col-sm-3 col-xl-2 col-form-label">Existencia:</label>
+                            <label for="staticEmail" class="col-sm-3 col-xl-2 col-form-label">Nombre:</label>
                             <div class="col-sm-9 col-xl-10">
-                                <div class="row" id="existencias-content">
-                                    
+                                <select class="form-select" id="nombre-prenda" name="id-prenda">
+                                <option selected disabled>Seleccione una prenda</option>
+                                {% for p in Prendas %}
+                                <option value="{{p.id}}">{{p.nombre}}</option>
+                                {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row" id="existencias-row" hidden>
+                    <div class="col-xs-12">
+                        <div class="col-12">
+                            <div class="mb-3 row">
+                                <label for="staticEmail" class="col-sm-3 col-xl-2 col-form-label">Existencia:</label>
+                                <div class="col-sm-9 col-xl-10">
+                                    <div class="row" id="existencias-content">
+                                        
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -43,8 +46,7 @@
             </div>
         </div>
     </div>
-    <div class="col-12 mt-4">
-        <form action="{% url 'agregarCompra'%}" method="POST">
+    <div class="col-12 mt-4" id="form-content" hidden>    
         <div class="card">
             <div class="card-header">
                 Aumento de existencia
@@ -70,8 +72,8 @@
             <a type="button" class="btn btn-secondary" href="{% url 'dashboard' %}">Cancelar</a>
             <button type="submit" class="btn btn-primary">Guardar</button>
         </div>           
-    </form>
     </div>
+    </form>
 </div>
 {% endblock %}
 {% block js %}
@@ -97,7 +99,7 @@ $('#nombre-prenda').change(()=>{
                     <div class="mb-3 row">
                         <label for="staticEmail" class="col-sm-auto col-form-label">Talla ${talla.nombre}:</label>
                         <div class="col-sm-5">
-                            <input type="number" class="form-control" id="talla-${talla.id}" value="0">
+                            <input type="number" class="form-control" id="talla-${talla.id}" name="talla-${talla.id}" value="0" min="0">
                         </div>
                     </div>                    
                 </div>
@@ -105,10 +107,14 @@ $('#nombre-prenda').change(()=>{
         });
         $('#existencias-content').html(content);
         $('#existencias-form').html(form);     
+        $('#form-content').removeAttr("hidden");
+        $('#existencias-row').removeAttr("hidden");
     })
     .fail(function(jqXHR){
         //Se muestran en consola los posibles errores de la solicitud AJAX
         console.log('Error:' + jqXHR.status + ' ' + jqXHR.statusText);
+        $('#form-content').addAttr("hidden");
+        $('#existencias-row').addAttr("hidden");
     });
 });
 </script>

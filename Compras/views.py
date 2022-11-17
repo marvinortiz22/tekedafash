@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 from django.http import JsonResponse
 from Administrador.models import Prenda, Inventario
 
@@ -13,3 +13,9 @@ def obtenerTalla(request):
             data.append({"nombre":talla.talla.nombre,"id":talla.talla.id,"cantidad":talla.cantidad})
         return JsonResponse(data={'data':data})
     return JsonResponse(status=400)
+def agregarPrendas(request):
+    inventario = Inventario.objects.filter(prenda_id= request.POST['id-prenda'])
+    for talla in inventario:
+        talla.cantidad = int(talla.cantidad or 0) + int(request.POST['talla-'+ str(talla.talla.id)])
+        talla.save()
+    return redirect('/dashboard/compras/')
