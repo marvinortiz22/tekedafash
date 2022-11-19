@@ -3,7 +3,7 @@
 {% block content %}
     {% include 'General/navbar.html' %}
 <br><br><br><br>
-    <div class="px-2">
+    <div class="px-2 mb-3">
         <form action="/registrarUsuario" method="POST">{% csrf_token %}
             <div class="container-lg p-4" style="background-color: rgb(87, 134, 134); border-radius: 10px;">
                 <h2 class="mb-3 text-center">Registro de usuario</h2>
@@ -57,5 +57,5 @@
             </div>
         </form>
     </div>
-
+    {% include 'General/footer.html' %}
 {% endblock %}

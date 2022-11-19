@@ -1,0 +1,54 @@
+{% extends 'General/base.html' %}
+{% block title %} Productos {% endblock %}
+{% block content %}
+    {% include 'General/navbar.html' %}
+    <div class="container mb-3">
+        <div class="row">
+            <div style="margin-top: 20px; ">
+                <h3 class="text-center">Productos</h3> <hr>
+                <div class="row">
+                    {% for objeto in objetos %}
+                        <div class="col-xl-4 col-md-6 portfolio-item filter-app">                    
+                                <div class="portfolio-wrap" style="margin-top: 30px;">
+                                    <div style="display: flex; justify-content: center;"><a href="{{ objeto.urlFoto }}" data-gallery="portfolio-gallery-app" class="glightbox"><img src="{{ objeto.urlFoto }}" class="img-fluid" style="width: 200px; height: 200px;" alt=""></a></div>
+                                    <div class="portfolio-info">
+                                        <h4 class="text-center mt-2">{{ objeto.nombre }}</h4>
+                                        <center><p>Lorem ipsum, dolor sit amet consectetur</p><p>${{ objeto.precioVenta }}</p></center>
+                                        <div style="display: flex; justify-content: center;">
+                                            <a href="#" class="btn btn-primary">Detalles</a>
+                                        </div>
+                                    </div>
+                                </div>                                        
+                        </div>
+                    {% endfor %}
+                </div>
+                <!--
+                <div class="row row-cols-1 row-cols-md-3 g-4" style="padding: 20px; margin-top: -50px;">
+                    {% for objeto in objetos %}
+                        <div class="col">
+                            <div class="card mt-3 text-center text-bg-light h-100">
+                                <div><img src="{{ objeto.urlFoto }}" class="card-img-top" style="width: 200px; height: 200px;" alt="..."></div>
+                                <div class="card-header fw-bold">{{ objeto.nombre }}</div>
+                                <div class="card-body">
+                                <p class="card-text">$##.##</p>
+                                <a href="#" class="btn btn-primary">Detalles</a>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+                -->
+            </div>
+        </div>                
+    </div>
+    <nav>
+        <ul class="pagination">
+          <li class="page-item"><a class="page-link" href="#">Previous</a></li>
+          <li class="page-item"><a class="page-link" href="#">1</a></li>
+          <li class="page-item"><a class="page-link" href="#">2</a></li>
+          <li class="page-item"><a class="page-link" href="#">3</a></li>
+          <li class="page-item"><a class="page-link" href="#">Next</a></li>
+        </ul>
+    </nav>
+    {% include 'General/footer.html' %}
+{% endblock %}

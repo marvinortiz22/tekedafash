@@ -5,7 +5,7 @@ from django.contrib import messages
 from django.db.models import Sum,F
 from Cliente.decorators import * 
 from .models import *
-from Administrador.models import Usuario 
+from Administrador.models import Usuario, Prenda 
 import re
 
 def index(request):
@@ -70,3 +70,7 @@ def regisUsuario(request):
         if not(bool(ob)):
             messages.error(request, "Digite un DUI valido")
         return render(request, 'Cliente/registrarUsuario.html')
+
+def productos(request):
+    variable = Prenda.objects.all()
+    return render(request, 'Cliente/productos.html', {'objetos': variable})
