@@ -16,6 +16,6 @@ def obtenerTalla(request):
 def agregarPrendas(request):
     inventario = Inventario.objects.filter(prenda_id= request.POST['id-prenda'])
     for talla in inventario:
-        talla.cantidad = int(talla.cantidad or 0) + int(request.POST['talla-'+ str(talla.talla.id)])
+        talla.cantidad += int(request.POST['talla-'+ str(talla.talla.id)])
         talla.save()
     return redirect('/dashboard/compras/')
