@@ -5,6 +5,8 @@ from django.contrib import messages
 from django.db.models import Sum,F
 from Cliente.decorators import * 
 from .models import *
+from Administrador.models import Usuario 
+import re
 
 def index(request):
     request.session['carrito'] = []
@@ -44,3 +46,27 @@ def detalledemiCompra(request,id):
     for venta in ventas:
         monto+=venta.precio*venta.cantidad
     return render(request, 'Cliente/detalledemiCompra.html',{"ventas":ventas,"orden":orden,"monto":monto})
+
+def registrarse(request):
+    return render(request, 'Cliente/registrarUsuario.html')
+
+def regisUsuario(request):
+    nombre = request.POST['nombre']
+    apellido = request.POST['apellido']
+    correo = request.POST['correo']
+    fechaNaci = request.POST['fechaNacimiento']
+    dui = request.POST['dui']
+    contra = request.POST['contraseña']
+    contra2 = request.POST['contraseña2']
+    user = request.POST['user']
+    expr = re.compile('\d{8}-\d')
+    ob = expr.match(dui)
+    if (contra == contra2 and ob):
+        nueuser = Usuario.objects.create(password = contra, username = user, first_name = nombre, last_name = apellido, email = correo, nacimiento = fechaNaci, documento = dui)
+        return redirect('inicio')            
+    else:
+        if(contra != contra2):
+            messages.error(request, "Las contraseñas no coinciden")
+        if not(bool(ob)):
+            messages.error(request, "Digite un DUI valido")
+        return render(request, 'Cliente/registrarUsuario.html')

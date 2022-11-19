@@ -15,4 +15,7 @@ urlpatterns = [
     #Mis Compras
     path('misCompras', views.misCompras, name = "misCompras"),
     path('detalledemiCompra/<id>', views.detalledemiCompra, name = "detalledemiCompra"),
+    #------------
+    path('registrarse/', views.registrarse),
+    path('registrarUsuario', views.regisUsuario,)
 ]

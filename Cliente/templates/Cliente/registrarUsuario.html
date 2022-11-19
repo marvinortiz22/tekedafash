@@ -1,0 +1,61 @@
+{% extends 'General/base.html' %}
+{% block title %} Iniciar Sesión {% endblock %}
+{% block content %}
+    {% include 'General/navbar.html' %}
+<br><br><br><br>
+    <div class="px-2">
+        <form action="/registrarUsuario" method="POST">{% csrf_token %}
+            <div class="container-lg p-4" style="background-color: rgb(87, 134, 134); border-radius: 10px;">
+                <h2 class="mb-3 text-center">Registro de usuario</h2>
+                <div class="row">
+                    <div class="text-center"><label for="nombre" class="form-label fw-bold">Nombre</label></div>
+                    <div><input type="text" name="nombre"  class="form-control" required></div>
+                </div>   
+                <di class="row">
+                    <div class="text-center"><label for="apellido" class="form-label fw-bold mt-2">Apellido</label></div>
+                    <div><input type="text" class="form-control" name="apellido" required></div>
+                </di> 
+                <div class="row">
+                    <div class="text-center"><label for="correo" class="form-label fw-bold mt-2">Correo</label></div>
+                    <div><input type="text"  name="correo" class="form-control" required></div>                                            
+                </div>
+                <div class="row">
+                    <div class="text-center"><label for="fechaNacimiento" class="col-form-label fw-bold mt-2">Fecha de nacimiento</label></div>
+                    <div><input type="date" class="form-control" name="fechaNacimiento" required ></div>
+                </div>
+                <div class="row mt-3">
+                    <div class="col-md-6">
+                        <label for="user" class="form-label fw-bold">Nombre de usuario</label>
+                        <div class="input-group">
+                            <div class="input-group-text">@</div>
+                            <input type="text" name="user" class="form-control" id="autoSizingInputGroup" placeholder="Username">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="dui" class="form-label fw-bold">DUI</label>
+                        <input type="text" name="dui" class="form-control" required>
+                    </div>
+                </div>
+                <div class="row mt-3">                    
+                    <div class="col-md-6">
+                        <label for="contraseña" class="form-label fw-bold">Contraseña</label>
+                        <input type="password" name="contraseña"  class="form-control" required>
+                    </div>
+                    <div class="col-md-6">
+                            <label for="contraseña2" class="form-label fw-bold">Repetir Contraseña</label>
+                            <input type="password" name="contraseña2" class="form-control" required>
+                    </div>
+                    {% for message in messages %}
+                    <div class="mt-2 text-center alert alert-danger" role="alert">
+                        {{message}}
+                        </div>
+                    {% endfor %}
+                </div>
+                <div class="row mt-3">
+                    <div class="col"><center><button type="submit" class="btn btn-success btn-block text-white">Registrarse</button></center></div>                        
+                </div>
+            </div>
+        </form>
+    </div>
+
+{% endblock %}
