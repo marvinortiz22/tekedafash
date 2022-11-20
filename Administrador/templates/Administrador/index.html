@@ -14,9 +14,7 @@
         <tr>
           <th scope="row">Administrador</th>
           <td class="text-center">
-            <a
-              href="{%url 'gestionarAdministrador'%}"
-              class="btn btn-success m-1"
+            <a href="{%url 'crearAdmin'%}" class="btn btn-success m-1"
               ><i
                 class="bi bi bi-plus-circle text-white"
                 data-bs-toggle="tooltip"
@@ -47,33 +45,17 @@
                 title="Añadir"
               ></i
             ></a>
-            <a href="{%url 'compras'%}" class="btn btn-warning m-1"
-              ><i
-                class="bi bi bi-pencil-fill text-white"
-                data-bs-toggle="tooltip"
-                data-bs-placement="top"
-                title="Editar"
-              ></i
-            ></a>
           </td>
         </tr>
         <tr>
           <th scope="row">Clientes</th>
           <td class="text-center">
-            <a href="{%url 'gestionarCliente'%}" class="btn btn-success m-1"
+            <a href="{%url 'gestionarCliente'%}" class="btn btn-primary m-1"
               ><i
-                class="bi bi bi-plus-circle text-white"
+                class="bi bi-eye text-white"
                 data-bs-toggle="tooltip"
                 data-bs-placement="top"
-                title="Añadir"
-              ></i
-            ></a>
-            <a href="{%url 'gestionarCliente'%}" class="btn btn-warning m-1"
-              ><i
-                class="bi bi bi-pencil-fill text-white"
-                data-bs-toggle="tooltip"
-                data-bs-placement="top"
-                title="Editar"
+                title="Ver"
               ></i
             ></a>
           </td>
@@ -81,20 +63,12 @@
         <tr>
           <th scope="row">Ventas</th>
           <td class="text-center">
-            <a href="{%url 'ventas'%}" class="btn btn-success m-1"
+            <a href="{%url 'ventas'%}" class="btn btn-primary m-1"
               ><i
-                class="bi bi bi-plus-circle text-white"
+                class="bi bi-eye text-white"
                 data-bs-toggle="tooltip"
                 data-bs-placement="top"
-                title="Añadir"
-              ></i
-            ></a>
-            <a href="{%url 'ventas'%}" class="btn btn-warning m-1"
-              ><i
-                class="bi bi bi-pencil-fill text-white"
-                data-bs-toggle="tooltip"
-                data-bs-placement="top"
-                title="Editar"
+                title="Ver"
               ></i
             ></a>
           </td>
@@ -104,9 +78,8 @@
   </div>
   <div class="col-md-4">
     <div class="text-center px-auto box shadow p-3 bg-white d-none d-lg-block">
-      <div class=" row justify-content-center">
+      <div class="row justify-content-center">
         <div class="col-auto">{{cal|safe}}</div>
-        
       </div>
     </div>
   </div>
