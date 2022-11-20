@@ -1,0 +1,48 @@
+{% extends 'General/base.html' %}
+{% block title %} Productos {% endblock %}
+{% block content %}
+    {% include 'General/navbar.html' %}
+    <br><br>
+    <div class="container" style="padding: 50px;">
+        <h1>{{ prenda.nombre }}</h1><hr>
+        <div class="row">
+            <div class="col-lg-6">
+                <div style="display: flex; justify-content: center;">
+                    <img src="{{ prenda.urlFoto }}" class="card-img" style="width: 500px; height: 500px;" alt="...">
+                  </div>
+            </div>
+            <div class="col-lg-6">
+                <h2 class="col-8 h1 font-weight-light pt-3 pb-2">
+                    <span class="text-primary">${{ prenda.precioVenta }}</span>
+                </h2>
+                <div class="row">
+                    <div class="col-2">
+                        <label class="form-label fw-bold">Cant.</label>
+                        <input class="px-2 form-control" type="number" style="width: 3.2rem;" value="1" required="">
+                    </div>
+                    <div class="col-2">
+                        <label class="form-label fw-bold">Talla</label>
+                        <select class="form-select" aria-label="Default select example">
+                            {% for talla in tallas %}
+                                <option value="1">{{ talla.nombre }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="col-8">
+                        <button class="btn btn-primary btn-block mx-2 mt-3" style="width: 100%;" type="submit">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-shopping-cart mr-2"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>Agregar al Carrito
+                        </button>
+                    </div>
+                    <br><br><br><br><hr>
+                    <div class="card mt-3 mb-3" style="width: 100%;">
+                        <div class="card-body">
+                          <h5 class="card-title fw-bold">Descripción</h5>
+                          <p class="card-text">{{ prenda.descripcion }}</p>
+                        </div>
+                      </div>
+                </div><hr>
+            </div>
+        </div>
+    </div>
+    {% include 'General/footer.html' %}
+{% endblock %}

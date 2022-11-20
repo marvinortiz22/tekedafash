@@ -5,7 +5,7 @@ from django.contrib import messages
 from django.db.models import Sum,F
 from Cliente.decorators import * 
 from .models import *
-from Administrador.models import Usuario, Prenda 
+from Administrador.models import Usuario, Prenda, Talla 
 import re
 
 def index(request):
@@ -74,3 +74,8 @@ def regisUsuario(request):
 def productos(request):
     variable = Prenda.objects.all()
     return render(request, 'Cliente/productos.html', {'objetos': variable})
+
+def detalleProducto(request, id):
+    prenda = Prenda.objects.get(id=id)
+    tallas = Talla.objects.all()
+    return render(request,'Cliente/detalleProducto.html', {'prenda': prenda, 'tallas': tallas})

@@ -19,5 +19,8 @@ urlpatterns = [
     path('registrarse/', views.registrarse),
     path('registrarUsuario', views.regisUsuario,),
     #------------
-    path('productos/', views.productos)
+    path('productos/', views.productos),
+
+    #----------
+    path('productos/detalles/<int:id>', views.detalleProducto)
 ]
