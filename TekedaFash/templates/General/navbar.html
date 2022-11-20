@@ -25,7 +25,7 @@
                 <li class="dropdown"><a href="#"><i class="bi bi-people-fill fs-4"></i> <i class="bi bi-chevron-down dropdown-indicator"></i></a>
                     <ul>
                         {% if user.is_authenticated %}
-                            <li><a href="#">Mi Perfil</a></li>
+                            <li><a href="{% url 'editar perfil' %} ">Mi Perfil</a></li>
                             {% if user.is_staff == 0 %}
                                 <li><a href="{% url 'misCompras' %}">Mis Compras</a></li>
                             {% endif %}

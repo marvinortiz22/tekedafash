@@ -13,6 +13,7 @@ urlpatterns = [
     path('editarAdmin/<id>',views.editarAdmin, name="editarAdmin"),
     path('cambiosAdmin/<id>', views.cambiosAdmin, name="cambiosAdmin"),
     path('crearAdmin',views.crearAdmin, name="crearAdmin"),
-    path('registroAdmin', views.registroAdmin, name="registroAdmin")
+    path('registroAdmin', views.registroAdmin, name="registroAdmin"),
+    path('editarPerfil',views.editarPerfil,name="editar perfil")
 
 ]
