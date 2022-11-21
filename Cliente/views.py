@@ -8,6 +8,8 @@ from .models import *
 from Administrador.models import Usuario, Prenda, Talla 
 import re
 from django.core.paginator import Paginator
+from django.contrib.auth.forms import PasswordChangeForm
+from .forms import PerfilForm
 
 def index(request):
     request.session['carrito'] = []
@@ -88,3 +90,27 @@ def detalleProducto(request, id):
     prenda = Prenda.objects.get(id=id)
     tallas = Talla.objects.all()
     return render(request,'Cliente/detalleProducto.html', {'prenda': prenda, 'tallas': tallas})
+
+
+def editarPerfil(request):
+    if request.method=="POST":
+        form=PerfilForm(request.POST, instance=request.user)
+        if form.is_valid():
+            form.save()
+            return redirect('Perfil')
+    else:
+        form = PerfilForm(instance=request.user)
+    return render(request,'Cliente/editarPerfil.html', {"form":form})
+
+def Perfil(request):
+    return render(request,"Cliente/Perfil.html",{"usuario":request.user})
+
+def cambiarContraseña(request):
+    if request.method=="POST":
+        form =PasswordChangeForm(user=request.user,data=request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('iniciarSesion')
+    else:
+        form =PasswordChangeForm(user=request.user)
+    return render(request,'Cliente/cambiarContraseña.html',{"form":form})

@@ -3,8 +3,6 @@ from Cliente.models import *
 from datetime import date
 from django.db.models import Sum, F
 from Administrador import utils
-from django.contrib.auth.forms import UserChangeForm, UserCreationForm
-from Administrador.forms import *
 
 def index(request):
     mod = []
@@ -128,12 +126,3 @@ def cambiosAdmin(request, id):
     usuario.nacimiento = nacimiento
     usuario.save()
     return redirect('/dashboard/gestionarAdministrador')
-
-def editarPerfil(request):
-    if request=="POST":
-        form=PerfilForm(request.POST, instance=request.user)
-        if form.is_valid():
-            form.save()
-    else:
-        form = PerfilForm(instance=request.user)
-    return render(request,'Administrador/editarPerfil.html', {"form":form})

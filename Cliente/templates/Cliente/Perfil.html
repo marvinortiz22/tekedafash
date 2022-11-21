@@ -1,0 +1,38 @@
+{% extends 'General/baseAdmin.html' %}
+
+
+{% block body %} 
+<h1>Perfil</h1>
+
+<table class="table">
+    <tr>
+        <td>Nombre de usuario: </td>
+        <td>{{usuario.username}} </td>
+    </tr>
+    <tr>
+        <td>Nombres: </td>
+        <td>{{usuario.first_name}} </td>
+    </tr>
+    <tr>
+        <td>Apellidos: </td>
+        <td>{{usuario.last_name}} </td>
+    </tr>
+    <tr>
+        <td>Correo electrónico: </td>
+        <td>{{usuario.email}} </td>
+    </tr>
+    <tr>
+        <td>DUI: </td>
+        <td>{{usuario.documento}} </td>
+    </tr>
+    <tr>
+        <td>Fecha de nacimiento: </td>
+        <td>{{usuario.nacimiento}} </td>
+    </tr>
+    </table>
+    <div class="d-flex justify-content-center">
+ <a href="{% url 'editar perfil' %} "><div class="btn btn-success">Editar perfil</div></a>
+ <a href="{% url 'cambiar contraseña' %} "><div class="btn btn-primary">Cambiar contraseña</div></a>
+</div>
+
+{% endblock %}

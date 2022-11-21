@@ -22,5 +22,9 @@ urlpatterns = [
     path('productos/', views.productos),
 
     #----------
-    path('productos/detalles/<int:id>', views.detalleProducto)
+    path('productos/detalles/<int:id>', views.detalleProducto),
+    #----------
+    path('editarPerfil',views.editarPerfil,name="editar perfil"),
+    path('Perfil/',views.Perfil,name="Perfil"),
+    path('cambiarContraseña/',views.cambiarContraseña,name="cambiar contraseña"),
 ]
