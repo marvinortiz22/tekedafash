@@ -7,6 +7,7 @@ from Cliente.decorators import *
 from .models import *
 from Administrador.models import Usuario, Prenda, Talla 
 import re
+from django.core.paginator import Paginator
 
 def index(request):
     request.session['carrito'] = []
@@ -72,8 +73,16 @@ def regisUsuario(request):
         return render(request, 'Cliente/registrarUsuario.html')
 
 def productos(request):
-    variable = Prenda.objects.all()
-    return render(request, 'Cliente/productos.html', {'objetos': variable})
+    products = Prenda.objects.all()
+    paginator = Paginator(products, 6)
+    page = request.GET.get('page')
+    paged_products = paginator.get_page(page)
+    product_count = products.count()
+    context = {
+        'products': paged_products,
+        'product_count': product_count,
+    }
+    return render(request, 'Cliente/productos.html', context)
 
 def detalleProducto(request, id):
     prenda = Prenda.objects.get(id=id)
