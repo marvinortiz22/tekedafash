@@ -1,19 +1,21 @@
-{% extends 'General/baseAdmin.html' %}
-{% block body %} 
+{% extends 'General/baseAdmin.html' %} {% block body %}
 <style>
-    .errorlist li {
-  background-color: #f44336;
-  color: white;
-}
+  .errorlist li {
+    background-color: #f44336;
+    color: white;
+  }
 </style>
-<h1>Cambiar contraseña</h1>
+<h2>Cambiar contraseña</h2>
+<br>
 <div class="d-flex justify-content-center">
-<form action="" method="POST">
+  <form action="" method="POST">
     {% csrf_token %}
     <table>
-        {{form.as_table}}
+      {{form.as_p}}
     </table>
-    <button type="submit" class="btn btn-success">Guardar</button>
-</form>
+    <div class="pt-2 text-center">
+        <button type="submit" class="btn btn-success">Guardar</button>
+    </div>
+  </form>
 </div>
 {% endblock %}
