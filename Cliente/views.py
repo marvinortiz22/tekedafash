@@ -103,7 +103,11 @@ def editarPerfil(request):
     return render(request,'Cliente/editarPerfil.html', {"form":form})
 
 def Perfil(request):
-    return render(request,"Cliente/Perfil.html",{"usuario":request.user})
+    if request.user.is_staff == 1:
+        template = "General/baseAdmin.html"
+    else:
+        template = "General/base.html"
+    return render(request,"Cliente/Perfil.html",{"usuario":request.user,"base_template_name":template})
 
 def cambiarContraseña(request):
     if request.method=="POST":

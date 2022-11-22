@@ -23,8 +23,7 @@ def buildLabel():
     mes = 1
     data = []
     for x in range(11):
-        mod = Orden.objects.filter(fecha__range=[date(
-            date.today().year, mes, 1), date(date.today().year, mes+1, 1)]).count()
+        mod = Orden.objects.filter(fecha__year = date.today().year, fecha__month=mes).count()
         data.append(mod)
         mes += 1
     return data

@@ -1,6 +1,7 @@
 {% extends 'General/baseAdmin.html' %} {% block title %} Inicio {% endblock %}
 {% block body %}
-<h1>Bienvenido</h1>
+<h1>Bienvenido {{user.first_name}} {{user.last_name}}</h1>
+<hr class="mb-4">
 <div class="row">
   <div class="col-md-8 table-responsive table-bordered">
     <table class="table align-middle">

@@ -1,5 +1,5 @@
 {% extends 'General/baseAdmin.html' %}
-{% block title %} Inicio {% endblock %}
+{% block title %} Gestionar Producto {% endblock %}
 
 {% block body %} 
     <div class="row">
@@ -8,8 +8,8 @@
         </div>
         <div class="col-md-3">
             <div class="d-grid">
-                <button class="btn btn-secondary rounded-pill" type="button">Agregar <i class="px-2 bi bi-plus-circle"></i></button>
-              </div>
+                <a class="btn btn-secondary rounded-pill" href="{% url 'agregarProducto' %}">Agregar <i class="px-2 bi bi-plus-circle"></i></a>
+            </div>
         </div>
     </div>
     <div class="row">

@@ -8,8 +8,7 @@ def index(request):
     mod = []
     calCurrent = utils.buildCalendar(date.today())
     currentYear = date.today().year
-    label = Orden.objects.filter(fecha__range=(
-        date(currentYear, 1, 1), date(currentYear, 12, 31)))
+    label = Orden.objects.filter(fecha__year= currentYear)
     mod.extend(utils.buildLabel())
     return render(request, 'Administrador/index.html', {"cal": calCurrent, "fechas": label, "año": currentYear, "mod": mod})
 
@@ -17,6 +16,8 @@ def index(request):
 def gestionarProducto(request):
     return render(request, 'Administrador/gestionarProducto.html')
 
+def agregarProducto(request):
+    return render(request, 'Administrador/agregarProducto.html')
 
 def gestionarCliente(request):
     usuarios = Usuario.objects.filter(is_staff=0).exclude(is_superuser=1)
