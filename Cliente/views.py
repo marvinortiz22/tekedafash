@@ -15,6 +15,10 @@ def index(request):
     request.session['carrito'] = []
     return render(request, 'Cliente/index.html')
 
+
+def miCarrito(request):
+    return render(request, 'Cliente/carritoCompras.html')
+
 @usuarioAutenticado
 def iniciarSesion(request):
     if request.method == 'POST':

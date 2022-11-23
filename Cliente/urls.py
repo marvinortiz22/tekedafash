@@ -15,14 +15,15 @@ urlpatterns = [
     #Mis Compras
     path('misCompras', views.misCompras, name = "misCompras"),
     path('detalledemiCompra/<id>', views.detalledemiCompra, name = "detalledemiCompra"),
-    #------------
+    
+    #Registro
     path('registrarse/', views.registrarse),
     path('registrarUsuario', views.regisUsuario,),
-    #------------
+    
+    #Productos
     path('productos/', views.productos),
-
-    #----------
     path('productos/detalles/<int:id>', views.detalleProducto),
+    path('miCarrito', views.miCarrito, name = "carrito"),
     #----------
     path('editarPerfil',views.editarPerfil,name="editar perfil"),
     path('Perfil/',views.Perfil,name="Perfil"),

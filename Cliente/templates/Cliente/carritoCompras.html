@@ -1,0 +1,52 @@
+{% extends 'General/base.html' %}
+{% block title %} Mi Carrito {% endblock %}
+
+{% block content %}
+    {% include 'General/navbar.html' %}
+    <div class = "container">
+        <div class = "p-3 d-flex justify-content-evenly shadow-sm bg-body rounded" id = "carrito-resumen">
+            <div class = "col-auto">
+                <h5>Productos: <span class="badge bg-primary">2</span></h5>
+            </div>
+            <div class = "col-auto">
+                <h5>Total: <span class="badge bg-success">$60.00</span></h5>
+            </div>
+            <div class = "col-auto">
+                <button type="button" class="btn btn-primary" style = "">Realizar pago</button>
+            </div>
+        </div>
+        <div class = "my-4 p-4 d-flex justify-content-evenly shadow bg-body rounded">
+            <table class="table table-borderless caption-top">
+                <caption>Productos en mi carrito</caption>
+                <thead id = "encabezado-carrito">
+                    <tr>
+                        <th>⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀</th>
+                        <th>Producto</th>
+                        <th>Precio</th>
+                        <th>Cantidad</th>
+                        <th>Subtotal</th>
+                        <th>⠀⠀</th>
+
+                    </tr>
+                </thead>
+                <tbody id  ="detalle-carrito" class="align-middle">
+                    <tr>
+                        <td>
+                            <img src="https://siman.vtexassets.com/arquivos/ids/3605753-800-800?v=638032729036070000&width=800&height=800&aspect=true" class="card-img-top" alt="..." id = "foto-producto">
+                        </td>
+                        <td>Camisa hombre</td>
+                        <td><span class="badge bg-success">$30.00</span></td>
+                        <td><span class="badge bg-primary">2</span></td>
+                        <td><span class="badge bg-success">$60.00</span></td>
+                        <td>
+                            <a href="" class="btn btn-danger btn-sm"><i class="bi bi-x-lg"></i></a>
+                        </td>
+                    </tr>
+               </tbody>
+            </table>
+
+        </div>
+    </div>
+    </section>
+    {% include 'General/footer.html' %}
+{% endblock %}
