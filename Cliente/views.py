@@ -1,5 +1,6 @@
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.hashers import make_password
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from django.db.models import Sum, F
@@ -78,9 +79,10 @@ def regisUsuario(request):
     expr = re.compile('\d{9}')
     ob = expr.match(dui)
     if (contra == contra2 and ob):
-        nueuser = Usuario.objects.create(password=contra, username=user, first_name=nombre,
+        nueuser = Usuario.objects.create(password=make_password(contra,None,'pbkdf2_sha256'), username=user, first_name=nombre,
                                          last_name=apellido, email=correo, nacimiento=fechaNaci, documento=dui)
-        return redirect('inicio')
+        login(request, nueuser)
+        return redirect('/')
     else:
         if(contra != contra2):
             messages.error(request, "Las contraseñas no coinciden")
