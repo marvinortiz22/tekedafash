@@ -1920,7 +1920,8 @@ section {
 .contact .form input[type=file],
 .contact .form input[type=password],
 .contact .form textarea,
-.contact .form select {
+.contact .form select,
+.form-search {
   border-radius: 0;
   box-shadow: none;
   font-size: 14px;
@@ -1934,7 +1935,8 @@ section {
 .contact .form input[type=file],
 .contact .form input[type=password],
 .contact .form select,
-.contact .form textarea {
+.contact .form textarea,
+.form-search {
   padding: 12px 15px;
 }
 
@@ -1944,7 +1946,8 @@ section {
 .contact .form input[type=date]:focus,
 .contact .form input[type=file]:focus,
 .contact .form input[type=password]:focus,
-.contact .form textarea:focus {
+.contact .form textarea:focus,
+.form-search:focus {
   border-color: var(--color-primary);
 }
 
