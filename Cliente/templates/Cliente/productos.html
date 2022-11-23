@@ -2,24 +2,24 @@
 {% block title %} Productos {% endblock %}
 {% block content %}
     {% include 'General/navbar.html' %}
-    <div class="container" style="margin-top: 80px;">
+    <div class="container mt-10" data-aos="fade-up">
         <h2 class="h1 font-weight-light pt-3 pb-2">
             Productos<span class="lead text-muted mx-4"><b>{{ product_count }}</b> productos</span><hr>
         </h2>
             <div class="row">
                 {% if products %}
                     {% for product in products %}
-                        <div class="col-lg-4">
+                        <div class="col-md-6 col-lg-4">
                             <figure class="card card-product-grid">
                                 <div class="img-wrap mt-2">                
                                     <div style="display: flex; justify-content: center;"><a href="{{ product.urlFoto }}" data-gallery="portfolio-gallery-app" class="glightbox"><img src="{{ product.urlFoto }}" class="img-fluid" style="width: 200px; height: 200px;" alt=""></a></div>                
                                 </div>
                                 <figcaption class="info-wrap">
                                     <h4 class="text-center mt-2">{{ product.nombre }}</h4>
-                                    <center><h4>${{ product.precioVenta }}</h4></center>
-                                            <div style="display: flex; justify-content: center; margin-bottom: 10px;">
-                                                <a href="detalles/{{ product.id }}" class="btn btn-primary">Detalles</a>
-                                            </div>                                
+                                    <h4 class="text-center">${{ product.precioVenta| floatformat:2 }}</h4>
+                                    <div style="display: flex; justify-content: center; margin-bottom: 10px;">
+                                        <a href="detalles/{{ product.id }}" class="btn btn-primary">Detalles</a>
+                                    </div>                                
                                 </figcaption>
                             </figure>
                         </div>

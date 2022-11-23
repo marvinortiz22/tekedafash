@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from Cliente.models import *
 from datetime import date
 from django.db.models import Sum, F
+from django.contrib.auth.hashers import make_password
 from Administrador import utils
 
 def index(request):
@@ -88,7 +89,7 @@ def registroAdmin(request):
     nacimiento = request.POST['nacimiento']
 
     usuario = Usuario.objects.create(
-        username=nombreUsuario, password=contrasena, first_name=nombre, last_name=apellido, email=email, documento=dui, nacimiento=nacimiento, is_staff=1
+        username=nombreUsuario, password=make_password(contrasena,None,'pbkdf2_sha256'), first_name=nombre, last_name=apellido, email=email, documento=dui, nacimiento=nacimiento, is_staff=1
     )
     return redirect('/dashboard/gestionarAdministrador')
 

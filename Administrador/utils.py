@@ -1,6 +1,7 @@
-from calendar import HTMLCalendar
 import calendar
-from datetime import date
+from datetime import datetime
+import pytz;
+
 from Cliente.models import *
 
 
@@ -22,8 +23,14 @@ def buildCalendar(fecha_actual):
 def buildLabel():
     mes = 1
     data = []
-    for x in range(11):
-        mod = Orden.objects.filter(fecha__year = date.today().year, fecha__month=mes).count()
+    anio = datetime.now().year
+    for x in range(12):    
+        inicio = pytz.UTC.localize(datetime(anio, mes, 1, 0, 0, 00, 00000))
+        if mes == 12:
+            fin = pytz.UTC.localize(datetime(anio + 1, 1, 1, 0, 0, 00, 00000))
+        else: 
+            fin = pytz.UTC.localize(datetime(anio, mes + 1, 1, 0, 0, 00, 00000))
+        mod = Orden.objects.filter(fecha__range=[inicio, fin]).count()
         data.append(mod)
         mes += 1
     return data

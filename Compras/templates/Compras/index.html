@@ -2,79 +2,66 @@
 {% block title %} Registro de compras {% endblock %}
 
 {% block body %} 
-<div class="row">
-    <div class="col-12">
-        <h1>Registrar compras</h1>   
-    </div>
-    <form action="{% url 'agregarCompra'%}" method="POST">
-    {% csrf_token %}
-    <div class="col-12">
-        <div class="card mt-3">
-            <div class="card-header">
-                Información de existencia
-            </div>
-            <div class="card-body">
-                <div class="row">
-                    <div class="col-12">
-                        <div class="mb-3 row">
-                            <label for="staticEmail" class="col-sm-3 col-xl-2 col-form-label">Nombre:</label>
-                            <div class="col-sm-9 col-xl-10">
-                                <select class="form-select" id="nombre-prenda" name="id-prenda">
-                                <option selected disabled>Seleccione una prenda</option>
-                                {% for p in Prendas %}
-                                <option value="{{p.id}}">{{p.nombre}}</option>
-                                {% endfor %}
-                                </select>
-                            </div>
-                        </div>
-                    </div>
+    <div class="row">
+        <section id="contact" class="contact">
+            <div class="container" >
+                <div class="col-12 mb-4">
+                    <h1>Registrar compra</h1>
                 </div>
-                <div class="row" id="existencias-row" hidden>
-                    <div class="col-xs-12">
-                        <div class="col-12">
-                            <div class="mb-3 row">
-                                <label for="staticEmail" class="col-sm-3 col-xl-2">Existencia:</label>
-                                <div class="col-sm-9 col-xl-10">
-                                    <div class="row" id="existencias-content">
-                                        
+                <div class="row gx-lg-0 gy-4 p-2">
+                    <div class="col-12">
+                        <form action="{% url 'agregarCompra'%}" method="post" role="form" class="form">
+                            {% csrf_token %}
+                            <div class="col-12 mb-4">
+                                <h3>Información de existencia</h3>
+                                <hr>
+                            </div>
+                            <div class="row mb-2">
+                                <div class="col-md-12 form-group">
+                                    <select class="form-select" id="nombre-prenda" name="id-prenda">
+                                        <option selected disabled>Seleccione una prenda</option>
+                                        {% for p in Prendas %}
+                                        <option value="{{p.id}}">{{p.nombre}}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row" id="existencias-row" hidden>
+                                <div class="col-xs-12">
+                                    <div class="col-12">
+                                        <div class="mb-3 row">
+                                            <label for="staticEmail" class="col-sm-3 col-xl-2">Existencia:</label>
+                                            <div class="col-sm-9 col-xl-10">
+                                                <div class="row" id="existencias-content">
+                                                    
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                            <div class="col-12 mt-4" id="form-content" hidden>    
+                                <h3>Aumento de existencia</h3>
+                                <hr>
+                                <div class="mb-3 row">
+                                    <label for="staticEmail" class="col-sm-3 col-xl-2 col-form-label">Existencia:</label>
+                                    <div class="col-sm-9 col-xl-10">
+                                        <div class="row" id="existencias-form">
+        
+                                        </div>                                
+                                    </div>
+                                </div>
+                                <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-4">
+                                    <a class="btn-cancel text-center" href="{% url 'dashboard' %}">Cancelar</a>
+                                    <button class="d-sm-block" type="submit">Guardar</button>
+                                </div>
+                            </div>    
+                        </form>
                     </div>
                 </div>
             </div>
-        </div>
+        </section>
     </div>
-    <div class="col-12 mt-4" id="form-content" hidden>    
-        <div class="card">
-            <div class="card-header">
-                Aumento de existencia
-            </div>
-            <div class="card-body">
-                <div class="row">
-                <div class="col-xs-12">
-                    <div class="col-12">
-                        <div class="mb-3 row">
-                            <label for="staticEmail" class="col-sm-3 col-xl-2 col-form-label">Existencia:</label>
-                            <div class="col-sm-9 col-xl-10">
-                                <div class="row" id="existencias-form">
-
-                                </div>                                
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                </div>
-            </div>
-        </div>
-        <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-4">
-            <a type="button" class="btn btn-secondary" href="{% url 'dashboard' %}">Cancelar</a>
-            <button type="submit" class="btn btn-primary">Guardar</button>
-        </div>           
-    </div>
-    </form>
-</div>
 {% endblock %}
 {% block js %}
 <script>

@@ -1,61 +1,60 @@
 {% extends 'General/base.html' %}
-{% block title %} Iniciar Sesión {% endblock %}
+{% block title %} Registrate {% endblock %}
 {% block content %}
-    {% include 'General/navbar.html' %}
-<br><br><br><br>
-    <div class="px-2 mb-3">
-        <form action="/registrarUsuario" method="POST">{% csrf_token %}
-            <div class="container-lg p-4" style="background-color: rgb(87, 134, 134); border-radius: 10px;">
-                <h2 class="mb-3 text-center">Registro de usuario</h2>
-                <div class="row">
-                    <div class="text-center"><label for="nombre" class="form-label fw-bold">Nombre</label></div>
-                    <div><input type="text" name="nombre"  class="form-control" required></div>
-                </div>   
-                <di class="row">
-                    <div class="text-center"><label for="apellido" class="form-label fw-bold mt-2">Apellido</label></div>
-                    <div><input type="text" class="form-control" name="apellido" required></div>
-                </di> 
-                <div class="row">
-                    <div class="text-center"><label for="correo" class="form-label fw-bold mt-2">Correo</label></div>
-                    <div><input type="text"  name="correo" class="form-control" required></div>                                            
-                </div>
-                <div class="row">
-                    <div class="text-center"><label for="fechaNacimiento" class="col-form-label fw-bold mt-2">Fecha de nacimiento</label></div>
-                    <div><input type="date" class="form-control" name="fechaNacimiento" required ></div>
-                </div>
-                <div class="row mt-3">
-                    <div class="col-md-6">
-                        <label for="user" class="form-label fw-bold">Nombre de usuario</label>
-                        <div class="input-group">
-                            <div class="input-group-text">@</div>
-                            <input type="text" name="user" class="form-control" id="autoSizingInputGroup" placeholder="Username">
+{% include 'General/navbar.html' %}
+<section id="contact" class="contact pt-5 mb-sm-4 min-vh-100">
+    <div class="container" data-aos="fade-up">
+        <div class="section-header">
+            <h2>Registra tu cuenta</h2>
+            <p>Crear una cuenta tiene muchos beneficios ¡Descúbrelos!</p>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <form action="/registrarUsuario" method="post" role="form" class="form">
+                    {% csrf_token %}
+                    <div class="row mb-2">
+                        <div class="col-md-6 form-group">
+                            <input type="text" class="form-control" name="nombre" id="name" placeholder="Nombre" required>
+                        </div>
+                        <div class="col-md-6 form-group mt-3 mt-md-0">
+                            <input type="text" class="form-control" name="apellido" id="email" placeholder="Apellido" required>
                         </div>
                     </div>
-                    <div class="col-md-6">
-                        <label for="dui" class="form-label fw-bold">DUI</label>
-                        <input type="text" name="dui" class="form-control" required>
+                    <div class="row mb-2">
+                        <div class="col-md-6 form-group">
+                            <input type="email" class="form-control" name="correo" id="name" placeholder="Correo electrónico" required>
+                        </div>
+                        <div class="col-md-6 form-group mt-3 mt-md-0">
+                            <input type="date" class="form-control" name="fechaNacimiento" id="email" placeholder="Fecha de nacimiento" required>
+                        </div>
                     </div>
-                </div>
-                <div class="row mt-3">                    
-                    <div class="col-md-6">
-                        <label for="contraseña" class="form-label fw-bold">Contraseña</label>
-                        <input type="password" name="contraseña"  class="form-control" required>
+                    <div class="row mb-2">
+                        <div class="col-md-6 form-group">
+                            <input type="text" class="form-control" name="dui" id="name" placeholder="DUI" required>
+                        </div>
+                        <div class="col-md-6 form-group mt-3 mt-md-0">
+                            <input type="text" class="form-control" name="user" id="email" placeholder="Nombre de usuario" required>
+                        </div>
                     </div>
-                    <div class="col-md-6">
-                            <label for="contraseña2" class="form-label fw-bold">Repetir Contraseña</label>
-                            <input type="password" name="contraseña2" class="form-control" required>
+                    <div class="row mb-2">
+                        <div class="col-md-6 form-group">
+                            <input type="password" class="form-control" name="contraseña" id="name" placeholder="Contraseña" required>
+                        </div>
+                        <div class="col-md-6 form-group mt-3 mt-md-0">
+                            <input type="password" class="form-control" name="contraseña2" id="email" placeholder="Confirmar contraseña" required>
+                        </div>
                     </div>
                     {% for message in messages %}
-                    <div class="mt-2 text-center alert alert-danger" role="alert">
-                        {{message}}
+                        <div class="mt-2 text-center alert alert-danger alert-dismissible fade show" role="alert">
+                            {{message}}
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                         </div>
                     {% endfor %}
-                </div>
-                <div class="row mt-3">
-                    <div class="col"><center><button type="submit" class="btn btn-success btn-block text-white">Registrarse</button></center></div>                        
-                </div>
+                    <div class="text-center"><button type="submit">Registrate</button></div>
+                </form>
             </div>
-        </form>
+        </div>
     </div>
-    {% include 'General/footer.html' %}
+</section>
+{% include 'General/footer.html' %}
 {% endblock %}

@@ -5,8 +5,8 @@
     {% include 'General/navbar.html' %}
     <div class="container-fluid">
         <div class="row flex-nowrap">
-            <div class="col-auto col-md-3 col-xl-2 px-sm-2 px-0 bg-color-2">
-                <div class="d-flex flex-column align-items-center align-items-sm-start px-3 pt-2 text-white min-vh-100 nav-vertical">
+            <div class="col-auto col-md-3 col-xl-2 px-sm-2 px-0 bg-color-2 aside">
+                <div class="d-flex flex-column align-items-center align-items-sm-start px-3 pt-2 text-white min-vh-100 nav-vertical accordion" id="sidebar-accordion">
                     <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start">
                         <li class="nav-item">
                             <a href="{% url 'dashboard' %}" class="nav-link align-middle px-0">
@@ -46,8 +46,8 @@
                     </ul>
                 </div>
             </div>
-            <div class="col-10 p-4">
-                <div class="container-fluid">
+            <div class="col-10 p-4 contenido">
+                <div class="container-fluid mx-sm-5 mx-md-3" data-aos="fade-up">
                     {% block body %} 
 
                     {% endblock %} 

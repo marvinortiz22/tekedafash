@@ -62,7 +62,7 @@ def regisUsuario(request):
     contra = request.POST['contraseña']
     contra2 = request.POST['contraseña2']
     user = request.POST['user']
-    expr = re.compile('\d{8}-\d')
+    expr = re.compile('\d{9}')
     ob = expr.match(dui)
     if (contra == contra2 and ob):
         nueuser = Usuario.objects.create(password = contra, username = user, first_name = nombre, last_name = apellido, email = correo, nacimiento = fechaNaci, documento = dui)
@@ -100,14 +100,18 @@ def editarPerfil(request):
             return redirect('Perfil')
     else:
         form = PerfilForm(instance=request.user)
-    return render(request,'Cliente/editarPerfil.html', {"form":form})
+        if request.user.is_staff == 1:
+            template = "Administrador/editarPerfil.html"
+        else:
+            template = "Cliente/editarPerfil.html"
+        return render(request,template, {"form":form})
 
 def Perfil(request):
     if request.user.is_staff == 1:
-        template = "General/baseAdmin.html"
+        template = "Administrador/Perfil.html"
     else:
-        template = "General/base.html"
-    return render(request,"Cliente/Perfil.html",{"usuario":request.user,"base_template_name":template})
+        template = "Cliente/Perfil.html"
+    return render(request,template,{"usuario":request.user})
 
 def cambiarContraseña(request):
     if request.method=="POST":

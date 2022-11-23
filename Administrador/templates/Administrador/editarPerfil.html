@@ -1,0 +1,53 @@
+{% extends 'General/baseAdmin.html' %}
+{% block title %} Edición de perfil {% endblock %}
+
+{% block body %}
+<section id="contact" class="contact">
+    <div class="container" data-aos="fade-up">
+        <div class="row">
+            <div class="col-12 mb-4">
+                <h1>Editar Perfil</h1>
+            </div>
+            <div class="col-12">
+                <form method="post" role="form" class="form">
+                    {% csrf_token %}
+                    <div class="row mb-2">
+                        <div class="col-md-6 form-group">
+                            {{form.first_name}}
+                        </div>
+                        <div class="col-md-6 form-group mt-3 mt-md-0">
+                            {{form.last_name}}
+                        </div>
+                    </div>
+                    <div class="row mb-2">
+                        <div class="col-md-6 form-group">
+                            {{form.email}}
+                        </div>
+                        <div class="col-md-6 form-group mt-3 mt-md-0">
+                            {{form.nacimiento}}
+                        </div>
+                    </div>
+                    <div class="row mb-2">
+                        <div class="col-md-6 form-group">
+                            {{form.documento}}
+                        </div>
+                        <div class="col-md-6 form-group mt-3 mt-md-0">
+                            {{form.username}}
+                        </div>
+                    </div>
+                    {% for message in messages %}
+                        <div class="mt-2 text-center alert alert-danger alert-dismissible fade show" role="alert">
+                            {{message}}
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    {% endfor %}
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-4">
+                        <a class="btn-cancel text-center" href="{% url 'Perfil' %}">Cancelar</a>
+                        <button class="d-sm-block" type="submit">Guardar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

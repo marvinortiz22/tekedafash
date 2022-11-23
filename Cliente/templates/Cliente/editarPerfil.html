@@ -1,17 +1,17 @@
-{% extends 'General/baseAdmin.html' %}
-{% block title %} Edicion de staff {% endblock %}
+{% extends 'General/base.html' %}
+{% block title %} Edición de perfil {% endblock %}
 
-{% block body %} 
-<style>
-    .errorlist li {
-  background-color: #f44336;
-  color: white;
-}
-</style>
+{% block content %} 
+    {% include 'General/navbar.html' %}
+    <style>
+        .errorlist li {
+            background-color: #f44336;
+            color: white;
+        }
+    </style>
 <h1>Editar Perfil</h1>
-<br>
 <div class="d-flex justify-content-center">
-    <form action="" method="POST">
+    <form method="POST">
         {% csrf_token %}
         <table>
             {{form.as_p}}
