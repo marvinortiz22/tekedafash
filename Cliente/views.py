@@ -90,7 +90,7 @@ def regisUsuario(request):
 
 
 def productos(request):
-    products = Prenda.objects.all()
+    products = Prenda.objects.all().exclude(visibilidad = 0)
     paginator = Paginator(products, 6)
     page = request.GET.get('page')
     paged_products = paginator.get_page(page)
@@ -104,7 +104,7 @@ def productos(request):
 
 def detalleProducto(request, id):
     prenda = Prenda.objects.get(id=id)
-    tallas = Talla.objects.all()
+    tallas = Inventario.objects.filter(prenda_id = id).values('id','talla__nombre').exclude(cantidad = 0) 
     return render(request, 'Cliente/detalleProducto.html', {'prenda': prenda, 'tallas': tallas})
 
 

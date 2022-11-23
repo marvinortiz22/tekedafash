@@ -1,9 +1,12 @@
-{% extends 'General/base.html' %} {% load static %} {% block title %} Inicio
-{%endblock %} {% block content %} {% include 'General/navbar.html' %}
-<div style="overflow: hidden">
+{% extends 'General/base.html' %} 
+{% load static %} 
+{% block title %} ¿Quienes somos?{%endblock %} 
+{% block content %} 
+  {% include 'General/navbar.html' %}
+<div style="overflow: hidden" data-aos="fade-up">
   <img style="z-index:-1" class="img-fluid position-absolute" src="static\images\modaHolder.jpeg" />
   <div style="height:40vw" class="container align-middle text-center pt-5">
-    <div style="letter-spacing: 0.5rem;font-size:8vw;background-color: #008374" class=" display-2 fw-bold text-white">TekedaFash<span style="color:#f85a40">.</span>
+    <div style="letter-spacing: 0.5rem;font-family:Montserrat, sans-serif;font-size:8vw;background-color: #008374" class="display-2 fw-bold text-white">TekedaFash<span style="color:#f85a40">.</span>
       <p style="font-size:3vw" class="lead fw-bold text-white pb-4">Líderes en moda salvadoreña</p>
     </div>
     

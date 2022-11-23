@@ -1,9 +1,11 @@
 from django.shortcuts import render, redirect, get_object_or_404
+from django.http import JsonResponse
 from Cliente.models import *
 from datetime import date
 from django.db.models import Sum, F
 from django.contrib.auth.hashers import make_password
 from Administrador import utils
+from .models import *
 
 def index(request):
     mod = []
@@ -15,10 +17,46 @@ def index(request):
 
 
 def gestionarProducto(request):
-    return render(request, 'Administrador/gestionarProducto.html')
+    prenda = Inventario.objects.values("prenda_id","prenda__nombre","prenda__urlFoto","prenda__descripcion","prenda__visibilidad").annotate(existencia=Sum('cantidad'))
+    return render(request, 'Administrador/gestionarProducto.html',{
+        "prendas": prenda
+    })
 
 def agregarProducto(request):
-    return render(request, 'Administrador/agregarProducto.html')
+    if request.method == "POST":
+        nombre = request.POST['nombre']
+        descripcion = request.POST['descripcion']
+        costo = request.POST['costo']
+        precioVenta = request.POST['precio']
+        visibilidad = 1
+        if 'visibilidad' not in request.POST:
+            visibilidad = 0
+        urlFoto = "https://http2.mlstatic.com/D_NQ_NP_925651-MLM45142790080_032021-W.jpg"
+        tipoPrenda = request.POST['tipo-prenda']
+        prenda = Prenda.objects.create(nombre = nombre,descripcion = descripcion,costo = costo,precioVenta = precioVenta,visibilidad = visibilidad,urlFoto = urlFoto,tipoPrenda_id = tipoPrenda)
+        tallas = Talla.objects.filter(tipoPrenda_id = tipoPrenda)
+        for t in tallas:
+            Inventario.objects.create(prenda=prenda,talla_id = t.id,cantidad = request.POST['talla-' + str(t.id)])
+        return redirect("gestionarProducto")
+    else:
+        return render(request, 'Administrador/agregarProducto.html',{
+            "tipoPrenda": TipoPrenda.objects.all() 
+        })
+
+def obtenerTallas(request):
+    if request.method == 'GET':
+        tallas = Talla.objects.filter(tipoPrenda_id = request.GET['id'])
+        data = []
+        for talla in tallas:
+            data.append({"nombre":talla.nombre,"id":talla.id})
+        return JsonResponse(data={'data':data})
+    return JsonResponse(status=400)    
+
+def cambiarVisibilidad(request,id):
+    prenda = Prenda.objects.get(id = id)
+    prenda.visibilidad = not prenda.visibilidad
+    prenda.save()
+    return redirect('gestionarProducto')
 
 def gestionarCliente(request):
     usuarios = Usuario.objects.filter(is_staff=0).exclude(is_superuser=1)
@@ -51,12 +89,7 @@ def detalleOrdenCliente(request, id):
 
 def editarClienteActivo(request, id):
     usuario = Usuario.objects.get(id=id)
-
-    if usuario.is_active:
-        usuario.is_active = 0
-    else:
-        usuario.is_active = 1
-
+    usuario.is_active = not usuario.is_active
     usuario.save()
     return redirect('gestionarCliente')
 
