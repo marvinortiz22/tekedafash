@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 08-11-2022 a las 19:25:17
+-- Tiempo de generación: 24-11-2022 a las 00:12:02
 -- Versión del servidor: 10.4.21-MariaDB
 -- Versión de PHP: 8.0.10
 
@@ -48,8 +48,9 @@ CREATE TABLE `administrador_usuario` (
 --
 
 INSERT INTO `administrador_usuario` (`id`, `password`, `last_login`, `is_superuser`, `username`, `first_name`, `last_name`, `email`, `is_staff`, `is_active`, `date_joined`, `documento`, `nacimiento`) VALUES
-(1, 'pbkdf2_sha256$320000$y6yKj0ypErikGyDQY0WsmV$BYbUHSW5sSyDbygwI33qqXH6Ab7kKG7AvieJCpnCDDU=', '2022-11-08 17:59:50.529919', 1, 'Kevin', 'Kevin', 'Agreda', 'kevin.ale24@gmail.com', 0, 1, '2022-11-08 16:52:30.442468', '012345678', '2000-11-07'),
-(2, 'pbkdf2_sha256$320000$BRiXKQccNxgnie7ZG7rsEa$Apg5Hy/n/WOa+VtkRI0rBjsr+3fS7B3oWbpq1Ojs9sA=', NULL, 1, 'Gerardo', 'Gerardo', 'Navarro', 'prueba@gmail.com', 1, 1, '2022-11-08 18:24:02.605021', '012345679', '2001-11-01');
+(1, 'pbkdf2_sha256$320000$y6yKj0ypErikGyDQY0WsmV$BYbUHSW5sSyDbygwI33qqXH6Ab7kKG7AvieJCpnCDDU=', '2022-11-23 22:54:55.007869', 0, 'Kevin', 'Kevin', 'Agreda', 'kevin.ale24@gmail.com', 0, 1, '2022-11-08 16:52:30.442468', '012', '2222-02-22'),
+(2, 'pbkdf2_sha256$320000$BRiXKQccNxgnie7ZG7rsEa$Apg5Hy/n/WOa+VtkRI0rBjsr+3fS7B3oWbpq1Ojs9sA=', '2022-11-23 23:08:12.256987', 1, 'Gerardo', 'Gerardo Ernesto', 'Navarro Gochez', 'prueba@gmail.com', 1, 1, '2022-11-08 18:24:02.605021', '012345234', '2000-01-04'),
+(8, 'pbkdf2_sha256$320000$QsGXhbVP67Ni6pRKz2mCV8$fpP+WVUYg90MAethhXYgQKZIwwc4wZ41ImbjdDWHrkc=', '2022-11-22 01:20:44.093889', 0, 'Kevin2', 'Kevin', 'Agreda', 'kevin.ale24@gmail.com', 1, 1, '2022-11-22 01:20:19.389105', '012345672', '2000-01-22');
 
 -- --------------------------------------------------------
 
@@ -186,7 +187,8 @@ CREATE TABLE `detalleorden` (
 
 INSERT INTO `detalleorden` (`id`, `costo`, `precio`, `cantidad`, `inventario_id`, `orden_id`) VALUES
 (1, 10, 12, 2, 1, 1),
-(2, 10, 12, 1, 2, 1);
+(2, 10, 12, 1, 2, 1),
+(3, 20, 10, 2, 2, 2);
 
 -- --------------------------------------------------------
 
@@ -293,7 +295,14 @@ CREATE TABLE `django_session` (
 --
 
 INSERT INTO `django_session` (`session_key`, `session_data`, `expire_date`) VALUES
-('9zzs3qff94e5gt55z6i9oa04uz0e39ct', 'eyJfcGFzc3dvcmRfcmVzZXRfdG9rZW4iOiJiZWtrZDYtMDEzZGFkMGM1NDAyYTUxYjdkMzE1MTczZWE0ZTY5YzEiLCJjYXJyaXRvIjpbXX0:1osTA8:IjcSwrcDeF_Jths6ryUvPjcIqTo50TkHph5P7e39Rko', '2022-11-22 18:17:28.678567');
+('1psfvsy6l2tq9b29xx9p0fsr1alzwf3r', '.eJxVjEEOgjAQRe8ya9N0bIGWpXtPYAyZmbaCmjYpsDLeXUnYsP3vvf8BoVqnpUB_u59goHUZh3WOdZgC9IBw2JjkFfMGwpPyoygpeakTq01RO53VtYT4vuzu4WCkefzXnViLZJrWtTYZ4yWheIvWc9ApWGHqLDtzRnaBXYNOkyAmj7qNoUMN3x_YLzu8:1ot9Uy:2jV7A-62a1sKHKKmTJDquwenp9keSYmlmeVIVJbixdU', '2022-11-24 15:29:48.526677'),
+('4ned4lffmq0k0e9gfj8dr9xinb949o3n', 'eyJjYXJyaXRvIjpbXX0:1ovnLb:davdr5zmAfQlZdaH_uQpuhLYvsdvD2bq10NYq-P3QHI', '2022-12-01 22:27:03.605768'),
+('4wz9hbwff2i46tqtgyyg3dk1heuiuvcm', '.eJxVjDsOwjAQBe_iGln2-hdT0ucM0dq7wQFkS_lUiLuTSCmgnZn33mLAbS3DtvA8TCSuAsTllyXMT66HoAfWe5O51XWekjwSedpF9o34dTvbv4OCS9nXFoJGpKDHAMq5sdMpBGaMyhhQkfROmXJnofPRabQqRKfYjwbYQzLi8wW-Jzas:1oxyqi:ixxgMseyOYQeBVVwRhtSR9iSvdgPaPqE9ihHIpcmRm8', '2022-12-07 23:08:12.297361'),
+('io96xs4vni14xsbnm7xb4gzroobmcsxo', '.eJxVjEEOgjAQRe8ya9N0bIGWpXtPYAyZmbaCmjYpsDLeXUnYsP3vvf8BoVqnpUB_u59goHUZh3WOdZgC9IBw2JjkFfMGwpPyoygpeakTq01RO53VtYT4vuzu4WCkefzXnViLZJrWtTYZ4yWheIvWc9ApWGHqLDtzRnaBXYNOkyAmj7qNoUMN3x_YLzu8:1ot9Uy:2jV7A-62a1sKHKKmTJDquwenp9keSYmlmeVIVJbixdU', '2022-11-24 15:29:48.557917'),
+('jrzrzupft2i1mcmfnfefcrqsjclsv0sd', '.eJxVjDsOwjAQBe_iGln2-hdT0ucM0dq7wQFkS_lUiLuTSCmgnZn33mLAbS3DtvA8TCSuAsTllyXMT66HoAfWe5O51XWekjwSedpF9o34dTvbv4OCS9nXFoJGpKDHAMq5sdMpBGaMyhhQkfROmXJnofPRabQqRKfYjwbYQzLi8wW-Jzas:1oxbRp:aUrEu_ZsFfR7F2J3UIONrAFMg_mbuHaFgIeNzxXD3w0', '2022-12-06 22:08:57.701877'),
+('tkj0z3zisvpe0i9l0gxogf16m9j1k4o2', '.eJxVjDkOwjAQRe_iGlkePPFCSZ8zRLPYJIASKUuFuDtESgHtf-_9l-loW_tuW8rcDWouBszpd2OSRxl3oHcab5OVaVznge2u2IMutp20PK-H-3fQ09J_6yiIQL4JKWD1PksFyQiYWV1VFKaInPwZOCmnBpIjAagZXCgawZn3B9EEN2Y:1oxu8G:j_BzbEP7_cEeiHyh9P0LTERCD9oie3S1f-UPkbjdubQ', '2022-12-07 18:06:00.115489'),
+('wcvywexwhes0bi0qe3qe88oeisxd24vd', '.eJxVjEEOgyAQRe8y64bAICAuu-8JmsYMMFTbRhLUVdO7VxM3bt97_38hUq3jUqC7Py7Q07oM_Tpz7ccEHSCcWKD45mkX6UXTs4hYpqWOQeyJOOwsbiXx53q0p4OB5mFbN-gUUXIqO5TG5FYF55jJS61R-qQ2yim2DbbWG0WNdN5ItlkjWwwafn_FUjsC:1oxW2t:RFcomtC90wCDHc6wEDHsUH9Znmg42n5OizjH0gt-2bk', '2022-12-06 16:22:51.347924'),
+('xopismd7a8v0z0kymi8quwf7ob9e2gf5', '.eJxVjEEOgyAQRe8y64bAICAuu-8JmsYMMFTbRhLUVdO7VxM3bt97_38hUq3jUqC7Py7Q07oM_Tpz7ccEHSCcWKD45mkX6UXTs4hYpqWOQeyJOOwsbiXx53q0p4OB5mFbN-gUUXIqO5TG5FYF55jJS61R-qQ2yim2DbbWG0WNdN5ItlkjWwwafn_FUjsC:1oxxhp:RS7T5WfNFXCIC71fcN4XLZfuipY2Sdyn8tySCOLttpI', '2022-12-07 21:54:57.037138');
 
 -- --------------------------------------------------------
 
@@ -313,8 +322,49 @@ CREATE TABLE `inventario` (
 --
 
 INSERT INTO `inventario` (`id`, `cantidad`, `prenda_id`, `talla_id`) VALUES
-(1, 10, 1, 2),
-(2, 1, 1, 1);
+(1, 31, 1, 2),
+(2, 11, 1, 1),
+(4, 2, 16, 6),
+(5, 2, 16, 7),
+(6, 2, 16, 8),
+(7, 0, 16, 9),
+(8, 2, 17, 10),
+(9, 0, 17, 11),
+(10, 0, 17, 12),
+(11, 0, 17, 13),
+(12, 0, 17, 14),
+(13, 2, 17, 15),
+(14, 2, 17, 16),
+(15, 0, 17, 17),
+(16, 0, 17, 18),
+(17, 0, 17, 19),
+(18, 2, 17, 20),
+(19, 0, 17, 21),
+(20, 0, 17, 22),
+(21, 0, 17, 23),
+(22, 0, 18, 29),
+(23, 1, 18, 30),
+(24, 0, 18, 31),
+(25, 0, 18, 32),
+(26, 0, 18, 33),
+(27, 0, 18, 34),
+(28, 0, 18, 35),
+(29, 0, 18, 36),
+(30, 0, 18, 37),
+(31, 0, 18, 38),
+(32, 2, 19, 24),
+(33, 2, 19, 25),
+(34, 1, 19, 26),
+(35, 0, 19, 27),
+(36, 0, 19, 28),
+(37, 3, 20, 6),
+(38, 2, 20, 7),
+(39, 2, 20, 8),
+(40, 0, 20, 9),
+(41, 3, 21, 1),
+(42, 2, 21, 2),
+(43, 1, 21, 3),
+(44, 1, 21, 4);
 
 -- --------------------------------------------------------
 
@@ -333,7 +383,8 @@ CREATE TABLE `orden` (
 --
 
 INSERT INTO `orden` (`id`, `fecha`, `cliente_id`) VALUES
-(1, '2022-11-02 15:53:47.000000', 1);
+(1, '2022-10-09 15:53:47.000000', 1),
+(2, '2022-10-02 15:53:47.000000', 1);
 
 -- --------------------------------------------------------
 
@@ -357,7 +408,13 @@ CREATE TABLE `prenda` (
 --
 
 INSERT INTO `prenda` (`id`, `nombre`, `descripcion`, `costo`, `precioVenta`, `visibilidad`, `urlFoto`, `tipoPrenda_id`) VALUES
-(1, 'Blusa roja', 'Blusa de color rojo', 10, 12, 1, 'https://http2.mlstatic.com/D_NQ_NP_925651-MLM45142790080_032021-W.jpg', 1);
+(1, 'Blusa roja', 'Blusa de color rojo', 10, 12, 1, 'https://http2.mlstatic.com/D_NQ_NP_925651-MLM45142790080_032021-W.jpg', 1),
+(16, 'Camisas Adidas', 'Camisa blanca de Adidas', 20, 25, 1, 'https://i.otto.de/i/otto/aa67c8c7-4b4c-54d4-a672-7675b89acd02/adidas-originals-t-shirt-marble-trefoil-t-shirt-aop-pack.jpg', 3),
+(17, 'Pantalon', 'Pantalon para dama', 10, 15, 1, 'https://cdn.shopify.com/s/files/1/0293/9277/products/08-31-18_Studio_1_13-51-24_AP4360_MediumBlueWash_11637_NT.jpg?v=1535850930', 2),
+(18, 'Nike Air Force 1', 'Nike Air Force 1 edición ilimitada color blanco', 200, 300, 1, 'https://footzonespain.com/wp-content/uploads/2020/04/8-2.jpg', 4),
+(19, 'Camisetas de corte entallado premium casual para hombre', 'Estilo ajustado, manga larga raglán en contraste, tapeta henley de tres botones, tela ligera y suave para un uso cómodo.', 30, 40, 1, 'https://fakestoreapi.com/img/71-3HjGNDUL._AC_SY879._SX._UX._SY._UY_.jpg', 3),
+(20, 'Chaqueta de algodón para hombre', 'Excelentes chaquetas de abrigo para primavera / otoño / invierno, adecuadas para muchas ocasiones.', 100, 2, 1, 'https://fakestoreapi.com/img/71li-ujtlUL._AC_UX679_.jpg', 3),
+(21, 'DANVOUY Camiseta para mujer Corta de algodón informal', '95% algodón, 5% elastano, características: informal, manga corta, estampado de letras, cuello en V, camisetas de moda.', 10, 20, 1, 'https://fakestoreapi.com/img/61pHAEJ4NML._AC_UX679_.jpg', 1);
 
 -- --------------------------------------------------------
 
@@ -376,8 +433,43 @@ CREATE TABLE `talla` (
 --
 
 INSERT INTO `talla` (`id`, `nombre`, `tipoPrenda_id`) VALUES
+(10, '26', 2),
+(11, '27', 2),
+(12, '28', 2),
+(13, '29', 2),
+(14, '30', 2),
+(15, '31', 2),
+(16, '32', 2),
+(17, '33', 2),
+(18, '34', 2),
+(29, '34', 4),
+(19, '35', 2),
+(30, '35', 4),
+(20, '36', 2),
+(31, '36', 4),
+(32, '37', 4),
+(21, '38', 2),
+(33, '38', 4),
+(34, '39', 4),
+(22, '40', 2),
+(35, '40', 4),
+(36, '41', 4),
+(23, '42', 2),
+(37, '42', 4),
+(38, '43', 4),
+(3, 'L', 1),
+(8, 'L', 3),
+(27, 'L', 5),
 (2, 'M', 1),
-(1, 'S', 1);
+(7, 'M', 3),
+(26, 'M', 5),
+(1, 'S', 1),
+(6, 'S', 3),
+(25, 'S', 5),
+(4, 'XL', 1),
+(9, 'XL', 3),
+(28, 'XL', 5),
+(24, 'XS', 5);
 
 -- --------------------------------------------------------
 
@@ -396,7 +488,10 @@ CREATE TABLE `tipoprenda` (
 
 INSERT INTO `tipoprenda` (`id`, `nombre`) VALUES
 (1, 'Blusas'),
-(2, 'Pantalones');
+(3, 'Camisas'),
+(2, 'Pantalones'),
+(5, 'Short'),
+(4, 'Zapatos');
 
 --
 -- Índices para tablas volcadas
@@ -530,7 +625,7 @@ ALTER TABLE `tipoprenda`
 -- AUTO_INCREMENT de la tabla `administrador_usuario`
 --
 ALTER TABLE `administrador_usuario`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT de la tabla `administrador_usuario_groups`
@@ -566,7 +661,7 @@ ALTER TABLE `auth_permission`
 -- AUTO_INCREMENT de la tabla `detalleorden`
 --
 ALTER TABLE `detalleorden`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de la tabla `django_admin_log`
@@ -590,31 +685,31 @@ ALTER TABLE `django_migrations`
 -- AUTO_INCREMENT de la tabla `inventario`
 --
 ALTER TABLE `inventario`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=45;
 
 --
 -- AUTO_INCREMENT de la tabla `orden`
 --
 ALTER TABLE `orden`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de la tabla `prenda`
 --
 ALTER TABLE `prenda`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- AUTO_INCREMENT de la tabla `talla`
 --
 ALTER TABLE `talla`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
 
 --
 -- AUTO_INCREMENT de la tabla `tipoprenda`
 --
 ALTER TABLE `tipoprenda`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- Restricciones para tablas volcadas

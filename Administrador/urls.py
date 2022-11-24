@@ -15,4 +15,6 @@ urlpatterns = [
     path('crearAdmin',views.crearAdmin, name="crearAdmin"),
     path('registroAdmin', views.registroAdmin, name="registroAdmin"),
     path('agregarProducto', views.agregarProducto, name="agregarProducto"),
+    path('cambiarVisibilidad/<id>', views.cambiarVisibilidad, name="cambiarVisibilidad"),
+    path('obtenerTallas', views.obtenerTallas, name="obtenerTallas")
 ]

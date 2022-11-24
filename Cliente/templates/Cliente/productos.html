@@ -3,9 +3,13 @@
 {% block content %}
     {% include 'General/navbar.html' %}
     <div class="container mt-10" data-aos="fade-up">
-        <h2 class="h1 font-weight-light pt-3 pb-2">
+        <h2 class=" font-weight-light pt-3 pb-2">
             Productos<span class="lead text-muted mx-4"><b>{{ product_count }}</b> productos</span><hr>
         </h2>
+        <form action="{% url 'buscar' %}" class="row" method='GET'>                     
+            <div class="col-11"><input type="text" class="form-control form-search mb-5" placeholder="Ej. Pantalón" name="busc"></div> 
+            <div class="col-1"><button class="btn btn-primary mt-1" type="submit"><i class="fa fa-search"></i></button></div>
+        </form>                
             <div class="row">
                 {% if products %}
                     {% for product in products %}
@@ -57,4 +61,9 @@
         </main>
     </div>    
     {% include 'General/footer.html' %}
+{% endblock %}
+{% block js %}
+<script>
+    
+</script>
 {% endblock %}

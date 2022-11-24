@@ -12,7 +12,7 @@
             </div>
             <div class="col-lg-6">
                 <h2 class="col-8 h1 font-weight-light pt-3 pb-2">
-                    <span class="text-primary">${{ prenda.precioVenta }}</span>
+                    <span class="text-primary">${{ prenda.precioVenta | floatformat:2 }}</span>
                 </h2>
                 <div class="row">
                     <div class="col-2">
@@ -23,7 +23,7 @@
                         <label class="form-label fw-bold">Talla</label>
                         <select class="form-select" aria-label="Default select example">
                             {% for talla in tallas %}
-                                <option value="1">{{ talla.nombre }}</option>
+                                <option value="{{talla.id}}">{{ talla.talla__nombre }}</option>
                             {% endfor %}
                         </select>
                     </div>

@@ -1,5 +1,6 @@
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.hashers import make_password
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from django.db.models import Sum, F
@@ -10,6 +11,7 @@ import re
 from django.core.paginator import Paginator
 from django.contrib.auth.forms import PasswordChangeForm
 from .forms import PerfilForm
+from django.db.models import Q
 
 
 def index(request):
@@ -78,9 +80,10 @@ def regisUsuario(request):
     expr = re.compile('\d{9}')
     ob = expr.match(dui)
     if (contra == contra2 and ob):
-        nueuser = Usuario.objects.create(password=contra, username=user, first_name=nombre,
+        nueuser = Usuario.objects.create(password=make_password(contra,None,'pbkdf2_sha256'), username=user, first_name=nombre,
                                          last_name=apellido, email=correo, nacimiento=fechaNaci, documento=dui)
-        return redirect('inicio')
+        login(request, nueuser)
+        return redirect('/')
     else:
         if(contra != contra2):
             messages.error(request, "Las contraseñas no coinciden")
@@ -90,7 +93,7 @@ def regisUsuario(request):
 
 
 def productos(request):
-    products = Prenda.objects.all()
+    products = Prenda.objects.all().exclude(visibilidad = 0)
     paginator = Paginator(products, 6)
     page = request.GET.get('page')
     paged_products = paginator.get_page(page)
@@ -101,10 +104,21 @@ def productos(request):
     }
     return render(request, 'Cliente/productos.html', context)
 
+def busqueda(request):
+    palabra = request.GET['busc']
+    if palabra:
+        resultados = Prenda.objects.filter(Q(nombre__icontains=palabra) | Q(descripcion__icontains=palabra))
+        numResultados = resultados.count()
+    context = {
+        'products': resultados,
+        'product_count': numResultados,
+    }
+    return render(request, 'Cliente/productos.html', context)
+
 
 def detalleProducto(request, id):
     prenda = Prenda.objects.get(id=id)
-    tallas = Talla.objects.all()
+    tallas = Inventario.objects.filter(prenda_id = id).values('id','talla__nombre').exclude(cantidad = 0) 
     return render(request, 'Cliente/detalleProducto.html', {'prenda': prenda, 'tallas': tallas})
 
 
