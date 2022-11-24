@@ -11,6 +11,7 @@ import re
 from django.core.paginator import Paginator
 from django.contrib.auth.forms import PasswordChangeForm
 from .forms import PerfilForm
+from django.db.models import Q
 
 
 def index(request):
@@ -100,6 +101,17 @@ def productos(request):
     context = {
         'products': paged_products,
         'product_count': product_count,
+    }
+    return render(request, 'Cliente/productos.html', context)
+
+def busqueda(request):
+    palabra = request.GET['busc']
+    if palabra:
+        resultados = Prenda.objects.filter(Q(nombre__icontains=palabra) | Q(descripcion__icontains=palabra))
+        numResultados = resultados.count()
+    context = {
+        'products': resultados,
+        'product_count': numResultados,
     }
     return render(request, 'Cliente/productos.html', context)
 
