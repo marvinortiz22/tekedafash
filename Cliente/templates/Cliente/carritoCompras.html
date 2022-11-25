@@ -6,10 +6,10 @@
     <div class = "container">
         <div class = "p-3 mx-5 d-flex justify-content-evenly shadow-sm bg-body rounded" id = "carrito-resumen">
             <div class = "col-auto">
-                <h5>Productos: <span class="badge bg-primary">2</span></h5>
+                <h5>Productos: <span class="badge bg-primary">{{request.session.carrito | length}}</span></h5>
             </div>
             <div class = "col-auto">
-                <h5>Total: <span class="badge bg-success">$60.00</span></h5>
+                <h5>Total: <span class="badge bg-success">${{total| floatformat:2 }}</span></h5>
             </div>
             <div class = "col-auto">
                 <button type="button" class="btn btn-primary" style = "">Realizar pago</button>
@@ -17,35 +17,66 @@
         </div>
         <div class = "my-5 p-4 d-flex justify-content-evenly shadow bg-body rounded">
             <table class="table table-borderless caption-top">
-                <caption>Productos en mi carrito</caption>
+                <caption>Productos en mi carrito </caption>
                 <thead id = "encabezado-carrito">
                     <tr>
-                        <th>⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀</th>
+                        <th></th>
                         <th>Producto</th>
                         <th>Precio</th>
                         <th>Cantidad</th>
                         <th>Subtotal</th>
-                        <th>⠀⠀</th>
+                        <th></th>
 
                     </tr>
                 </thead>
                 <tbody id  ="detalle-carrito" class="align-middle">
-                    <tr>
-                        <td>
-                            <img src="https://siman.vtexassets.com/arquivos/ids/3605753-800-800?v=638032729036070000&width=800&height=800&aspect=true" class="card-img-top" alt="..." id = "foto-producto">
-                        </td>
-                        <td>Camisa hombre</td>
-                        <td><span class="badge bg-success">$30.00</span></td>
-                        <td><span class="badge bg-primary">2</span></td>
-                        <td><span class="badge bg-success">$60.00</span></td>
-                        <td>
-                            <a href="" class="btn btn-danger btn-sm"><i class="bi bi-x-lg"></i></a>
-                        </td>
-                    </tr>
-               </tbody>
+                    {% for c in carrito %}
+                        <tr>
+                            <td>
+                                <img src="{{c.urlFotoPrenda}}" class="card-img-top" alt="..." id = "foto-producto">
+                            </td>
+                            <td>{{c.nombrePrenda}} <br></br>Talla: {{c.tallaNombre}}</td>
+                            <td><span class="badge bg-success">${{c.precioPrenda | floatformat:2 }}</span></td>
+                            <td><span class="badge bg-primary">{{c.cantidad}}</span></td>
+                            <td><span class="badge bg-success">${{c.subtotal | floatformat:2 }}</span></td>
+                            <td>
+                                <a href="" class="btn btn-danger btn-sm"><i class="bi bi-x-lg"></i></a>
+                            </td>
+                        </tr>
+                    {% endfor%}
+                </tbody>
             </table>
-
+        </div>
+        <div class="p-3 row justify-content-end">
+            <div class="col-auto">
+                <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                    Vaciar mi carrito
+                  </button>
+            </div>
         </div>
     </div>
+
+  <!-- Modal -->
+  <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="staticBackdropLabel">Vaciar carrito</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body text-center">
+            <div class = "row">
+                <i style = "font-size: 5rem; color:"class="bi bi-cart-x-fill"></i>
+            </div>
+          <h5>¿Estás seguro que deseas eliminar todos los productos de tu carrito de compras?</h5>
+        </div>
+        <div class="modal-footer d-flex justify-content-evenly">
+          <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
+          <a href= {%url 'limpiarCarrito'%} type="button" class="btn btn-primary" style = "">Vaciar mi carrito</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  
     {% include 'General/footer.html' %}
 {% endblock %}

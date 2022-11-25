@@ -14,14 +14,43 @@ from .forms import PerfilForm
 from django.db.models import Q
 
 
+
 def index(request):
     request.session['carrito'] = []
+
     return render(request, 'Cliente/index.html')
 
 
 def miCarrito(request):
-    return render(request, 'Cliente/carritoCompras.html')
+    total = 0
+    for c in request.session['carrito']:
+        total += c['subtotal']
+    context = {"carrito":request.session['carrito'], "total":total}
+    return render(request, 'Cliente/carritoCompras.html', context)
 
+def agregarPrenda(request, id):
+    if request.method == 'GET':
+        request.session['carrito'] = []
+    else: 
+        request.session['carrito'] = request.session['carrito'] 
+        cant = request.POST['cant-prenda']
+        prenda = Prenda.objects.get(id = id)
+        talla = Inventario.objects.get(id =request.POST['talla-prenda'] )
+        subtotal = float(cant) * float(prenda.precioVenta)
+        request.session['carrito'].append({
+            "nombrePrenda":prenda.nombre, 
+            "precioPrenda":prenda.precioVenta,
+            "urlFotoPrenda": prenda.urlFoto,
+            "cantidad": cant,
+            "subtotal":subtotal,
+            "tallaId": talla.id,
+            "tallaNombre": talla.talla.nombre
+        })
+        return redirect("productos")
+
+def limpiarCarrito(request):
+    request.session['carrito'] = []
+    return redirect("productos")
 
 @usuarioAutenticado
 def iniciarSesion(request):

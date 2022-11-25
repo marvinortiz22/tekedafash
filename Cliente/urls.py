@@ -30,6 +30,8 @@ urlpatterns = [
     path('productos/', views.productos, name="productos"),
     path('productos/detalles/<int:id>', views.detalleProducto),
     path('miCarrito', views.miCarrito, name="carrito"),
+    path('agregarEnCarrito/<int:id>', views.agregarPrenda, name = "agregarPrenda"),
+    path('limpiarCarrito', views.limpiarCarrito, name = "limpiarCarrito"),
     path('buscar/', views.busqueda, name="buscar"),
     # ----------
     path('editarPerfil', views.editarPerfil, name="editar perfil"),
