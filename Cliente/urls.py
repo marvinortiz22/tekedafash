@@ -6,7 +6,7 @@ urlpatterns = [
     path('', views.index, name="inicio"),
     path('iniciarSesion', views.iniciarSesion, name="iniciarSesion"),
     path('cerrarSesion', views.cerrarSesion, name="cerrarSesion"),
-    path('quieneSomos', views.quieneSomos, name="quieneSomos"),
+    path('quienesSomos', views.quieneSomos, name="quienesSomos"),
 
     # Reestablecer contraseña
     path('reestablecerContraseña', auth_vistas.PasswordResetView.as_view(
