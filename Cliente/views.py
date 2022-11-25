@@ -93,7 +93,7 @@ def regisUsuario(request):
 
 
 def productos(request):
-    products = Prenda.objects.all().exclude(visibilidad = 0)
+    products = Prenda.objects.all().filter(visibilidad = 1).order_by('nombre')
     paginator = Paginator(products, 6)
     page = request.GET.get('page')
     paged_products = paginator.get_page(page)
@@ -109,11 +109,13 @@ def busqueda(request):
     if palabra:
         resultados = Prenda.objects.filter(Q(nombre__icontains=palabra) | Q(descripcion__icontains=palabra))
         numResultados = resultados.count()
-    context = {
-        'products': resultados,
-        'product_count': numResultados,
-    }
-    return render(request, 'Cliente/productos.html', context)
+        context = {
+            'products': resultados,
+            'product_count': numResultados,
+        }
+        return render(request, 'Cliente/productos.html', context)
+    else:
+        return redirect('productos')
 
 
 def detalleProducto(request, id):

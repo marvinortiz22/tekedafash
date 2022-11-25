@@ -27,7 +27,7 @@ urlpatterns = [
     path('registrarUsuario', views.regisUsuario,),
 
     # Productos
-    path('productos/', views.productos),
+    path('productos/', views.productos, name="productos"),
     path('productos/detalles/<int:id>', views.detalleProducto),
     path('miCarrito', views.miCarrito, name="carrito"),
     path('buscar/', views.busqueda, name="buscar"),
