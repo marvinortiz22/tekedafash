@@ -1,0 +1,48 @@
+{% extends 'General/baseAdmin.html' %}
+{% block title %} Gestionar Producto {% endblock %}
+
+{% block body %} 
+    <div class="row">
+        <div class="col-md-9">
+            <h1>Recuperar Producto</h1>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12 table-responsive mt-5 p-1">
+            <table class="table" id="tbl-producto">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Nombre</th>
+                        <th>Descripción</th>
+                        <th class="d-none d-md-table-cell">Foto</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for p in prendas %}
+                    <tr>
+                        <td>{{forloop.counter}}</td>
+                        <td>{{p.nombre}}</td>
+                        <td>{{p.descripcion}}</td>
+                        <td class="d-none d-md-table-cell">
+                            <img src="{{p.urlFoto}}" class="rounded mx-auto d-block" alt="..." width="100px" height="100px">
+                        </td>
+                        <td>
+                            <a href="{% url 'activarProducto' p.id %}" class="btn btn-success m-2"><i class="bi bi-box-arrow-left text-white"></i></a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}
+
+{% block js %} 
+    <script>
+        $(document).ready(function () {
+            initTable("#tbl-producto","productos");
+        });
+    </script>
+{% endblock %}

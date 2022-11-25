@@ -16,5 +16,10 @@ urlpatterns = [
     path('registroAdmin', views.registroAdmin, name="registroAdmin"),
     path('agregarProducto', views.agregarProducto, name="agregarProducto"),
     path('cambiarVisibilidad/<id>', views.cambiarVisibilidad, name="cambiarVisibilidad"),
+    path('eliminarProducto/<id>', views.eliminarProducto, name="eliminarProducto"),
+    path('editarProducto/<id>', views.editarProducto, name="editarProducto"),
+    path('catalgoProducto', views.catalogoProducto, name="catalogoProducto"),
+    path('recuperarProducto', views.recuperarProducto, name="recuperarProducto"),
+    path('activarProducto/<id>', views.activarProducto, name="activarProducto"),
     path('obtenerTallas', views.obtenerTallas, name="obtenerTallas")
 ]

@@ -1,0 +1,55 @@
+{% extends 'General/baseAdmin.html' %}
+{% block title %} Editar Producto {% endblock %}
+
+{% block body %} 
+    <div class="row">
+        <section id="contact" class="contact">
+            <div class="container" >
+                <div class="col-12 mb-4">
+                    <h1>Editar Producto</h1>
+                </div>
+                <div class="row gx-lg-0 gy-4 p-2">
+                    <div class="col-12">
+                        <form method="post" role="form" class="form">
+                            {% csrf_token %}
+                            <div class="col-12 mb-4">
+                                <h3>Información general</h3>
+                                <hr>
+                            </div>
+                            <div class="row mb-2">
+                                <div class="col-md-6 form-group">
+                                    <div class="row">
+                                        <div class="col-12 form-group mt-3 mt-md-0">
+                                            <input type="text" class="form-control" name="nombre" id="name" placeholder="Nombre" value="{{prenda.nombre}}" required>
+                                        </div>
+                                        <div class="col-12 form-group mt-3 mt-md-2">
+                                            <input class="form-control" type="file" name="foto" id="foto">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 form-group mt-3 mt-md-0">
+                                    <textarea class="form-control" name="descripcion" rows="4" placeholder="Descripción" required>{{prenda.descripcion}}</textarea>
+                                </div>
+                            </div>
+                            <div class="row mb-2">
+                                <div class="d-flex justify-content-center">
+                                    <img src="{{prenda.urlFoto}}" class="rounded mx-auto d-block" alt="{{prenda.id}}" width="200px" height="200px">
+                                </div>
+                            </div>
+                            {% for message in messages %}
+                                <div class="mt-2 text-center alert alert-danger alert-dismissible fade show" role="alert">
+                                    {{message}}
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                </div>
+                            {% endfor %}
+                            <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-4">
+                                <a class="btn-cancel text-center" href="{% url 'gestionarProducto' %}">Cancelar</a>
+                                <button class="d-sm-block" type="submit">Guardar</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+{% endblock %}

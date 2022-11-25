@@ -4,6 +4,7 @@ from Cliente.models import *
 from datetime import date
 from django.db.models import Sum, F
 from django.contrib.auth.hashers import make_password
+from django.core.paginator import Paginator
 from Administrador import utils
 from .models import *
 
@@ -17,10 +18,17 @@ def index(request):
 
 
 def gestionarProducto(request):
-    prenda = Inventario.objects.values("prenda_id","prenda__nombre","prenda__urlFoto","prenda__descripcion","prenda__visibilidad").annotate(existencia=Sum('cantidad'))
+    prenda = Inventario.objects.values("prenda_id","prenda__nombre","prenda__urlFoto","prenda__descripcion","prenda__visibilidad").annotate(existencia=Sum('cantidad')).exclude(prenda__visibilidad = 2)
     return render(request, 'Administrador/gestionarProducto.html',{
         "prendas": prenda
     })
+
+def recuperarProducto(request):
+    prenda = Prenda.objects.filter(visibilidad = 2)
+    return render(request, 'Administrador/recuperarProducto.html',{
+        "prendas": prenda
+    })
+    
 
 def agregarProducto(request):
     if request.method == "POST":
@@ -57,6 +65,42 @@ def cambiarVisibilidad(request,id):
     prenda.visibilidad = not prenda.visibilidad
     prenda.save()
     return redirect('gestionarProducto')
+
+def eliminarProducto(request,id):
+    prenda = Prenda.objects.get(id = id)
+    prenda.visibilidad = 2
+    prenda.save()
+    return redirect('gestionarProducto')
+
+def activarProducto(request,id):
+    prenda = Prenda.objects.get(id = id)
+    prenda.visibilidad = 0
+    prenda.save()
+    return redirect('gestionarProducto')
+
+def editarProducto(request,id):
+    prenda = Prenda.objects.get(id = id)
+    if request.method == 'GET':
+        return render(request, 'Administrador/editarProducto.html',{
+            "prenda": prenda
+        })
+    else:
+        prenda.nombre = request.POST['nombre']
+        prenda.descripcion = request.POST['descripcion']
+        prenda.save()
+        return redirect("gestionarProducto")
+        
+def catalogoProducto(request):
+    products = Prenda.objects.all().filter(visibilidad = 1).order_by('nombre')
+    paginator = Paginator(products, 6)
+    page = request.GET.get('page')
+    paged_products = paginator.get_page(page)
+    product_count = products.count()
+    context = {
+        'products': paged_products,
+        'product_count': product_count,
+    }
+    return render(request, 'Administrador/catalogoProducto.html', context)
 
 def gestionarCliente(request):
     usuarios = Usuario.objects.filter(is_staff=0).exclude(is_superuser=1)

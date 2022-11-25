@@ -11,7 +11,7 @@ def cambiarCalendario(objeto, cambio, cambios):
 
 
 def buildCalendar(fecha_actual):
-    cal = calendar.LocaleHTMLCalendar(firstweekday=6, locale='es').formatmonth(
+    cal = calendar.LocaleHTMLCalendar(firstweekday=6, locale='es_ES').formatmonth(
         fecha_actual.year, fecha_actual.month)
     calCurrent = cambiarCalendario(
         cal, 'cellpadding="0"', 'cellpadding="6px"')
