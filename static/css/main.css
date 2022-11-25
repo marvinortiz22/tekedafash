@@ -438,10 +438,12 @@ section {
   min-width: 200px;
 }
 
-.contenido{
-  position: relative;
-  top: 0;
-  left: 15%;
+@media (min-width:1000px) {
+  .contenido{
+      position: relative;
+      top: 0;
+      left: 15%;
+  }
 }
 
 @media (min-width: 1280px) {
