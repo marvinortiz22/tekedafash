@@ -30,7 +30,7 @@
                 <caption>Productos en mi carrito </caption>
                 <thead id = "encabezado-carrito">
                     <tr>
-                        <th></th>
+                        <th class ="d-none d-md-table-cell"></th>
                         <th>Producto</th>
                         <th>Precio</th>
                         <th>Cantidad</th>
@@ -43,7 +43,7 @@
                 {% if carrito%}
                     {% for c in carrito %}
                         <tr>
-                            <td>
+                            <td class ="d-none d-md-table-cell">
                                 <img src="{{c.urlFotoPrenda}}" class="card-img-top" alt="..." id = "foto-producto">
                             </td>
                             <td>{{c.nombrePrenda}} <br></br>Talla: {{c.tallaNombre}}</td>
