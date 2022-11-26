@@ -14,22 +14,20 @@
           </div>
           <div class="row">
             {% for product in prendas %}
-              {% if product.id == numero1 or product.id == numero2 or product.id == numero3  %}
-                <div class="col-md-6 col-lg-4">
-                    <figure class="card card-product-grid">
-                        <div class="img-wrap mt-2">                
-                            <div style="display: flex; justify-content: center;"><a href="{{ product.urlFoto }}" data-gallery="portfolio-gallery-app" class="glightbox"><img src="{{ product.urlFoto }}" class="img-fluid" style="width: 200px; height: 200px;" alt=""></a></div>                
-                        </div>
-                        <figcaption class="info-wrap">
-                            <h4 class="text-center mt-2">{{ product.nombre }}</h4>
-                            <h4 class="text-center">${{ product.precioVenta| floatformat:2 }}</h4>
-                            <div style="display: flex; justify-content: center; margin-bottom: 10px;">
-                                <a href="{% url 'detalleDeProducto' product.id %}" class="btn btn-primary">Ver detalle</a>
-                            </div>                                
-                        </figcaption>
-                    </figure>
-                </div>
-              {% endif %}
+              <div class="col-md-6 col-lg-4">
+                <figure class="card card-product-grid">
+                    <div class="img-wrap mt-2">                
+                        <div style="display: flex; justify-content: center;"><a href="{{ product.urlFoto }}" data-gallery="portfolio-gallery-app" class="glightbox"><img src="{{ product.urlFoto }}" class="img-fluid" style="width: 100px; height: 100px;" alt=""></a></div>                
+                    </div>
+                    <figcaption class="info-wrap">
+                        <h6 class="text-center mt-2">{{ product.nombre }}</h6>
+                        <h6 class="text-center">${{ product.precioVenta| floatformat:2 }}</h6>
+                        <div style="display: flex; justify-content: center; margin-bottom: 10px;">
+                            <a href="{% url 'detalleDeProducto' product.id %}" class="btn btn-primary">Ver detalle</a>
+                        </div>                                
+                    </figcaption>
+                </figure>
+              </div>
             {% endfor %}           
           </div>
       </div>

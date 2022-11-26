@@ -21,8 +21,22 @@ def index(request):
     prendas = Prenda.objects.all().filter(visibilidad = 1)    
     for prenda in prendas:
         x.append(prenda.id)
-    num = random.sample(x, 3)
-    return render(request, 'Cliente/index.html', {"numero1": num[0], "numero2": num[1],"numero3": num[2], "prendas":prendas})
+    num = random.sample(x, 6)
+    prendasFinales = []
+    for prenda in prendas:
+        if prenda.id == num[0]:
+            prendasFinales.append(prenda)
+        elif prenda.id == num[1]:
+            prendasFinales.append(prenda)
+        elif prenda.id == num[2]:
+            prendasFinales.append(prenda)
+        elif prenda.id == num[3]:
+            prendasFinales.append(prenda)
+        elif prenda.id == num[4]:
+            prendasFinales.append(prenda)
+        elif prenda.id == num[5]:
+            prendasFinales.append(prenda)
+    return render(request, 'Cliente/index.html', {"prendas":prendasFinales})
 
 
 def miCarrito(request):
