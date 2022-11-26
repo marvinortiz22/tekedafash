@@ -11,12 +11,22 @@
             <div class = "col-auto">
                 <h5>Total: <span class="badge bg-success">${{total| floatformat:2 }}</span></h5>
             </div>
-            <div class = "col-auto">
-                <button type="button" class="btn btn-primary" style = "">Realizar pago</button>
-            </div>
+        {% if carrito%}
+            {% if user.is_authenticated %}
+                <div class = "col-auto">
+                    <a href= "{% url 'realizarOrden'%}"type="button" class="btn btn-primary" style = "">Realizar orden</a>
+                </div>
+            {%else%}
+                <div class = "col-auto">
+                    <span class="d-inline-block" tabindex="0" data-bs-toggle="tooltip" title="¡Inicia sesión para realizar tu orden!">
+                        <button class="btn btn-primary" type="button" disabled>Realizar orden</button>
+                      </span>                                   
+                </div>
+            {% endif%}
+        {% endif%}
         </div>
         <div class = "my-5 p-4 d-flex justify-content-evenly shadow bg-body rounded">
-            <table class="table table-borderless caption-top">
+            <table class="table table-borderless caption-top table-responsive">
                 <caption>Productos en mi carrito </caption>
                 <thead id = "encabezado-carrito">
                     <tr>
@@ -30,6 +40,7 @@
                     </tr>
                 </thead>
                 <tbody id  ="detalle-carrito" class="align-middle">
+                {% if carrito%}
                     {% for c in carrito %}
                         <tr>
                             <td>
@@ -40,43 +51,70 @@
                             <td><span class="badge bg-primary">{{c.cantidad}}</span></td>
                             <td><span class="badge bg-success">${{c.subtotal | floatformat:2 }}</span></td>
                             <td>
-                                <a href="" class="btn btn-danger btn-sm"><i class="bi bi-x-lg"></i></a>
+                                <a href="{% url 'quitarPrenda' forloop.counter %}" class="btn btn-danger btn-sm"><i class="bi bi-x-lg"></i></a>
                             </td>
                         </tr>
                     {% endfor%}
+                    
+                {% else %}
+                    <tr>
+                        <td colspan = "6">
+                            <div class="alert alert-primary text-center" role="alert">
+                                Aún no has agregado productos a tu carrito.  <a href="productos/" style = "text-decoration: underline;"class="link-primary">¡Empieza a comprar ahora mismo!</a>
+                            </div>
+                        </td>                 
+                    </tr>
+                {% endif%}
+            
                 </tbody>
-            </table>
+            </table> 
         </div>
-        <div class="p-3 row justify-content-end">
-            <div class="col-auto">
-                <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-                    Vaciar mi carrito
-                  </button>
+        {% if carrito%}
+            <div class="p-3 row justify-content-end">
+                <div class="col-auto">
+                    <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                        Vaciar mi carrito
+                    </button>
+                </div>
+            </div>
+        {% endif %}
+    </div>
+    
+    <!-- Notificación -->
+    {% for message in messages %}
+        <div class="toast show float-end top-0 end-0 text-bg-primary">
+            <div class="toast-header">
+                    <strong class="me-auto">Notificación</strong>
+                    <small>Justo ahora</small>
+                    <button type="button" class="btn-close" data-bs-dismiss="toast"></button>
+            </div>
+            <div class="toast-body">
+                {{message}}
             </div>
         </div>
-    </div>
+    {% endfor %}
 
-  <!-- Modal -->
-  <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h1 class="modal-title fs-5" id="staticBackdropLabel">Vaciar carrito</h1>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body text-center">
-            <div class = "row">
-                <i style = "font-size: 5rem; color:"class="bi bi-cart-x-fill"></i>
+    <!-- Modal Limpiar Carrito -->
+    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+            <h1 class="modal-title fs-5" id="staticBackdropLabel">Vaciar carrito</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-          <h5>¿Estás seguro que deseas eliminar todos los productos de tu carrito de compras?</h5>
+            <div class="modal-body text-center">
+                <div class = "row">
+                    <i style = "font-size: 5rem; color:"class="bi bi-cart-x-fill"></i>
+                </div>
+            <h5>¿Estás seguro que deseas eliminar todos los productos de tu carrito de compras?</h5>
+            </div>
+            <div class="modal-footer d-flex justify-content-evenly">
+            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
+            <a href= {%url 'limpiarCarrito'%} type="button" class="btn btn-primary" style = "">Vaciar mi carrito</a>
+            </div>
         </div>
-        <div class="modal-footer d-flex justify-content-evenly">
-          <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
-          <a href= {%url 'limpiarCarrito'%} type="button" class="btn btn-primary" style = "">Vaciar mi carrito</a>
         </div>
-      </div>
-    </div>
   </div>
-  
     {% include 'General/footer.html' %}
 {% endblock %}
+

@@ -13,11 +13,9 @@ from django.core.paginator import Paginator
 from django.contrib.auth.forms import PasswordChangeForm
 from .forms import PerfilForm
 from django.db.models import Q
-
-
+from django.http import JsonResponse
 
 def index(request):
-    request.session['carrito'] = []
     num = []
     x = []
     prendas = Prenda.objects.all().filter(visibilidad = 1)    
@@ -33,17 +31,22 @@ def miCarrito(request):
         total += c['subtotal']
     context = {"carrito":request.session['carrito'], "total":total}
     return render(request, 'Cliente/carritoCompras.html', context)
+  
+    
 
 def agregarPrenda(request, id):
     if request.method == 'GET':
         request.session['carrito'] = []
-    else: 
+    else:
+        if 'carrito' not in request.session:
+            request.session['carrito'] = []
         request.session['carrito'] = request.session['carrito'] 
         cant = request.POST['cant-prenda']
         prenda = Prenda.objects.get(id = id)
         talla = Inventario.objects.get(id =request.POST['talla-prenda'] )
         subtotal = float(cant) * float(prenda.precioVenta)
         request.session['carrito'].append({
+            "prendaId": prenda.id,
             "nombrePrenda":prenda.nombre, 
             "precioPrenda":prenda.precioVenta,
             "urlFotoPrenda": prenda.urlFoto,
@@ -53,10 +56,39 @@ def agregarPrenda(request, id):
             "tallaNombre": talla.talla.nombre
         })
         return redirect("productos")
-
+    
+def quitarPrenda(request, id):
+    index = id - 1
+    del request.session['carrito'][index]
+    request.session.modified = True
+    messages.info(request, "¡El producto fue retirado de tu carrito!")
+    return redirect("carrito")
+    
 def limpiarCarrito(request):
     request.session['carrito'] = []
     return redirect("productos")
+
+def realizarOrden(request):
+    orden = Orden.objects.create(
+        cliente = request.user
+    )
+    if 'carrito' in request.session:
+        for c in request.session['carrito']:
+            prenda = Prenda.objects.get(id = c['prendaId'])
+            inventario = Inventario.objects.get(id = c['tallaId'])
+            DetalleDeOrden.objects.create(
+                costo = prenda.costo,
+                precio = prenda.precioVenta,
+                cantidad = c['cantidad'],
+                inventario = inventario,
+                orden = orden 
+            )
+            inventario.cantidad -= int(c['cantidad'])
+            inventario.save()
+        request.session['carrito'] = []
+        request.session.modified = True
+        print('prueba')    
+        return redirect("productos")
 
 @usuarioAutenticado
 def iniciarSesion(request):
@@ -195,3 +227,11 @@ def cambiarContraseña(request):
 
 def quieneSomos(request):
     return render(request, 'Cliente/quieneSomos.html')
+
+
+def obtenerCantidadTalla(request):
+    if request.method == 'GET':
+        inventario = Inventario.objects.get(id = request.GET['id'])
+        data = ({'cantidad': inventario.cantidad})
+        return JsonResponse(data={'data':data})
+    return JsonResponse(status=400)

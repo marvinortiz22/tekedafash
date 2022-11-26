@@ -19,11 +19,12 @@
                     <div class="row">
                         <div class="col-2">
                             <label class="form-label fw-bold">Cant.</label>
-                            <input class="px-2 form-control" id = "cant-prenda" name = "cant-prenda" type="number" style="width: 4.5rem;" min="1" value="1" required="">
+                            <input class="px-2 form-control" id = "cant-prenda" name = "cant-prenda" type="number" style="width: 4.5rem;" min="1" max = "" value="" required="" disabled autocomplete=off>
                         </div>
                         <div class="col-2">
                             <label class="form-label fw-bold">Talla</label>
-                            <select id = "talla-prenda" name = "talla-prenda" class="form-select" aria-label="Default select example">
+                            <select id = "talla-prenda" name = "talla-prenda" class="form-select" aria-label="Default select example" required autocomplete=off>
+                                <option selected></option>
                                 {% for talla in tallas %}
                                     <option value="{{talla.id}}">{{ talla.talla__nombre }}</option>
                                 {% endfor %}
@@ -49,3 +50,24 @@
     </div>
     {% include 'General/footer.html' %}
 {% endblock %}
+
+{% block js%}
+<script>
+$('#talla-prenda').change(()=>{
+    $.ajax({
+        type: 'GET',
+        url: "{% url 'obtenerCantidadTalla' %}",
+        data: {
+            id: $('#talla-prenda').val()
+        }
+    }).done((response)=>{
+        $('#cant-prenda').attr('max', response.data.cantidad)
+        $('#cant-prenda').removeAttr("disabled")
+        $('#cant-prenda').val(1);
+    })
+    .fail(function(jqXHR){
+        console.log('Error:' + jqXHR.status + ' ' + jqXHR.statusText);
+    });
+});
+</script>
+{%endblock%}
