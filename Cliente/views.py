@@ -19,13 +19,11 @@ from django.db.models import Q
 def index(request):
     request.session['carrito'] = []
     num = []
-    x = 0
-    prendas = Prenda.objects.all().filter(visibilidad = 1)
-    prendasLista = list(prendas)
-    while len(num) < 3:
-        x = random.randrange(1,len(prendasLista),1)
-        if(num.count(x) == 0):
-            num.append(x)
+    x = []
+    prendas = Prenda.objects.all().filter(visibilidad = 1)    
+    for prenda in prendas:
+        x.append(prenda.id)
+    num = random.sample(x, 3)
     return render(request, 'Cliente/index.html', {"numero1": num[0], "numero2": num[1],"numero3": num[2], "prendas":prendas})
 
 
