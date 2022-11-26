@@ -1,0 +1,70 @@
+{% extends 'General/baseAdmin.html' %}
+{% block title %} Reportes {% endblock %}
+
+{% block body %} 
+<div class="row">
+    <div class="col-12 mb-4">
+        <h1>Reportes</h1>
+    </div>
+    <div class="col-md-6 col-lg-4">
+        <figure class="card card-product-grid">
+            <figcaption class="info-wrap">
+                <h4 class="text-center mt-2">Inventario</h4>
+                <div style="display: flex; justify-content: center; margin-bottom: 10px;">
+                    <a href="{% url 'Inventario' %}" class="btn-indigo">Generar</a>
+                </div>                                
+            </figcaption>
+        </figure>
+    </div>
+    <div class="col-md-6 col-lg-4">
+        <figure class="card card-product-grid">
+            <figcaption class="info-wrap">
+                <h4 class="text-center mt-2">Listado de clientes</h4>
+                <div style="display: flex; justify-content: center; margin-bottom: 10px;">
+                    <a href="{% url 'ListadoCliente' %}" class="btn-indigo">Generar</a>
+                </div>                                
+            </figcaption>
+        </figure>
+    </div>
+    <div class="col-md-6 col-lg-4">
+        <figure class="card card-product-grid">
+            <figcaption class="info-wrap">
+                <h4 class="text-center mt-2">Listado de productos</h4>
+                <div style="display: flex; justify-content: center; margin-bottom: 10px;">
+                    <a href="{% url 'ListadoProducto' %}" class="btn-indigo">Generar</a>
+                </div>                                
+            </figcaption>
+        </figure>
+    </div>
+    <div class="col-md-6 col-lg-4">
+        <figure class="card card-product-grid">
+            <figcaption class="info-wrap">
+                <h4 class="text-center mt-2">Listado de ventas por clientes</h4>
+                <div style="display: flex; justify-content: center; margin-bottom: 10px;">
+                    <a href="{% url 'ListadoVenta' %}" class="btn-indigo">Generar</a>
+                </div>                                
+            </figcaption>
+        </figure>
+    </div>
+    <div class="col-md-6 col-lg-4">
+        <figure class="card card-product-grid">
+            <figcaption class="info-wrap">
+                <h4 class="text-center mt-2">Ganancias por productos vendidos</h4>
+                <div style="display: flex; justify-content: center; margin-bottom: 10px;">
+                    <a href="{% url 'Ganancias' %}" class="btn-indigo">Generar</a>
+                </div>                                
+            </figcaption>
+        </figure>
+    </div>
+    <div class="col-md-6 col-lg-4">
+        <figure class="card card-product-grid">
+            <figcaption class="info-wrap">
+                <h4 class="text-center mt-2">Los 10 productos más vendidos</h4>
+                <div style="display: flex; justify-content: center; margin-bottom: 10px;">
+                    <a href="{% url 'ProductoMásVendidos' %}" class="btn-indigo">Generar</a>
+                </div>                                
+            </figcaption>
+        </figure>
+    </div>
+</div>
+{% endblock %}

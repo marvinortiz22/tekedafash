@@ -1,0 +1,27 @@
+{% extends 'Reporte/base.html' %}
+
+{% block pages_content %}
+<div id="content_frame">
+    <h2 class="title">Listado de producto</h2>
+    <table class="table">
+        <thead>
+            <tr>
+                <th style="width: 5%;">#</th>
+                <th>Nombre</th>
+                <th>Descripción</th>
+                <th>Precio</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for c in data %}
+            <tr>
+                <td>{{forloop.counter}}</td>
+                <td>{{c.nombre}}</td>
+                <td>{{c.descripcion}}</td>
+                <td>${{c.precioVenta | floatformat:2}}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>    
+</div>
+{% endblock %}

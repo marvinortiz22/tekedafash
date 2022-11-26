@@ -1,0 +1,37 @@
+{% extends 'Reporte/base.html' %}
+
+{% block pages_content %}
+<div id="content_frame">
+    <h2 class="title">Orden N° {{orden.id}}</h2>
+    <p class="h2"><b>Nombre:</b> {{orden.cliente.first_name}}  {{orden.cliente.last_name}}</p>
+    <p class="h2"><b>Fecha:</b> {{orden.fecha}}</p>
+    <table class="table">
+        <thead>
+            <tr>
+                <th style="width: 5%;">#</th>
+                <th>Nombre</th>
+                <th>Talla</th>
+                <th>Cantidad</th>
+                <th>Precio unitario</th>
+                <th>Subtotal</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for venta in ventas %}
+            <tr>
+                <td>{{forloop.counter}} </td>
+                <td>{{venta.inventario.prenda.nombre}} </td>
+                <td>{{venta.inventario.talla.nombre}} </td>
+                <td>{{venta.cantidad | floatformat:0}} </td>
+                <td>${{venta.precio | floatformat:2}} </td>
+                <td>${{venta.subtotal | floatformat:2}} </td>
+            </tr>
+        {% endfor %}
+        <tr>
+            <td colspan="5" style="text-align: right;"><b>Total:</b></td>
+            <td>${{monto | floatformat:2}}</td>
+        </tr>
+        </tbody>
+    </table>    
+</div>
+{% endblock %}

@@ -1,0 +1,25 @@
+{% extends 'Reporte/base.html' %}
+
+{% block pages_content %}
+<div id="content_frame">
+    <h2 class="title">Ganancias por producto</h2>
+    <table class="table">
+        <thead>
+            <tr>
+                <th style="width: 5%;">#</th>
+                <th>Nombre</th>
+                <th>Ganancias</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for c in data %}
+            <tr>
+                <td>{{forloop.counter}}</td>
+                <td>{{c.inventario__prenda__nombre}}</td>
+                <td>${{c.ganancia | floatformat:2}}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>    
+</div>
+{% endblock %}

@@ -1,0 +1,25 @@
+{% extends 'Reporte/base.html' %}
+
+{% block pages_content %}
+<div id="content_frame">
+    <h2 class="title">Los 10 productos más vendidos</h2>
+    <table class="table">
+        <thead>
+            <tr>
+                <th style="width: 5%;">#</th>
+                <th>Nombre</th>
+                <th>Cantidad</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for c in data %}
+            <tr>
+                <td>{{forloop.counter}}°</td>
+                <td>{{c.inventario__prenda__nombre}}</td>
+                <td>{{c.cantidad | floatformat:0}}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>    
+</div>
+{% endblock %}

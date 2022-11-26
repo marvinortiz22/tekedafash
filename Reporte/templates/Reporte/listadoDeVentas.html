@@ -1,0 +1,28 @@
+{% extends 'Reporte/base.html' %}
+
+{% block pages_content %}
+<div id="content_frame">
+    <h2 class="title">Listado de Ventas por Cliente</h2>
+    {% for p in data %}
+    <p class="title-group">{{p.nombre}}</p>
+    <table class="table">
+        <thead>
+            <tr>
+                <th style="width: 5%;">#</th>
+                <th>Fecha</th>
+                <th>Monto</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for i in p.ventas %}
+            <tr>
+                <td>{{forloop.counter}}</td>
+                <td>{{i.orden__fecha}}</td>
+                <td>${{i.total | floatformat:2}}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>    
+    {% endfor %}
+</div>
+{% endblock %}

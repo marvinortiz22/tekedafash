@@ -30,6 +30,7 @@
                     <a href="{% url 'detalleOrdenCliente' orden.orden_id %}" class="btn btn-success">
                         <i class="bi bi-list-ul"></i>
                     </a>
+                    <a href="{% url 'Orden' orden.orden_id %}" class="btn btn-primary"><i class="bi bi-file-pdf-fill"></i></a>
                 </td>
             </tr>
             {% endfor %}

@@ -1,0 +1,27 @@
+{% extends 'Reporte/base.html' %}
+
+{% block pages_content %}
+<div id="content_frame">
+    <h2 class="title">Inventario</h2>
+    {% for p in data %}
+    <p class="title-group">{{p.nombre}}</p>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Talla</th>
+                <th>Cantidad</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for i in p.inventario %}
+            <tr>
+                <td>{{i.talla.nombre}}</td>
+                <td>{{i.cantidad}}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>    
+    <p><b>Total:</b> {{p.cantidad}}</p>
+    {% endfor %}
+</div>
+{% endblock %}
