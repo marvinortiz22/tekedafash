@@ -8,6 +8,7 @@ from Cliente.decorators import *
 from .models import *
 from Administrador.models import Usuario, Prenda, Talla
 import re
+import random
 from django.core.paginator import Paginator
 from django.contrib.auth.forms import PasswordChangeForm
 from .forms import PerfilForm
@@ -17,8 +18,15 @@ from django.db.models import Q
 
 def index(request):
     request.session['carrito'] = []
-
-    return render(request, 'Cliente/index.html')
+    num = []
+    x = 0
+    prendas = Prenda.objects.all().filter(visibilidad = 1)
+    prendasLista = list(prendas)
+    while len(num) < 3:
+        x = random.randrange(1,len(prendasLista),1)
+        if(num.count(x) == 0):
+            num.append(x)
+    return render(request, 'Cliente/index.html', {"numero1": num[0], "numero2": num[1],"numero3": num[2], "prendas":prendas})
 
 
 def miCarrito(request):

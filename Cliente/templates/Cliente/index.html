@@ -13,33 +13,24 @@
               <h2>Nuevos producto</h2>
           </div>
           <div class="row">
-              <div class="col-xl-4 col-md-6 portfolio-item filter-app">
-                  <div class="portfolio-wrap">
-                    <a href="https://previews.123rf.com/images/victorias/victorias1307/victorias130700134/20859878-hermosa-mujer-que-llevaba-en-un-magn%C3%ADfico-vestido-de-rojo-sobre-fondo-blanco-studio-foto-fashion-.jpg" data-gallery="portfolio-gallery-app" class="glightbox"><img src="https://previews.123rf.com/images/victorias/victorias1307/victorias130700134/20859878-hermosa-mujer-que-llevaba-en-un-magn%C3%ADfico-vestido-de-rojo-sobre-fondo-blanco-studio-foto-fashion-.jpg" class="img-fluid" alt=""></a>
-                    <div class="portfolio-info">
-                      <h4><a href="portfolio-details.html" title="More Details">App 1</a></h4>
-                      <p>Lorem ipsum, dolor sit amet consectetur</p>
-                    </div>
-                  </div>
-              </div>
-              <div class="col-xl-4 col-md-6 portfolio-item filter-app">
-                  <div class="portfolio-wrap">
-                    <a href="https://previews.123rf.com/images/victorias/victorias1307/victorias130700134/20859878-hermosa-mujer-que-llevaba-en-un-magn%C3%ADfico-vestido-de-rojo-sobre-fondo-blanco-studio-foto-fashion-.jpg" data-gallery="portfolio-gallery-app" class="glightbox"><img src="https://previews.123rf.com/images/victorias/victorias1307/victorias130700134/20859878-hermosa-mujer-que-llevaba-en-un-magn%C3%ADfico-vestido-de-rojo-sobre-fondo-blanco-studio-foto-fashion-.jpg" class="img-fluid" alt=""></a>
-                    <div class="portfolio-info">
-                      <h4><a href="portfolio-details.html" title="More Details">App 1</a></h4>
-                      <p>Lorem ipsum, dolor sit amet consectetur</p>
-                    </div>
-                  </div>
-              </div>
-              <div class="col-xl-4 col-md-6 portfolio-item filter-app">
-                  <div class="portfolio-wrap">
-                    <a href="https://previews.123rf.com/images/victorias/victorias1307/victorias130700134/20859878-hermosa-mujer-que-llevaba-en-un-magn%C3%ADfico-vestido-de-rojo-sobre-fondo-blanco-studio-foto-fashion-.jpg" data-gallery="portfolio-gallery-app" class="glightbox"><img src="https://previews.123rf.com/images/victorias/victorias1307/victorias130700134/20859878-hermosa-mujer-que-llevaba-en-un-magn%C3%ADfico-vestido-de-rojo-sobre-fondo-blanco-studio-foto-fashion-.jpg" class="img-fluid" alt=""></a>
-                    <div class="portfolio-info">
-                      <h4><a href="portfolio-details.html" title="More Details">App 1</a></h4>
-                      <p>Lorem ipsum, dolor sit amet consectetur</p>
-                    </div>
-                  </div>
-              </div>
+            {% for product in prendas %}
+              {% if product.id == numero1 or product.id == numero2 or product.id == numero3  %}
+                <div class="col-md-6 col-lg-4">
+                    <figure class="card card-product-grid">
+                        <div class="img-wrap mt-2">                
+                            <div style="display: flex; justify-content: center;"><a href="{{ product.urlFoto }}" data-gallery="portfolio-gallery-app" class="glightbox"><img src="{{ product.urlFoto }}" class="img-fluid" style="width: 200px; height: 200px;" alt=""></a></div>                
+                        </div>
+                        <figcaption class="info-wrap">
+                            <h4 class="text-center mt-2">{{ product.nombre }}</h4>
+                            <h4 class="text-center">${{ product.precioVenta| floatformat:2 }}</h4>
+                            <div style="display: flex; justify-content: center; margin-bottom: 10px;">
+                                <a href="{% url 'detalleDeProducto' product.id %}" class="btn btn-primary">Ver detalle</a>
+                            </div>                                
+                        </figcaption>
+                    </figure>
+                </div>
+              {% endif %}
+            {% endfor %}           
           </div>
       </div>
     </div>
