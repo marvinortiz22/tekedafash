@@ -21,7 +21,7 @@ urlpatterns = [
     path('misCompras', views.misCompras, name="misCompras"),
     path('detalledemiCompra/<id>', views.detalledemiCompra,
          name="detalledemiCompra"),
-
+    path('registrarOrden/', views.realizarOrden, name = "realizarOrden"),
     # Registro
     path('registrarse/', views.registrarse),
     path('registrarUsuario', views.regisUsuario,),
@@ -29,12 +29,17 @@ urlpatterns = [
     # Productos
     path('productos/', views.productos, name="productos"),
     path('productos/detalles/<int:id>', views.detalleProducto, name="detalleDeProducto"),
+    path('obtenerCantidadTalla/', views.obtenerCantidadTalla, name = 'obtenerCantidadTalla'),
     path('miCarrito', views.miCarrito, name="carrito"),
     path('agregarEnCarrito/<int:id>', views.agregarPrenda, name = "agregarPrenda"),
+    path('quitarPrenda/<int:id>', views.quitarPrenda, name = 'quitarPrenda'),
     path('limpiarCarrito', views.limpiarCarrito, name = "limpiarCarrito"),
     path('buscar/', views.busqueda, name="buscar"),
     # ----------
     path('editarPerfil', views.editarPerfil, name="editar perfil"),
     path('Perfil/', views.Perfil, name="Perfil"),
     path('cambiarContraseña/', views.cambiarContraseña, name="cambiar contraseña"),
+    
+    
+
 ]
