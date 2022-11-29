@@ -15,7 +15,7 @@ import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-
+PWA_SERVICE_WORKER_PATH = os.path.join(BASE_DIR, 'static/js', 'serviceworker.js') 
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
@@ -43,7 +43,8 @@ INSTALLED_APPS = [
     'Cliente',
     'Compras',
     'Reporte',
-    'Ventas'
+    'Ventas',
+    'pwa',
 ]
 
 MIDDLEWARE = [
@@ -151,3 +152,22 @@ EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'tekedafash.atencion@gmail.com'
 EMAIL_HOST_PASSWORD = 'zolgrhaehctnytcr'
+
+#Configuración de la PWA
+PWA_APP_NAME = 'TekedaFash App'
+PWA_APP_DESCRIPTION = "PWA de Tekeda Fasg"
+PWA_APP_THEME_COLOR = '#000000'
+PWA_APP_BACKGROUND_COLOR = '#ffffff'
+PWA_APP_DISPLAY = 'standalone'
+PWA_APP_SCOPE = '/'
+PWA_APP_ORIENTATION = 'any'
+PWA_APP_START_URL = '/'
+PWA_APP_STATUS_BAR_COLOR = 'default'
+PWA_APP_ICONS = [
+	{
+		'src': 'static/images/contraseña.png',
+		'sizes': '160x160'
+	}
+]
+PWA_APP_DIR = 'ltr'
+PWA_APP_LANG = 'es-MZ'
