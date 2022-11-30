@@ -1,10 +1,14 @@
 var staticCacheName = 'TekedaFash-v1';
+var filesToCache = [
+	'/offline',
+	'/static/css/bootstrap.min.css'
+]
 
 self.addEventListener('install', function(event) {
 event.waitUntil(
 	caches.open(staticCacheName).then(function(cache) {
 	return cache.addAll([
-		'',
+		filesToCache,
 	]);
 	})
 );
