@@ -1,4 +1,5 @@
 {% extends 'General/baseAdmin.html' %}
+{% load static %}
 {% block title %} Editar Producto {% endblock %}
 
 {% block body %} 
@@ -10,7 +11,7 @@
                 </div>
                 <div class="row gx-lg-0 gy-4 p-2">
                     <div class="col-12">
-                        <form method="post" role="form" class="form">
+                        <form method="post" role="form" class="form" enctype="multipart/form-data">
                             {% csrf_token %}
                             <div class="col-12 mb-4">
                                 <h3>Información general</h3>
@@ -33,7 +34,7 @@
                             </div>
                             <div class="row mb-2">
                                 <div class="d-flex justify-content-center">
-                                    <img src="{{prenda.urlFoto}}" class="rounded mx-auto d-block" alt="{{prenda.id}}" width="200px" height="200px">
+                                    <img src="{{prenda.urlFoto.url}}" class="rounded mx-auto d-block" alt="{{prenda.id}}" width="200px" height="200px">
                                 </div>
                             </div>
                             {% for message in messages %}

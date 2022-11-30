@@ -1,4 +1,5 @@
 {% extends 'General/baseAdmin.html' %}
+{% load static %}
 {% block title %} Gestionar Producto {% endblock %}
 
 {% block body %} 
@@ -33,7 +34,7 @@
                         <td>{{p.prenda__nombre}}</td>
                         <td>{{p.prenda__descripcion}}</td>
                         <td class="d-none d-md-table-cell">
-                            <img src="{{p.prenda__urlFoto}}" class="rounded mx-auto d-block" alt="..." width="100px" height="100px">
+                            <img src="{% static p.prenda__urlFoto %}" class="rounded mx-auto d-block" alt="..." width="100px" height="100px">
                         </td>
                         <td class="d-none d-md-table-cell">{{p.existencia}}</td>
                         {% if p.prenda__visibilidad %}

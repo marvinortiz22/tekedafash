@@ -39,7 +39,7 @@ def agregarProducto(request):
         visibilidad = 1
         if 'visibilidad' not in request.POST:
             visibilidad = 0
-        urlFoto = "https://http2.mlstatic.com/D_NQ_NP_925651-MLM45142790080_032021-W.jpg"
+        urlFoto = request.FILES['foto']
         tipoPrenda = request.POST['tipo-prenda']
         prenda = Prenda.objects.create(nombre = nombre,descripcion = descripcion,costo = costo,precioVenta = precioVenta,visibilidad = visibilidad,urlFoto = urlFoto,tipoPrenda_id = tipoPrenda)
         tallas = Talla.objects.filter(tipoPrenda_id = tipoPrenda)
@@ -87,6 +87,8 @@ def editarProducto(request,id):
     else:
         prenda.nombre = request.POST['nombre']
         prenda.descripcion = request.POST['descripcion']
+        if request.FILES['foto'] is not None:
+            prenda.urlFoto = request.FILES['foto']
         prenda.save()
         return redirect("gestionarProducto")
         

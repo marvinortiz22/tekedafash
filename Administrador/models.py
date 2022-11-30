@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
+
 class Usuario(AbstractUser):
     documento = models.CharField(max_length=9,null=False,unique=True)
     nacimiento = models.DateField(null=False)            
@@ -20,7 +21,7 @@ class Prenda(models.Model):
     costo = models.FloatField(null=False)
     precioVenta = models.FloatField(null=False)
     visibilidad = models.IntegerField(null=False)
-    urlFoto = models.CharField(max_length=400,null=False)
+    urlFoto = models.ImageField(upload_to='prendas')
     tipoPrenda = models.ForeignKey(TipoPrenda,on_delete=models.CASCADE,null=False)
     class Meta:
         db_table = "prenda"

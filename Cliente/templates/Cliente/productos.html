@@ -1,4 +1,5 @@
 {% extends 'General/base.html' %}
+{% load static %}
 {% block title %} Productos {% endblock %}
 {% block content %}
     {% include 'General/navbar.html' %}
@@ -16,7 +17,7 @@
                         <div class="col-md-6 col-lg-4">
                             <figure class="card card-product-grid">
                                 <div class="img-wrap mt-2">                
-                                    <div style="display: flex; justify-content: center;"><a href="{{ product.urlFoto }}" data-gallery="portfolio-gallery-app" class="glightbox"><img src="{{ product.urlFoto }}" class="img-fluid" style="width: 200px; height: 200px;" alt=""></a></div>                
+                                    <div style="display: flex; justify-content: center;"><a href="{{product.urlFoto.url}}" data-gallery="portfolio-gallery-app" class="glightbox"><img src="{{product.urlFoto.url}}" class="img-fluid" style="width: 200px; height: 200px;" alt=""></a></div>                
                                 </div>
                                 <figcaption class="info-wrap">
                                     <h4 class="text-center mt-2">{{ product.nombre }}</h4>
