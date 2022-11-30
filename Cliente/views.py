@@ -41,9 +41,12 @@ def index(request):
 
 def miCarrito(request):
     total = 0
-    for c in request.session['carrito']:
-        total += c['subtotal']
-    context = {"carrito":request.session['carrito'], "total":total}
+    if 'carrito' in request.session:
+        for c in request.session['carrito']:
+            total += c['subtotal']
+        context = {"carrito":request.session['carrito'], "total":total}
+    else:
+        context = {"total":total}
     return render(request, 'Cliente/carritoCompras.html', context)
   
     
