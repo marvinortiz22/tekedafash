@@ -16,7 +16,7 @@ import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-PWA_SERVICE_WORKER_PATH = os.path.join(BASE_DIR, 'static/js', 'serviceworker.js') 
+PWA_SERVICE_WORKER_PATH = os.path.join(BASE_DIR, 'static/js', 'serviceworker.js')
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
@@ -27,7 +27,7 @@ SECRET_KEY = 'django-insecure-hmqgxg4mn@wy_adqoubw$s4y%(yr8o23au%ur_-i^cpt79(6)-
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['tekedafash.pythonanywhere.com']
 
 
 # Application definition
@@ -85,10 +85,10 @@ WSGI_APPLICATION = 'TekedaFash.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'tekedafash',
-        'USER': 'root',
-        'PASSWORD': '',
-        'HOST': '127.0.0.1',
+        'NAME': 'tekedafash$tekedafash2',
+        'USER': 'tekedafash',
+        'PASSWORD': 'tpi2022$',
+        'HOST': 'tekedafash.mysql.pythonanywhere-services.com',
         'PORT': '3306'
     }
 }
@@ -163,7 +163,7 @@ PWA_APP_START_URL = '/'
 PWA_APP_STATUS_BAR_COLOR = 'default'
 PWA_APP_ICONS = [
 	{
-		'src': 'static/images/contraseña.png',
+		'src': 'static/images/icon.png',
 		'sizes': '160x160'
 	}
 ]

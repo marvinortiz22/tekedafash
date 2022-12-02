@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import JsonResponse
 from Cliente.models import *
+from Cliente.decorators import *
 from datetime import date
 from django.db.models import Sum, F
 from django.contrib.auth.hashers import make_password
@@ -8,6 +9,7 @@ from django.core.paginator import Paginator
 from Administrador import utils
 from .models import *
 
+@adminAutenticado
 def index(request):
     mod = []
     calCurrent = utils.buildCalendar(date.today())
@@ -16,20 +18,21 @@ def index(request):
     mod.extend(utils.buildLabel())
     return render(request, 'Administrador/index.html', {"cal": calCurrent, "fechas": label, "año": currentYear, "mod": mod})
 
-
+@adminAutenticado
 def gestionarProducto(request):
     prenda = Inventario.objects.values("prenda_id","prenda__nombre","prenda__urlFoto","prenda__descripcion","prenda__visibilidad").annotate(existencia=Sum('cantidad')).exclude(prenda__visibilidad = 2)
     return render(request, 'Administrador/gestionarProducto.html',{
         "prendas": prenda
     })
 
+@adminAutenticado
 def recuperarProducto(request):
     prenda = Prenda.objects.filter(visibilidad = 2)
     return render(request, 'Administrador/recuperarProducto.html',{
         "prendas": prenda
     })
-    
 
+@adminAutenticado
 def agregarProducto(request):
     if request.method == "POST":
         nombre = request.POST['nombre']
@@ -48,9 +51,10 @@ def agregarProducto(request):
         return redirect("gestionarProducto")
     else:
         return render(request, 'Administrador/agregarProducto.html',{
-            "tipoPrenda": TipoPrenda.objects.all() 
+            "tipoPrenda": TipoPrenda.objects.all()
         })
 
+@adminAutenticado
 def obtenerTallas(request):
     if request.method == 'GET':
         tallas = Talla.objects.filter(tipoPrenda_id = request.GET['id'])
@@ -58,26 +62,30 @@ def obtenerTallas(request):
         for talla in tallas:
             data.append({"nombre":talla.nombre,"id":talla.id})
         return JsonResponse(data={'data':data})
-    return JsonResponse(status=400)    
+    return JsonResponse(status=400)
 
+@adminAutenticado
 def cambiarVisibilidad(request,id):
     prenda = Prenda.objects.get(id = id)
     prenda.visibilidad = not prenda.visibilidad
     prenda.save()
     return redirect('gestionarProducto')
 
+@adminAutenticado
 def eliminarProducto(request,id):
     prenda = Prenda.objects.get(id = id)
     prenda.visibilidad = 2
     prenda.save()
     return redirect('gestionarProducto')
 
+@adminAutenticado
 def activarProducto(request,id):
     prenda = Prenda.objects.get(id = id)
     prenda.visibilidad = 0
     prenda.save()
     return redirect('gestionarProducto')
 
+@adminAutenticado
 def editarProducto(request,id):
     prenda = Prenda.objects.get(id = id)
     if request.method == 'GET':
@@ -87,11 +95,12 @@ def editarProducto(request,id):
     else:
         prenda.nombre = request.POST['nombre']
         prenda.descripcion = request.POST['descripcion']
-        if request.FILES['foto'] is not None:
+        if 'foto' in request.FILES:
             prenda.urlFoto = request.FILES['foto']
         prenda.save()
         return redirect("gestionarProducto")
-        
+
+@adminAutenticado
 def catalogoProducto(request):
     products = Prenda.objects.all().filter(visibilidad = 1).order_by('nombre')
     paginator = Paginator(products, 6)
@@ -104,6 +113,7 @@ def catalogoProducto(request):
     }
     return render(request, 'Administrador/catalogoProducto.html', context)
 
+@adminAutenticado
 def gestionarCliente(request):
     usuarios = Usuario.objects.filter(is_staff=0).exclude(is_superuser=1)
     data = {
@@ -111,7 +121,7 @@ def gestionarCliente(request):
     }
     return render(request, 'Administrador/gestionarCliente.html', data)
 
-
+@adminAutenticado
 def ordenesCliente(request, id):
     cliente = Usuario.objects.get(id=id)
     ordenes = DetalleDeOrden.objects.filter(orden__cliente_id=id).values(
@@ -119,7 +129,7 @@ def ordenesCliente(request, id):
     contexto = {"cliente": cliente, "ordenes": ordenes}
     return render(request, 'Administrador/ordenesCliente.html', contexto)
 
-
+@adminAutenticado
 def detalleOrdenCliente(request, id):
     cliente = Orden.objects.get(id=id).cliente
     orden = get_object_or_404(Orden, id=id, cliente_id=cliente.pk)
@@ -132,14 +142,14 @@ def detalleOrdenCliente(request, id):
                 "monto": monto, "cliente": cliente}
     return render(request, 'Administrador/detalleOrdenCliente.html', contexto)
 
-
+@adminAutenticado
 def editarClienteActivo(request, id):
     usuario = Usuario.objects.get(id=id)
     usuario.is_active = not usuario.is_active
     usuario.save()
     return redirect('gestionarCliente')
 
-
+@adminAutenticado
 def gestionarAdministrador(request):
     usuario = Usuario.objects.filter(is_staff=1)
     data = {
@@ -147,17 +157,17 @@ def gestionarAdministrador(request):
     }
     return render(request, 'Administrador/gestionarAdministrador.html', data)
 
-
+@adminAutenticado
 def eliminarAdmin(request, id):
     usuario = Usuario.objects.get(id=id)
     usuario.delete()
     return redirect('/dashboard/gestionarAdministrador')
 
-
+@adminAutenticado
 def crearAdmin(request):
     return render(request, 'Administrador/crearAdmin.html')
 
-
+@adminAutenticado
 def registroAdmin(request):
     nombreUsuario = request.POST['nombreUsuario']
     contrasena = request.POST['contrasena']
@@ -172,12 +182,12 @@ def registroAdmin(request):
     )
     return redirect('/dashboard/gestionarAdministrador')
 
-
+@adminAutenticado
 def editarAdmin(request, id):
     usuario = Usuario.objects.get(id=id)
     return render(request, "Administrador/editarAdmin.html", {'Usuario': usuario})
 
-
+@adminAutenticado
 def cambiosAdmin(request, id):
     username = request.POST['txtUsername']
     password = request.POST['txtPassword']
@@ -186,10 +196,9 @@ def cambiosAdmin(request, id):
     email = request.POST['txtEmail']
     dui = request.POST['txtDui']
 
-
+@adminAutenticado
 def cambiosAdmin(request, id):
     nombreUsuario = request.POST['nombreUsuario']
-    contrasena = request.POST['contrasena']
     nombre = request.POST['nombre']
     apellido = request.POST['apellido']
     email = request.POST['email']
@@ -199,7 +208,6 @@ def cambiosAdmin(request, id):
     # Validar que sea el mismo campos de el metodo editarAdmin y realizar los cambios
     usuario = Usuario.objects.get(id=id)
     usuario.username = nombreUsuario
-    usuario.password = contrasena
     usuario.first_name = nombre
     usuario.last_name = apellido
     usuario.email = email

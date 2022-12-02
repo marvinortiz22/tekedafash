@@ -1,44 +1,68 @@
 {% extends 'General/baseAdmin.html' %}
-{% block title %} Edicion de staff {% endblock %}
+{% block title %} Nuevo administrador {% endblock %}
 
-{% block body %} 
-<h1>Crear Administrador</h1>
-<br>
-<div class="container">
-<form action="registroAdmin" method="POST">{% csrf_token %}
-    <div class="mb-3">
-         <label for="nombreUsuario" class="form-label">Usuario</label>
-           <input type="text" id="nombreUsuario" name="nombreUsuario"  class="form-control" required>
+{% block body %}
+    <div class="row">
+        <section id="contact" class="contact">
+            <div class="container" >
+                <div class="col-12 mb-4">
+                    <h1>Nuevo Administrador</h1>
+                </div>
+                <div class="row gx-lg-0 gy-4 p-2">
+                    <div class="col-12">
+                        <form action="registroAdmin" method="post" role="form" class="form">
+                            {% csrf_token %}
+                            <div class="col-12 mb-4">
+                                <h3>Información personal</h3>
+                                <hr>
+                            </div>
+                            <div class="row mb-2">
+                                <div class="col-md-6 form-group mt-3 mt-md-0">
+                                    <input type="text" class="form-control" name="nombre"  id="nombre" placeholder="Nombre" required>
+                                </div>
+                                <div class="col-md-6 form-group mt-3 mt-md-0">
+                                    <input type="text" class="form-control" name="apellido" id="apellido" placeholder="Apellido" required>
+                                </div>
+                            </div>
+                            <div class="row mb-2">
+                                <div class="col-md-6 form-group mt-3 mt-md-0">
+                                    <input type="email" class="form-control" id="email" name="email" placeholder="Correo electrónico" required>
+                                </div>
+                                <div class="col-md-6 form-group mt-3 mt-md-0">
+                                    <input type="text" class="form-control" id="dui" name="dui" placeholder="DUI" required>
+                                </div>
+                            </div>
+                            <div class="row mb-2">
+                                <div class="col-md-6 form-group mt-3 mt-md-0">
+                                    <input type="date" class="form-control" name="nacimiento" placeholder="Fecha de nacimiento" required>
+                                </div>
+                            </div>
+                            <div class="col-12 mb-4">
+                                <h3>Información de cuenta</h3>
+                                <hr>
+                            </div>
+                            <div class="row mb-2">
+                                <div class="col-md-6 form-group mt-3 mt-md-0">
+                                    <input type="text" class="form-control" id="nombreUsuario" name="nombreUsuario" placeholder="Usuario" required>
+                                </div>
+                                <div class="col-md-6 form-group mt-3 mt-md-0">
+                                    <input type="password" class="form-control" id="contrasena" name="contrasena" placeholder="Contraseña" required>
+                                </div>
+                            </div>
+                            {% for message in messages %}
+                                <div class="mt-2 text-center alert alert-danger alert-dismissible fade show" role="alert">
+                                    {{message}}
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                </div>
+                            {% endfor %}
+                            <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-4">
+                                <a class="btn-cancel text-center" href="{% url 'gestionarAdministrador' %}">Cancelar</a>
+                                <button class="d-sm-block" type="submit" id="btn-guardar">Guardar</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
     </div>
-     <div class="mb-3">
-            <label for="contrasena" class="form-label">Contraseña</label>
-            <input type="txtPassword" class="form-control" id="contrasena" name="contrasena"  required>
-    </div>
-    <h4>Datos Personales</h4>
-    <hr>
-    <div class="mb-3">
-        <label for="nombre" class="form-label">Nombre</label>
-        <input type="text" name="nombre"  id="nombre" value="{{Usuario.first_name}}" class="form-control" required>
-    </div>
-    <div class="mb-3">
-        <label for="apellido" class="form-label">Apellido</label>
-        <input type="username"  name="apellido" class="form-control" id="apellido" required >
-    </div>
-    <div class="mb-3">
-        <label for="email" class="form-label">Correo</label>
-        <input type="username" id="email" name="email" class="form-control" id="txtEmail" required>
-    </div>
-    <div class="mb-3">
-        <label for="dui" class="form-label">DUI</label>
-        <input type="username" id="dui" name="dui" class="form-control" id="txtDui"  required>
-    </div>
-    <div class="mb-3">
-        <label for="nacimiento" class="form-label">Fecha de nacimiento</label>
-        <input type = "date" name="nacimiento" class="form-control" id="nacimiento"  required>
-    </div>
-    <div>
-        <button type="submit" class="btn btn-success btn-block text-white">Guardar</button>
-    </div>
-</form>
-</div>
 {% endblock %}

@@ -1,7 +1,7 @@
 {% extends 'General/baseAdmin.html' %}
 {% block title %} Cátalogo Producto {% endblock %}
 
-{% block body %} 
+{% block body %}
 <div class="container mt-10" data-aos="fade-up">
     <h2 class=" font-weight-light pt-3 pb-2">
         Productos<span class="lead text-muted mx-4"><b>{{ product_count }}</b> productos</span><hr>
@@ -11,12 +11,12 @@
                 {% for product in products %}
                     <div class="col-md-6 col-lg-4">
                         <figure class="card card-product-grid">
-                            <div class="img-wrap mt-2">                
-                                <div style="display: flex; justify-content: center;"><a href="{{ product.urlFoto }}" data-gallery="portfolio-gallery-app" class="glightbox"><img src="{{ product.urlFoto }}" class="img-fluid" style="width: 200px; height: 200px;" alt=""></a></div>                
+                            <div class="img-wrap mt-2">
+                                <div style="display: flex; justify-content: center;"><a href="{{ product.urlFoto.url }}" data-gallery="portfolio-gallery-app" class="glightbox"><img src="{{ product.urlFoto.url }}" class="img-fluid" style="width: 200px; height: 200px;" alt=""></a></div>
                             </div>
                             <figcaption class="info-wrap">
                                 <h4 class="text-center mt-2">{{ product.nombre }}</h4>
-                                <h4 class="text-center">${{ product.precioVenta| floatformat:2 }}</h4>                                
+                                <h4 class="text-center">${{ product.precioVenta| floatformat:2 }}</h4>
                             </figcaption>
                         </figure>
                     </div>
@@ -26,8 +26,8 @@
                     <h2>No hay resultados, intente de nuevo</h2>
                 </div>
             {% endif %}
-        </div>            
-        
+        </div>
+
         <nav class="mt-2" aria-label="Page navigation sample">
             {% if products.has_other_pages %}
               <ul class="pagination justify-content-end">
@@ -35,14 +35,14 @@
                         <li class="page-item"><a class="page-link" href="?page={{products.previous_page_number}}">Anterior</a></li>
                     {% else %}
                         <li class="page-item disabled"><a class="page-link" href="#">Anterior</a></li>
-                    {% endif %}            
+                    {% endif %}
                     {% for i in products.paginator.page_range %}
                         {% if products.number == i %}
                             <li class="page-item active"><a class="page-link" href="#">{{i}}</a></li>
                         {% else %}
                             <li class="page-item"><a class="page-link" href="?page={{i}}">{{i}}</a></li>
                         {% endif %}
-                    {% endfor %}            
+                    {% endfor %}
                     {% if products.has_next %}
                         <li class="page-item"><a class="page-link" href="?page={{products.next_page_number}}">Siguiente</a></li>
                     {% else %}
@@ -50,7 +50,7 @@
                     {% endif %}
               </ul>
             {% endif %}
-        </nav>            
+        </nav>
     </main>
 </div>
 {% endblock %}

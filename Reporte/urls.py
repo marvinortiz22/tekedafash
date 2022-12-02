@@ -9,5 +9,6 @@ urlpatterns = [
     path('ListadoVenta', views.ListadoVentaPDF.as_view(), name = "ListadoVenta"),
     path('Ganancias', views.GananciasPorProductoPDF.as_view(), name = "Ganancias"),
     path('ProductoMásVendidos', views.Top10PDF.as_view(), name = "ProductoMásVendidos"),
-    path('Orden/<id>', views.DetalleVenta.as_view(), name = "Orden")
+    path('Orden/<id>', views.DetalleVenta.as_view(), name = "Orden"),
+    path('Factura/<id>', views.Factura.as_view(), name = "Factura")
 ]

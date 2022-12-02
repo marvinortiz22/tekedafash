@@ -1,5 +1,5 @@
 {% extends 'General/base.html' %}
-{% block title %} Productos {% endblock %}
+{% block title %} Detalle de producto {% endblock %}
 {% block content %}
     {% include 'General/navbar.html' %}
     <div class="container p-4" data-aos="fade-up">
@@ -17,20 +17,20 @@
                         <span class="text-primary">${{ prenda.precioVenta | floatformat:2 }}</span>
                     </h2>
                     <div class="row">
-                        <div class="col-2">
-                            <label class="form-label fw-bold">Cant.</label>
-                            <input class="px-2 form-control" id = "cant-prenda" name = "cant-prenda" type="number" style="width: 3.5rem;" min="1" max = "" value="" required="" disabled autocomplete=off>
-                        </div>
-                        <div class="col-2">
+                        <div class="col-12 col-md-2">
                             <label class="form-label fw-bold">Talla</label>
                             <select id = "talla-prenda" name = "talla-prenda" class="form-select" aria-label="Default select example" required autocomplete=off>
-                                <option selected></option>
+                                <option selected disabled> - </option>
                                 {% for talla in tallas %}
                                     <option value="{{talla.id}}">{{ talla.talla__nombre }}</option>
                                 {% endfor %}
                             </select>
                         </div>
-                        <div class="col-8">
+                        <div class="col-12 col-md-2">
+                            <label class="form-label fw-bold">Cant.</label>
+                            <input class="px-2 form-control" id = "cant-prenda" name = "cant-prenda" type="number" min="1" max = "" value="" required="" disabled autocomplete=off>
+                        </div>
+                        <div class="col-12 col-md-8">
                             <button class="btn btn-primary btn-block mx-2 mt-3" style="width: 100%;" type="submit">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-shopping-cart mr-2"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
                                 Agregar al Carrito

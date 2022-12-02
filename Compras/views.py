@@ -1,10 +1,14 @@
 from django.shortcuts import render,redirect
 from django.http import JsonResponse
 from Administrador.models import Prenda, Inventario
+from Cliente.decorators import *
 
+@adminAutenticado
 def index(request):
     prenda = Prenda.objects.all()
     return render(request, 'Compras/index.html', {"Prendas":prenda})
+
+@adminAutenticado
 def obtenerTalla(request):
     if request.method == 'GET':
         inventario = Inventario.objects.filter(prenda_id= request.GET['id'])
@@ -13,6 +17,8 @@ def obtenerTalla(request):
             data.append({"nombre":talla.talla.nombre,"id":talla.talla.id,"cantidad":talla.cantidad})
         return JsonResponse(data={'data':data})
     return JsonResponse(status=400)
+
+@adminAutenticado
 def agregarPrendas(request):
     inventario = Inventario.objects.filter(prenda_id= request.POST['id-prenda'])
     for talla in inventario:

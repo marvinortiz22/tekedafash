@@ -15,10 +15,11 @@ from .forms import PerfilForm
 from django.db.models import Q
 from django.http import JsonResponse
 
+@clienteAutenticado
 def index(request):
     num = []
     x = []
-    prendas = Prenda.objects.all().filter(visibilidad = 1)    
+    prendas = Prenda.objects.all().filter(visibilidad = 1)
     for prenda in prendas:
         x.append(prenda.id)
     num = random.sample(x, 6)
@@ -38,58 +39,82 @@ def index(request):
             prendasFinales.append(prenda)
     return render(request, 'Cliente/index.html', {"prendas":prendasFinales})
 
-
+@clienteAutenticado
 def miCarrito(request):
+    if not request.user.is_authenticated:
+        messages.info(request, "¡Inicia sesión para completar tu orden!")
     total = 0
     if 'carrito' in request.session:
         for c in request.session['carrito']:
+            talla = Inventario.objects.get(id = c['tallaId'])
+            if talla.cantidad < c['cantidad']:
+                if talla.cantidad == 0:
+                    (request.session['carrito']).remove(c)
+                    request.session.modified = True
+                    messages.info(request, "Se ha eliminó por falta de existencia el producto: " + str(c['nombrePrenda']) + " - "  + str(c['tallaNombre']))
+                else:
+                    c['cantidad'] = talla.cantidad
+                    c['subtotal'] = float(c['cantidad']) * float(c['precioPrenda'])
+                    messages.info(request, "Se ha modificado el producto: " + str(c['nombrePrenda']) + " - "  + str(c['tallaNombre']))
             total += c['subtotal']
         context = {"carrito":request.session['carrito'], "total":total}
     else:
         context = {"total":total}
     return render(request, 'Cliente/carritoCompras.html', context)
-  
-    
 
+@clienteAutenticado
 def agregarPrenda(request, id):
     if request.method == 'GET':
         request.session['carrito'] = []
     else:
+        cant = int(request.POST['cant-prenda'])
+        prenda = Prenda.objects.get(id = id)
+        talla = Inventario.objects.get(id =request.POST['talla-prenda'])
         if 'carrito' not in request.session:
             request.session['carrito'] = []
-        request.session['carrito'] = request.session['carrito'] 
-        cant = request.POST['cant-prenda']
-        prenda = Prenda.objects.get(id = id)
-        talla = Inventario.objects.get(id =request.POST['talla-prenda'] )
+        else:
+            request.session['carrito'] = request.session['carrito']
+            for item in request.session['carrito']:
+                if item['prendaId'] == prenda.id and item['tallaId'] == talla.id:
+                    item['cantidad'] += cant
+                    item['subtotal'] = float(cant) * float(prenda.precioVenta)
+                    return redirect("productos")
         subtotal = float(cant) * float(prenda.precioVenta)
         request.session['carrito'].append({
             "prendaId": prenda.id,
-            "nombrePrenda":prenda.nombre, 
+            "nombrePrenda":prenda.nombre,
             "precioPrenda":prenda.precioVenta,
-            "urlFotoPrenda": prenda.urlFoto,
+            "urlFotoPrenda": prenda.urlFoto.url,
             "cantidad": cant,
             "subtotal":subtotal,
             "tallaId": talla.id,
             "tallaNombre": talla.talla.nombre
         })
         return redirect("productos")
-    
+
+@clienteAutenticado
 def quitarPrenda(request, id):
     index = id - 1
     del request.session['carrito'][index]
     request.session.modified = True
     messages.info(request, "¡El producto fue retirado de tu carrito!")
     return redirect("carrito")
-    
+
+@clienteAutenticado
 def limpiarCarrito(request):
     request.session['carrito'] = []
     return redirect("productos")
 
+@clienteAutenticado
 def realizarOrden(request):
     orden = Orden.objects.create(
         cliente = request.user
     )
     if 'carrito' in request.session:
+        for ca in request.session['carrito']:
+            talla = Inventario.objects.get(id = ca['tallaId'])
+            if talla.cantidad < ca['cantidad']:
+                return JsonResponse(data={'status': 400})
         for c in request.session['carrito']:
             prenda = Prenda.objects.get(id = c['prendaId'])
             inventario = Inventario.objects.get(id = c['tallaId'])
@@ -98,16 +123,14 @@ def realizarOrden(request):
                 precio = prenda.precioVenta,
                 cantidad = c['cantidad'],
                 inventario = inventario,
-                orden = orden 
+                orden = orden
             )
             inventario.cantidad -= int(c['cantidad'])
             inventario.save()
         request.session['carrito'] = []
-        request.session.modified = True
-        print('prueba')    
-        return redirect("productos")
+        return JsonResponse(data={'ordenId': orden.id,'status': 200})
+    return JsonResponse(status=400)
 
-@usuarioAutenticado
 def iniciarSesion(request):
     if request.method == 'POST':
         nombreUsuario = request.POST.get('usuario')
@@ -131,14 +154,14 @@ def cerrarSesion(request):
     logout(request)
     return redirect('iniciarSesion')
 
-
+@clienteAutenticado
 def misCompras(request):
     ordenes = DetalleDeOrden.objects.filter(orden__cliente_id=request.user.id).values(
         'orden_id', 'orden__fecha').annotate(total=Sum(F('precio') * F('cantidad')))
     contexto = {"ordenes": ordenes}
     return render(request, 'Cliente/misCompras.html', contexto)
 
-
+@clienteAutenticado
 def detalledemiCompra(request, id):
     orden = get_object_or_404(Orden, id=id, cliente_id=request.user.id)
     ventas = DetalleDeOrden.objects.filter(orden=orden)
@@ -147,11 +170,11 @@ def detalledemiCompra(request, id):
         monto += venta.precio*venta.cantidad
     return render(request, 'Cliente/detalledemiCompra.html', {"ventas": ventas, "orden": orden, "monto": monto})
 
-
+@clienteAutenticado
 def registrarse(request):
     return render(request, 'Cliente/registrarUsuario.html')
 
-
+@clienteAutenticado
 def regisUsuario(request):
     nombre = request.POST['nombre']
     apellido = request.POST['apellido']
@@ -175,7 +198,7 @@ def regisUsuario(request):
             messages.error(request, "Digite un DUI valido")
         return render(request, 'Cliente/registrarUsuario.html')
 
-
+@clienteAutenticado
 def productos(request):
     products = Prenda.objects.all().filter(visibilidad = 1).order_by('nombre')
     paginator = Paginator(products, 6)
@@ -188,6 +211,7 @@ def productos(request):
     }
     return render(request, 'Cliente/productos.html', context)
 
+@clienteAutenticado
 def busqueda(request):
     palabra = request.GET['busc']
     if palabra:
@@ -201,13 +225,13 @@ def busqueda(request):
     else:
         return redirect('productos')
 
-
+@clienteAutenticado
 def detalleProducto(request, id):
     prenda = Prenda.objects.get(id=id)
-    tallas = Inventario.objects.filter(prenda_id = id).values('id','talla__nombre').exclude(cantidad = 0) 
+    tallas = Inventario.objects.filter(prenda_id = id).values('id','talla__nombre').exclude(cantidad = 0)
     return render(request, 'Cliente/detalleProducto.html', {'prenda': prenda, 'tallas': tallas})
 
-
+@usuarioAutenticado
 def editarPerfil(request):
     if request.method == "POST":
         form = PerfilForm(request.POST, instance=request.user)
@@ -222,7 +246,7 @@ def editarPerfil(request):
             template = "Cliente/editarPerfil.html"
         return render(request, template, {"form": form})
 
-
+@usuarioAutenticado
 def Perfil(request):
     if request.user.is_staff == 1:
         template = "Administrador/Perfil.html"
@@ -230,7 +254,7 @@ def Perfil(request):
         template = "Cliente/Perfil.html"
     return render(request, template, {"usuario": request.user})
 
-
+@usuarioAutenticado
 def cambiarContraseña(request):
     if request.method == "POST":
         form = PasswordChangeForm(user=request.user, data=request.POST)
@@ -239,13 +263,16 @@ def cambiarContraseña(request):
             return redirect('iniciarSesion')
     else:
         form = PasswordChangeForm(user=request.user)
-    return render(request, 'Cliente/cambiarContraseña.html', {"form": form})
+        if request.user.is_staff == 1:
+            return render(request, 'Administrador/cambiarContraseña.html', {"form": form})
+        else:
+            return render(request, 'Cliente/cambiarContraseña.html', {"form": form})
 
-
+@clienteAutenticado
 def quieneSomos(request):
     return render(request, 'Cliente/quieneSomos.html')
 
-
+@clienteAutenticado
 def obtenerCantidadTalla(request):
     if request.method == 'GET':
         inventario = Inventario.objects.get(id = request.GET['id'])

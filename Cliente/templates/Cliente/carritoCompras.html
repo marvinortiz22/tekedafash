@@ -4,6 +4,21 @@
 {% block content %}
     {% include 'General/navbar.html' %}
     <div class = "container">
+        <div class="toast-container position-fixed show bottom-0 end-0 m-3">
+            <!-- Notificación -->
+            {% for message in messages %}
+                <div class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+                    <div class="toast-header">
+                        <strong class="me-auto">Notificación</strong>
+                        <small>Justo ahora</small>
+                        <button type="button" class="btn-close" data-bs-dismiss="toast"></button>
+                    </div>
+                    <div class="toast-body">
+                        {{message}}
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
         <div class = "p-3 mx-5 d-flex justify-content-evenly shadow-sm bg-body rounded" id = "carrito-resumen">
             <div class = "col-auto">
                 <h5>Productos: <span class="badge bg-primary">{{request.session.carrito | length}}</span></h5>
@@ -11,19 +26,14 @@
             <div class = "col-auto">
                 <h5>Total: <span class="badge bg-success">${{total| floatformat:2 }}</span></h5>
             </div>
-        {% if carrito%}
+        {% if carrito %}
             {% if user.is_authenticated %}
                 <div class = "col-auto">
-                    <a href= "{% url 'realizarOrden'%}"type="button" class="btn btn-primary" style = "">Realizar orden</a>
+                    <button type="button" class="btn btn-primary" id="realizarOrden">Realizar orden</button>
                 </div>
-            {%else%}
-                <div class = "col-auto">
-                    <span class="d-inline-block" tabindex="0" data-bs-toggle="tooltip" title="¡Inicia sesión para realizar tu orden!">
-                        <button class="btn btn-primary" type="button" disabled>Realizar orden</button>
-                      </span>                                   
-                </div>
-            {% endif%}
-        {% endif%}
+            {% endif %}
+
+        {% endif %}
         </div>
         <div class = "my-5 p-4 d-flex justify-content-evenly shadow bg-body rounded">
             <table class="table table-borderless caption-top table-responsive">
@@ -55,19 +65,19 @@
                             </td>
                         </tr>
                     {% endfor%}
-                    
+
                 {% else %}
                     <tr>
                         <td colspan = "6">
                             <div class="alert alert-primary text-center" role="alert">
                                 Aún no has agregado productos a tu carrito.  <a href="productos/" style = "text-decoration: underline;"class="link-primary">¡Empieza a comprar ahora mismo!</a>
                             </div>
-                        </td>                 
+                        </td>
                     </tr>
                 {% endif%}
-            
+
                 </tbody>
-            </table> 
+            </table>
         </div>
         {% if carrito%}
             <div class="p-3 row justify-content-end">
@@ -79,21 +89,6 @@
             </div>
         {% endif %}
     </div>
-    
-    <!-- Notificación -->
-    {% for message in messages %}
-        <div class="toast show float-end top-0 end-0 text-bg-primary">
-            <div class="toast-header">
-                    <strong class="me-auto">Notificación</strong>
-                    <small>Justo ahora</small>
-                    <button type="button" class="btn-close" data-bs-dismiss="toast"></button>
-            </div>
-            <div class="toast-body">
-                {{message}}
-            </div>
-        </div>
-    {% endfor %}
-
     <!-- Modal Limpiar Carrito -->
     <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div class="modal-dialog">
@@ -115,6 +110,24 @@
         </div>
         </div>
   </div>
-    {% include 'General/footer.html' %}
 {% endblock %}
-
+{% block js%}
+<script>
+$('#realizarOrden').click(()=>{
+    $.ajax({
+        type: 'GET',
+        url: "{% url 'realizarOrden'%}",
+    }).done((response)=>{
+        if (response.status == 200) {
+            window.open('http://tekedafash.pythonanywhere.com/dashboard/reporte/Factura/' + response.ordenId);
+            location.href = "http://tekedafash.pythonanywhere.com/";
+        } else {
+            location.href = "http://tekedafash.pythonanywhere.com/miCarrito";
+        }
+    })
+    .fail(function(jqXHR){
+        console.log('Error:' + jqXHR.status + ' ' + jqXHR.statusText);
+    });
+});
+</script>
+{%endblock%}
